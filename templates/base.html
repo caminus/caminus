@@ -1,0 +1,41 @@
+{%load static %}
+{% get_static_prefix as STATIC_PREFIX %}
+<html>
+<head>
+<title>{% block title %}Caminus{%endblock%} - Caminus</title>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_PREFIX }}/css/reset.css"/>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_PREFIX }}/css/text.css"/>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_PREFIX }}/css/960.css"/>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_PREFIX }}/css/main.css"/>
+</style>
+</head>
+<body>
+<div id="wrapper" class="container_12">
+    <div id="title" class="grid_4">
+        <a href="/">
+            <img src="{{ STATIC_PREFIX }}images/logo.png"/>
+            <h1>Caminus</h1>
+        </a>
+        <div class="slogan">{{ quote }}</div>
+    </div>
+    <div class="grid_4">
+        <div id="epicenter">
+        <h2>Epicenter</h2>
+        {% if user.is_authenticated %}
+        <p>Welcome, {{ user.username }}</p>
+        <ul>
+            <li><a href="{% url user_profile %}">Profile</a></li>
+        </ul>
+        {% else %}
+        <p>Welcome! Do you have an invite?<p>
+        {% endif %}
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="content" class="grid_12">
+    {% block content %}
+    {% endblock %}
+    </div>
+</div>
+</body>
+</html>
