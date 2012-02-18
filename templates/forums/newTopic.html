@@ -1,0 +1,17 @@
+{% extends "forum_base.html" %}
+
+{% block breadcrumb %}
+<a href="{% url forums.views.index%}">Forums</a>
+{%for f in forum.get_ancestors %}
+&gt; <a href="{{f.get_relative_url}}">{{f}}</a>
+{%endfor%}
+{% endblock %}
+
+{% block content %}
+<form method="POST" action="{%url forums.views.newTopic forumID=forum.id %}">
+{% csrf_token %}
+{{topicForm.as_p}}
+{{replyForm.as_p}}
+<input type="submit" value="Submit"/>
+</form>
+{% endblock %}

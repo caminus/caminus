@@ -1,0 +1,13 @@
+{% load markup %}
+{% load avatar_tags %}
+
+<a name="reply-{{post.id}}"></a>
+<div class="forum-post-user">
+{%avatar post.user%}
+{{post.user}}
+</div>
+<div class="forum-post-content">
+{{post.body|markdown:"safe"}}
+<br style="clear:both"/>
+</div>
+<a href="{%url forums.views.reply post.id%}">Reply</a>

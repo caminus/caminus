@@ -1,0 +1,17 @@
+{% extends "forum_base.html" %}
+{% load mptt_tags %}
+{%block title %}{{topic.title}}{%endblock%}
+
+{%block breadcrumb %}
+<a href="{% url forums.views.index%}">Forums</a>
+
+&gt; <a href="{{topic.forum.get_absolute_url}}">{{topic.forum}}</a>
+{%for f in topic.forum.get_ancestors %}
+&gt; <a href="{{f.get_relative_url}}">{{f}}</a>
+{%endfor%}
+{%endblock%}
+
+{%block content %}
+<h2>{{topic.title}}</h2>
+{% include "forums/_post.html" with post=topic.rootPost %}
+{%endblock%}

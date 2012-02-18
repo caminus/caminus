@@ -32,7 +32,15 @@
         </div>
     </div>
     <div class="clear"></div>
+    <div id="nav" class="grid_12">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="{%url forums.views.index%}">Forums</a></li>
+        </ul>
+    </div>
     <div id="content" class="grid_12">
+    <h1>{%block sectiontitle %}Caminus{%endblock%}</h1>
+    {% block breadcrumb %}{% endblock %}
     {% block content %}
     {% endblock %}
     </div>

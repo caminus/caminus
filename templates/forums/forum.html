@@ -1,0 +1,29 @@
+{% extends "forum_base.html" %}
+
+{% block breadcrumb %}
+<a href="{% url forums.views.index%}">Forums</a>
+{%for f in forum.get_ancestors %}
+&gt; <a href="{{f.get_relative_url}}">{{f}}</a>
+{%endfor%}
+{% endblock %}
+
+{% block content %}
+
+<h2>{{ forum.name }}</h2>
+{%include "forums/_forum_table.html" with forums=forums.children%}
+<table>
+<tr class="header">
+    <th>Title</th>
+    <th>Posted</th>
+    <th>Latest Activity</th>
+</tr>
+{% for topic in topics %}
+<tr class="{%cycle 'even' 'odd' %}">
+    <td><a href="{{topic.get_absolute_url}}">{{ topic.title }}</a></td>
+    <td>{{ topic.created }} </td>
+    <td>{{topic.lastPost.created}} by {{ topic.lastPost.user }} </td>
+</tr>
+{% endfor %}
+</table>
+<a href="{%url forums.views.newTopic forumID=forum.id %}">New Topic</a>
+{% endblock %}

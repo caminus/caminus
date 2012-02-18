@@ -1,0 +1,15 @@
+{% load mptt_tags %}
+<table>
+<tr class="header">
+    <th>Name</th>
+    <th>Topics</th>
+    <th>Last Post</th>
+</tr>
+{% for f in forums %}
+    <tr class="{% cycle 'even' 'odd' %}">
+        <td><a href="{{ f.get_absolute_url }}">{{ f.name }}</a></td>
+        <td>{{ f.topicCount }}</td>
+        <td>Today</td>
+    </tr>
+{% endfor %}
+</table>

@@ -1,0 +1,8 @@
+{% extends "forum_base.html" %}
+{%block content%}
+<form method="POST" action="{%url forums.views.reply post.id %}">
+{% csrf_token %}
+{{form.as_p}}
+<input type="submit" value="Submit"/>
+</form>
+{%endblock%}

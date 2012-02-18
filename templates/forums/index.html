@@ -1,0 +1,7 @@
+{% extends "forum_base.html" %}
+
+{%block title %}Forums{% endblock %}
+
+{% block content %}
+{%include "forums/_forum_table.html" with forums=forums%}
+{%endblock%}
