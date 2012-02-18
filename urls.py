@@ -6,11 +6,11 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^minecraft/', include('minecraft.urls')),
+    url(r'^profiles/', include('profiles.urls')),
     url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
-    url(r'^accounts/profile/$', 'minecraft.views.profile'),
+    url(r'^accounts/profile/$', 'profiles.views.profile'),
     # Examples:
-    url(r'^$', 'minecraft.views.profile', name='home'),
+    url(r'^$', 'profiles.views.profile', name='home'),
     # url(r'^caminus/', include('caminus.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

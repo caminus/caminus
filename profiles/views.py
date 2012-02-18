@@ -4,4 +4,4 @@ from django.template import RequestContext
 
 @login_required
 def profile(request):
-    return render_to_response('minecraft/profile.html', context_instance = RequestContext(request))
+    return render_to_response('profiles/profile.html', context_instance = RequestContext(request))
