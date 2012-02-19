@@ -1,0 +1,5 @@
+<form method="POST" action="{% url profiles.views.login %}">
+{% csrf_token %}
+{{login_form.as_p}}
+<input type="submit" value="Login"/>
+</form>

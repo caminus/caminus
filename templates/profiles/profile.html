@@ -3,4 +3,6 @@
 
 {%block content %}
 <p>Welcome, {{ user.username }}</p>
+
+<a href="{%url profiles.views.edit %}">Edit profile</a>
 {%endblock%}
