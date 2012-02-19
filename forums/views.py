@@ -1,5 +1,6 @@
 import models
 import forms
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
@@ -23,6 +24,7 @@ def post(request, id):
     rootPost = post.get_root()
     return HttpResponseRedirect(reverse('forums.views.topic', kwargs={"topicID":rootPost.topic.id})+"#reply-"+id)
 
+@login_required
 def reply(request, topicID=None):
     parentPost = models.Post.objects.get(id__exact=topicID)
     if request.method == 'POST':
@@ -38,6 +40,7 @@ def reply(request, topicID=None):
         return HttpResponseRedirect(reverse('forums.views.post', kwargs={"id":reply.id}))
     return render_to_response('forums/reply.html', {"post":parentPost, "form":form}, context_instance = RequestContext(request))
 
+@login_required
 def newTopic(request, forumID=None):
     parentForum = models.Forum.objects.get(id__exact=forumID)
     if request.method == 'POST':
