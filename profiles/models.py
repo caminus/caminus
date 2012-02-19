@@ -4,7 +4,7 @@ from django.db.models.signals import post_save
 
 class MinecraftProfile(models.Model):
     user = models.OneToOneField(User)
-    mc_username = models.CharField(max_length=30)
+    mc_username = models.CharField(max_length=30, verbose_name="Minecraft.net Username")
 
     def __unicode__(self):
         return self.mc_username
