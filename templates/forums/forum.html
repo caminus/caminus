@@ -17,6 +17,7 @@
     <th>Posted</th>
     <th>Latest Activity</th>
 </tr>
+{% if topics %}
 {% for topic in topics %}
 <tr class="{%cycle 'even' 'odd' %}">
     <td><a href="{{topic.get_absolute_url}}">{{ topic.title }}</a></td>
@@ -24,6 +25,15 @@
     <td>{{topic.lastPost.created}} by {{ topic.lastPost.user }} </td>
 </tr>
 {% endfor %}
+{% else %}
+<tr class="infoBar">
+    <td colspan="3">No topics...</td>
+</tr>
+{% endif %}
+<tr class="actionBar">
+    <td colspan="3">
+        <a href="{%url forums.views.newTopic forumID=forum.id %}">New Topic</a>
+    </td>
+</tr>
 </table>
-<a href="{%url forums.views.newTopic forumID=forum.id %}">New Topic</a>
 {% endblock %}
