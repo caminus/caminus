@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
 
 class MinecraftProfile(models.Model):
     user = models.OneToOneField(User)
@@ -13,3 +14,9 @@ class Quote(models.Model):
 
     def __unicode__(self):
         return self.text
+
+def create_profile(sender, instance, created, **kwargs):
+    if created:
+        MinecraftProfile.objects.create(user=instance)
+
+post_save.connect(create_profile, sender=User)
