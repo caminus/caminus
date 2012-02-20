@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Invite{% endblock %}
+
+{% block content %}
+<form method="POST" action="{%url profiles.views.deleteInvite code=invite.code %}">
+{% csrf_token %}
+<p>If you delete this invite, it may not be used to create an account. If you already gave this invite to someone, <em>they will not be able to use it!</em></p>
+<p>Are you sure you want to delete this invite?</p>
+<input type="submit" value="Yes, I'm sure."/>
+</form>
+{% endblock %}

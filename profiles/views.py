@@ -82,6 +82,16 @@ def register(request):
         return HttpResponseRedirect("/")
     return render_to_response('profiles/register.html', {'userForm': userForm, 'profileForm': profileForm, 'invite':invite}, context_instance = RequestContext(request))
 
+@login_required
+def deleteInvite(request, code=None):
+    invite = models.Invite.objects.get(code__exact=code)
+    if invite.claimer:
+        return HttpResponseRedirect(reverse('profiles.views.invites'))
+    if request.method == 'POST':
+        invite.deleted = True
+        invite.save()
+        return HttpResponseRedirect(reverse('profiles.views.invites'))
+    return render_to_response('profiles/delete_invite.html', {'invite':invite}, context_instance = RequestContext(request))
 
 def claimInvite(request, code=None):
     if request.user.is_authenticated():

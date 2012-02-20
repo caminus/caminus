@@ -14,6 +14,10 @@ class Invite(models.Model):
     code = models.CharField(max_length=30)
     creator = models.ForeignKey(User, related_name='invites')
     claimer = models.OneToOneField(User, related_name='claimed_invite', blank=True, null=True)
+    deleted = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['deleted']
 
     @models.permalink
     def get_absolute_url(self):

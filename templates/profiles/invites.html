@@ -4,16 +4,32 @@
 
 {% block content %}
 <p>Your Invites:</p>
-<table>
+<table id='invite-table'>
 <tr class="header">
     <th>Code</th>
     <th>Invited User</th>
 </tr>
 {% if invites %}
 {% for invite in invites %}
-<tr>
-    <td><a href="{{invite.get_absolute_url}}">{{invite.code}}</a></td>
-    <td>{{invite.claimer}}</td>
+<tr class="{%cycle 'even' 'odd' %} {% if invite.deleted %}deleted{%endif%}">
+    <td>
+        {% if invite.deleted %}
+        {{invite.code}}
+        {% else %}
+        <a href="{{invite.get_absolute_url}}">{{invite.code}}</a>
+        {% endif %}
+    </td>
+    <td>
+    {% if invite.claimer %}
+        {{invite.claimer}}
+    {% else %}
+        {% if invite.deleted %}
+            <em>Deleted</em>
+        {% else %}
+            <a href="{%url profiles.views.deleteInvite code=invite.code %}">Delete</a>
+        {% endif %}
+    {% endif %}
+    </td>
 </tr>
 {% endfor %}
 {% else %}
