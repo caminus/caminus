@@ -1,0 +1,155 @@
+body {
+    background: url(img/blocks.gif);
+    font-family: Verdana,Tahoma,"DejaVu Sans",sans-serif;
+}
+
+.header-box {
+    height: 160px;
+    margin: 1em;
+    padding: 1em;
+    color: #fff;
+}
+
+#title {
+    color: #fff;
+    padding: 1em;
+    text-align:center;
+}
+
+#title a {
+    color: #fff;
+    text-decoration: none;
+}
+
+#title h1 {
+}
+
+#title img {
+    vertical-align: middle;
+}
+
+#epicenter, #statbox {
+    background: url(img/adminium.png);
+    border: 3px solid black;
+}
+
+#statbox {
+    background: url(img/dirt.png);
+}
+
+#epicenter .title, #statbox .title {
+    background-color: #333;
+    padding: 5px;
+}
+
+#content {
+    clear: both;
+    background:url(img/cobblestone.png);
+    border: 3px solid black;
+    color: #fff;
+    padding: 2em;
+}
+
+a:link {
+    color: #BD803A
+}
+
+a:visited {
+    color: #785125;
+}
+
+table {
+    color: #fff;
+    width: 100%;
+}
+
+th {
+    font-weight:bold;
+    padding: 1em;
+}
+
+td {
+    padding: 0.5em;
+}
+
+tr.header {
+    background-color: #aaa;
+    color: #000;
+}
+
+tr.even {
+    background-color:#444;
+}
+
+tr.odd {
+    background-color:#222;
+}
+
+.forum-post {
+    border: 1px solid black;
+    margin-left: 1em;
+}
+
+.forum-post-user {
+    float: left;
+    width: 100px;
+    text-align: center;
+    background-color: #888;
+    padding: 1em
+}
+
+.forum-post-content {
+    background-color: #555;
+    padding: 1em
+    margin-left: 200px;
+}
+
+#nav {
+    margin: 5px;
+}
+
+#nav ul {
+    list-style: none;
+}
+
+#nav li {
+    float: left;
+    height: 1em;
+    padding: 10px;
+    background-color: #002334;
+    border: 1px solid black;
+}
+
+#nav li a {
+    vertical-align: center;
+    display: block;
+}
+
+tr.infoBar td {
+    text-align: center;
+    font-size: large;
+    background-color: #111;
+}
+
+tr.sticky {
+    background-color:#f80;
+    color: #000;
+}
+
+tr.sticky a:link {
+    color: #210;
+}
+
+#invite-code {
+    font-size:x-large;
+    text-align:center;
+}
+
+#invite-code input {
+    font-size: x-large;
+    width: 100%;
+    text-align: center;
+    background-color: #000;
+    color: #fff;
+    border: 1px solid white;
+}
