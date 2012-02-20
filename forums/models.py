@@ -59,6 +59,10 @@ class Topic(models.Model):
     created = models.DateTimeField(editable=False, auto_now_add=True)
     updated = models.DateTimeField(editable=False, auto_now=True)
     slug = models.SlugField(editable=False, blank=True)
+    sticky = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['-sticky', '-updated']
 
     def save(self, *args, **kwargs):
         unique_slug(self, slug_source='title', slug_field='slug')

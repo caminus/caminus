@@ -9,4 +9,4 @@ class ReplyForm(forms.ModelForm):
 class TopicForm(forms.ModelForm):
     class Meta:
         model = models.Topic
-        exclude = ('forum', 'rootPost')
+        exclude = ('forum', 'rootPost', 'sticky')

@@ -19,7 +19,7 @@
 </tr>
 {% if topics %}
 {% for topic in topics %}
-<tr class="{%cycle 'even' 'odd' %}">
+<tr class="{%cycle 'even' 'odd' %} {% if topic.sticky %}sticky{% endif %}">
     <td><a href="{{topic.get_absolute_url}}">{{ topic.title }}</a></td>
     <td>{{ topic.created }} </td>
     <td>{{topic.lastPost.created}} by {{ topic.lastPost.user }} </td>
