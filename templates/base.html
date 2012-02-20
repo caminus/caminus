@@ -23,9 +23,8 @@
     </div>
     <div class="grid_4">
         <div id="epicenter" class="header-box">
-        <h2 class="title">Epicenter</h2>
         {% if user.is_authenticated %}
-        <p>Welcome, {{ user.username }}</p>
+        <h2 class="title">{{user.username}}</h2>
         <ul>
             <li><a href="{% url user_profile %}">Profile</a></li>
             <li><a href="{% url profiles.views.logout %}">Logout</a></li>
@@ -34,7 +33,13 @@
             {% endif %}
         </ul>
         {% else %}
+        <h2 class="title">Login</h2>
         <p>Welcome! Do you have an invite? <a href="{% url profiles.views.claimInvite %}">Claim it!</a><p>
+        <form method="POST" action="{%url profiles.views.login %}">
+        {%csrf_token%}
+        {{login_form.as_p}}
+        <input type="submit" value="Login"/>
+        </form>
         {% endif %}
         </div>
     </div>
