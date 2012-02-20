@@ -34,7 +34,7 @@
             {% endif %}
         </ul>
         {% else %}
-        <p>Welcome! Do you have an invite?<p>
+        <p>Welcome! Do you have an invite? <a href="{% url profiles.views.claimInvite %}">Claim it!</a><p>
         {% endif %}
         </div>
     </div>

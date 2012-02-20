@@ -9,6 +9,16 @@ class MinecraftProfile(models.Model):
     def __unicode__(self):
         return self.mc_username
 
+
+class Invite(models.Model):
+    code = models.CharField(max_length=30)
+    creator = models.ForeignKey(User, related_name='invites')
+    claimer = models.OneToOneField(User, related_name='claimed_invite', blank=True, null=True)
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('profiles.views.claimInvite', [], {'code': self.code})
+
 class Quote(models.Model):
     text = models.CharField(max_length=50)
 

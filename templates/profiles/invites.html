@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Invites{% endblock %}
+
+{% block content %}
+<p>Your Invites:</p>
+<table>
+<tr class="header">
+    <th>Code</th>
+    <th>Invited User</th>
+</tr>
+{% if invites %}
+{% for invite in invites %}
+<tr>
+    <td><a href="{{invite.get_absolute_url}}">{{invite.code}}</a></td>
+    <td>{{invite.claimer}}</td>
+</tr>
+{% endfor %}
+{% else %}
+<tr class="infoBar">
+    <td colspan="2">No invites!</td>
+</tr>
+{% endif %}
+<tr class="actionBar">
+    <td colspan="2">
+        <a href="{% url profiles.views.createInvite %}">Create a new invite</a>
+    </td>
+</tr>
+</table>
+
+{% endblock %}
