@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.sites.models import Site
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -85,7 +86,8 @@ def register(request):
 def claimInvite(request, code=None):
     if request.user.is_authenticated():
         invite = models.Invite.objects.get(code__exact=code)
-        return render_to_response('profiles/show_invite.html', {'invite':invite}, context_instance = RequestContext(request))
+        siteURL = Site.objects.get_current().domain
+        return render_to_response('profiles/show_invite.html', {'invite':invite, 'site_url': siteURL}, context_instance = RequestContext(request))
     if request.method == 'POST':
         form = forms.InviteClaimForm(request.POST)
     else:

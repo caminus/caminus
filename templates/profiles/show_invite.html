@@ -9,6 +9,6 @@
 <input type="text" value="{{invite.code}}" onClick="this.select()"/>
 <br />
 <p>Link</p>
-<input type="text" value="{{ invite.get_absolute_url }}" onClick="this.select()"/>
+<input type="text" value="http://{{site_url}}{{ invite.get_absolute_url }}" onClick="this.select()"/>
 </div>
 {% endblock %}
