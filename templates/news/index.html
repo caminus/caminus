@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load markup %}
+{% load comments %}
+
+{% block title %}News{% endblock %}
+
+{% block content %}
+{% for post in items.object_list %}
+<h2><a href="{{post.get_absolute_url}}">{{post.title}}</a></h2>
+<div class="byline">By {{post.author}}</div>
+<div class="content">
+    {{post.body|markdown}}
+</div>
+<div class="commentcount">{% get_comment_count for post as comment_count %}{{comment_count}} comments.</div>
+{% endfor %}
+{% endblock %}
