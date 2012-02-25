@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load markup %}
 {% load comments %}
 
@@ -13,4 +14,7 @@
 </div>
 <div class="commentcount">{% get_comment_count for post as comment_count %}{{comment_count}} comments.</div>
 {% endfor %}
+
+{% get_static_prefix as STATIC_PREFIX %}
+<a href="/news/feed"><img src="{{ STATIC_PREFIX }}/feed.png"/></a>
 {% endblock %}
