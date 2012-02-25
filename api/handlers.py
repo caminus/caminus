@@ -1,5 +1,6 @@
 from piston.handler import AnonymousBaseHandler
 from profiles.models import MinecraftProfile
+from django.http import HttpResponse
 
 class WhitelistHandler(AnonymousBaseHandler):
     allowed_methods = ('GET',)
@@ -9,6 +10,7 @@ class WhitelistHandler(AnonymousBaseHandler):
             try:
                 profile = MinecraftProfile.objects.get(mc_username__iexact=username)
             except Exception, e:
-                return False
-            return profile.user.is_active
-        return False
+                return HttpResponse(status=403)
+            if profile.user.is_active:
+                return HttpResponse(status=204)
+        return HttpResponse(status=404)
