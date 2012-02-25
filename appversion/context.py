@@ -1,5 +1,7 @@
 import subprocess
 
 def git_version(request):
-    version = subprocess.check_output(["git", "describe"])
+    proc = subprocess.Popen(["git", "describe"], stdout=subprocess.PIPE)
+    proc.wait()
+    version = proc.stdout.read().strip()
     return {"app_version": version}
