@@ -33,7 +33,7 @@ class Forum(MPTTModel):
     parent = TreeForeignKey('self', blank=True, null=True, related_name='children')
     name = models.CharField(max_length=30)
     slug = models.SlugField(blank=True)
-    description = models.TextField()
+    description = models.TextField(blank=True)
 
     def save(self, *args, **kwargs):
         unique_slug(self, slug_source='name', slug_field='slug')
