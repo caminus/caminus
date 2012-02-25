@@ -43,7 +43,10 @@ class Forum(MPTTModel):
         return self.topic_set.count()
 
     def latestTopic(self):
-        return self.topic_set.extra(order_by = ['created'])[0]
+        try:
+            return self.topic_set.extra(order_by = ['created'])[0]
+        except IndexError, e:
+            return None
 
     @models.permalink
     def get_absolute_url(self):
@@ -69,7 +72,10 @@ class Topic(models.Model):
         super(Topic, self).save(*args, **kwargs)
 
     def lastPost(self):
-        return self.rootPost.get_descendants(True).extra(order_by = ['updated'])[0]
+        try:
+            return self.rootPost.get_descendants(True).extra(order_by = ['updated'])[0]
+        except IndexError, e:
+            return None
 
     @models.permalink
     def get_absolute_url(self):
