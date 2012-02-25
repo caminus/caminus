@@ -1,6 +1,7 @@
 # global Django settings for caminus project.
 # Please override this in local_settings.py, so as to
 # prevent sensitive data being checked into git.
+import os
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -174,6 +175,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 LOGIN_URL = '/profiles/login'
 LOGOUT_URL = '/profiles/logout'
 LOGIN_REDIRECT_URL = '/'
+
+APPVERSION_GIT_REPO = os.path.sep.join((os.path.dirname(__file__), '.git'))
 
 # Load any site-local overrides, such as camin.us' database settings, etc
 from local_settings import *
