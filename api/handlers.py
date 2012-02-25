@@ -7,7 +7,7 @@ class WhitelistHandler(AnonymousBaseHandler):
     def read(self, request, username=None):
         if username:
             try:
-                profile = MinecraftProfile.objects.get(mc_username__exact=username)
+                profile = MinecraftProfile.objects.get(mc_username__iexact=username)
             except Exception, e:
                 return False
             return profile.user.is_active
