@@ -101,6 +101,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 )
 
 ROOT_URLCONF = 'caminus.urls'
@@ -129,6 +130,7 @@ INSTALLED_APPS = (
     'south',
     'news',
     'django.contrib.comments',
+    'django.contrib.flatpages',
     'minecraft'
 # Uncomment the next line to enable admin documentation:
 # 'django.contrib.admindocs',

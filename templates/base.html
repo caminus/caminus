@@ -1,5 +1,6 @@
 {%load static %}
 {% load cache %}
+{% load flatpages %}
 {% get_static_prefix as STATIC_PREFIX %}
 <html>
 <head>
@@ -63,6 +64,10 @@
                 <li><a href="/">Home</a></li>
                 <li><a href="{%url forums.views.index%}">Forums</a></li>
                 <li><a href="http://{{minecraftHost}}/map/">Live Map</a></li>
+                {% get_flatpages '/' as pages %}
+                {% for page in pages %}
+                <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+                {% endfor %}
             </ul>
             <br style="clear:both"/>
         </div>
