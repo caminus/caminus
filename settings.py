@@ -167,7 +167,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.messages.context_processors.messages",
     "profiles.context.random_quote",
     "profiles.context.login_form",
-    "minecraft.context.server_info"
+    "minecraft.context.server_info",
+    "appversion.context.git_version"
 )
 
 LOGIN_URL = '/profiles/login'
