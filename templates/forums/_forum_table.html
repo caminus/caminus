@@ -10,7 +10,7 @@
     <tr class="{% cycle 'even' 'odd' %}">
         <td><a href="{{ f.get_absolute_url }}">{{ f.name }}</a></td>
         <td>{{ f.topicCount }}</td>
-        <td><a href="{{f.latestTopic.get_absolute_url}}">{{f.latestTopic.title}}</a> by {{f.latestTopic.user}}</td>
+        <td><a href="{{f.latestTopic.get_absolute_url}}">{{f.latestTopic.title}}</a> by {{f.latestTopic.rootPost.user}}</td>
     </tr>
 {% endfor %}
 </table>
