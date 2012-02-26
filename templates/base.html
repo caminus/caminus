@@ -48,12 +48,14 @@
         <div id="statbox" class="header-box">
             <h2 class="title">World Status</h2>
             <h3>Online Players</h3>
-            {% cache 120 onlineList %}
             <ul>
+            {% if onlinePlayers %}
             {% for player in onlinePlayers %}
                 <li>{{player}}</li>
             {% endfor %}
-            {% endcache %}
+            {% else %}
+                <li><em>Nobody...</em></li>
+            {% endif %}
             </ul>
         </div>
     </div>
