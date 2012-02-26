@@ -36,6 +36,9 @@ class Post(models.Model):
     created = models.DateTimeField(editable=False, auto_now_add=True)
     updated = models.DateTimeField(editable=False, auto_now=True)
 
+    class Meta:
+        ordering = ['-created']
+
     def __unicode__(self):
         return self.title
 
