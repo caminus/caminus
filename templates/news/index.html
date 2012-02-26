@@ -12,7 +12,8 @@
 <div class="content">
     {{post.body|markdown}}
 </div>
-<div class="commentcount">{% get_comment_count for post as comment_count %}{{comment_count}} comments.</div>
+{% get_comment_count for post as comment_count %}
+<div class="commentcount"><a href="{{post.get_absolute_url}}">{{comment_count}} comments &raquo;</a></div>
 {% endfor %}
 
 {% get_static_prefix as STATIC_PREFIX %}
