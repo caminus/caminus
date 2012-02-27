@@ -78,6 +78,9 @@ def register(request):
         user.save()
         invite.claimer = user
         invite.save()
+        profile = user.get_profile()
+        profile.mc_username = profileForm.cleanedData['mc_username']
+        profile.save()
         del request.session['profile-invite']
         return HttpResponseRedirect("/")
     return render_to_response('profiles/register.html', {'userForm': userForm, 'profileForm': profileForm, 'invite':invite}, context_instance = RequestContext(request))
