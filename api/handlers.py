@@ -26,5 +26,5 @@ class MOTDHandler(AnonymousBaseHandler):
             motd = motdList[0].text
         quote = Quote.objects.order_by('?')
         if len(quote) > 0:
-            motd += "\n"+quote[0].text
+            motd += "\n"+'"'+quote[0].text+'"'
         return {"motd":motd.split('\n')}
