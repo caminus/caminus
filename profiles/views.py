@@ -79,7 +79,7 @@ def register(request):
         invite.claimer = user
         invite.save()
         profile = user.get_profile()
-        profile.mc_username = profileForm.cleanedData['mc_username']
+        profile.mc_username = profileForm.cleaned_data['mc_username']
         profile.save()
         del request.session['profile-invite']
         return HttpResponseRedirect("/")
