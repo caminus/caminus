@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load markup %}
-{% load comments %}
 
 {% block title %}News{% endblock %}
 
@@ -10,10 +9,9 @@
 <h2><a href="{{post.get_absolute_url}}">{{post.title}}</a></h2>
 <div class="byline">By {{post.author}}</div>
 <div class="content">
-    {{post.body|markdown}}
+    {{post.body|truncatewords:"45"|markdown}}
 </div>
-{% get_comment_count for post as comment_count %}
-<div class="commentcount"><a href="{{post.get_absolute_url}}">{{comment_count}} comments &raquo;</a></div>
+<div class="commentcount"><a href="{{post.get_absolute_url}}">{{post.comments.all|length}} comment{{post.comments.all|length|pluralize}} &raquo;</a></div>
 {% endfor %}
 
 {% get_static_prefix as STATIC_PREFIX %}

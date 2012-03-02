@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from mptt.models import MPTTModel, TreeForeignKey
 
 def unique_slug(item,slug_source,slug_field):
   """Ensures a unique slug field by appending an integer counter to duplicate slugs.
@@ -49,3 +50,19 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         unique_slug(self, slug_source='title', slug_field='slug')
         super(Post, self).save(*args, **kwargs)
+
+class Comment(MPTTModel):
+    post = models.ForeignKey(Post, blank=True, null=True, related_name='comments')
+    parent = TreeForeignKey('self', blank=True, null=True, related_name='children')
+    author = models.ForeignKey(User)
+    body = models.TextField()
+    created = models.DateTimeField(editable=False, auto_now_add=True)
+    updated = models.DateTimeField(editable=False, auto_now=True)
+
+    def news_post(self):
+        if self.parent is None:
+            return self.post
+        return self.get_root().post
+
+    def __unicode__(self):
+        return self.body

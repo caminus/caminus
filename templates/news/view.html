@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load markup %}
-{% load comments %}
+{% load mptt_tags %}
+
 {% block title %}News - {{item.title}}{% endblock %}
 
 {% block content %}
@@ -9,26 +10,27 @@
 <div class="content">
     {{item.body|markdown}}
 </div>
-<div class="commentcount">{% get_comment_count for item as comment_count %}{{comment_count}} comments.</div>
 <div class="comments">
-{% if comment_count > 0 %}
 <h3>Comments</h3>
-{% get_comment_list for item as comment_list %}
-{% for comment in comment_list %}
-    <a name="c{{ comment.id }}" href="{% get_comment_permalink comment %}">#{{comment.id}}</a> by {{comment.user}}
+{% recursetree item.comments %}
+<div class="comment-tree">
+    <a name="c{{ node.id }}" href="#c{{node.id}}">#{{node.id}}</a> by {{node.author}}
     <div class="comment">
-        {{comment.comment|markdown:"safe"}}
+        {{node.body|markdown:"safe"}}
+        <form action="{% url news.views.comment parent=node.id %}" method="post">
+        {{ commentForm.as_p }}
+        {% csrf_token %}
+        <input type="submit" name="submit" value="Post">
+        </form>
     </div>
-{% endfor %}
-{% endif %}
-{% get_comment_form for item as form %}
+    {{children}}
+</div>
+{% endrecursetree %}
 <h4>Add a comment</h4>
-<form action="{% comment_form_target %}" method="post">
+<form action="{% url news.views.comment id=item.id %}" method="post">
+{{ commentForm.as_p }}
 {% csrf_token %}
-{{ form.as_p }}
 <input type="submit" name="submit" value="Post">
-<input type="submit" name="preview" value="Preview">
-<input type="hidden" name="next" value="{{post.get_absolute_url}}" />
 </form>
 </div>
 {% endblock %}

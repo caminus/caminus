@@ -23,6 +23,8 @@ class NewsFeed(Feed):
 
 urlpatterns = patterns('news',
     url('^$', 'views.index'),
+    url('^comment/p/(?P<id>[0-9]+)$', 'views.comment'),
+    url('^comment/c/(?P<parent>[0-9]+)$', 'views.comment'),
     url('^feed$', NewsFeed()),
     url('^(?P<page>[0-9]+)$', 'views.index'),
     url('^(?P<slug>.*)$', 'views.view')
