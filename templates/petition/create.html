@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}New Petition{% endblock %}
+
+{% block content %}
+<p>Creating a petition notifies the administration. Possible uses:</p>
+<ul>
+<li>Abusive player</li>
+<li>Server bug</li>
+<li>Feature request</li>
+</ul>
+<form method="POST" action="{% url petition.views.create %}">
+{% csrf_token %}
+{{form.as_p}}
+<input type="submit" value="Submit"/>
+</form>
+
+{% endblock %}

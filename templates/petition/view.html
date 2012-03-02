@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load markup %}
+
+{% block title %}Petition #{{petition.id}}{% endblock %}
+
+{% block content %}
+<p>Created by {{petition.author}}</p>
+{{petition.body|markdown:"safe"}}
+
+{% for comment in petition.comment_set.all %}
+<p>By {{comment.author}}</p>
+{{comment.body|markdown:"safe"}}
+{% endfor %}
+
+<form method="POST" action="{% url petition.views.comment id=petition.id %}">
+{% csrf_token %}
+{{form.as_p}}
+<input type="submit" value="Submit"/>
+</form>
+{% endblock %}

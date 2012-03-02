@@ -131,7 +131,8 @@ INSTALLED_APPS = (
     'news',
     'django.contrib.comments',
     'django.contrib.flatpages',
-    'minecraft'
+    'minecraft',
+    'petition'
 # Uncomment the next line to enable admin documentation:
 # 'django.contrib.admindocs',
 )

@@ -6,6 +6,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', 'news.views.index', name='home'),
+    url(r'^petitions/', include('petition.urls')),
     url(r'^comments/', include('django.contrib.comments.urls')),
     url(r'^news/', include('news.urls')),
     url(r'^profiles/', include('profiles.urls')),
