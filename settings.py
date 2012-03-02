@@ -181,4 +181,7 @@ LOGIN_REDIRECT_URL = '/'
 APPVERSION_GIT_REPO = os.path.sep.join((os.path.dirname(__file__), '.git'))
 
 # Load any site-local overrides, such as camin.us' database settings, etc
-from local_settings import *
+try:
+    from local_settings import *
+except ImportError, e:
+    pass
