@@ -1,6 +1,7 @@
 import pyspy
 from django.conf import settings
 from django.core.cache import cache
+import socket
 
 def server_info(request):
     players = cache.get('minecraftPlayerList')
