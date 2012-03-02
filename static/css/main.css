@@ -185,15 +185,19 @@ tr.sticky a:link {
 #invite-code {
     font-size:x-large;
     text-align:center;
+    background:url(img/chest-open.png) center no-repeat;
+    height: 300;
 }
 
 #invite-code input {
     font-size: x-large;
-    width: 100%;
     text-align: center;
-    background-color: #000;
+    background-color: transparent;
     color: #fff;
-    border: 1px solid white;
+    border: 0;
+    width: 100px !important;
+    top: 155;
+    position: relative;
 }
 
 #invite-table tr.deleted {
