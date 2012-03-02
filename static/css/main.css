@@ -3,11 +3,14 @@ body {
     font-family: Verdana,Tahoma,"DejaVu Sans",sans-serif;
 }
 
-.header-box {
-    height: 160px;
-    margin: 1em;
+.stat-box {
     padding: 1em;
     color: #fff;
+}
+
+#header .stat-box {
+    height: 180px;
+    margin: 1em;
 }
 
 #title {
@@ -22,34 +25,51 @@ body {
 }
 
 #title h1 {
+  margin-bottom: 0;
 }
 
 #title img {
     vertical-align: middle;
 }
 
-#epicenter, #statbox {
+#epicenter {
     background: url(img/adminium.png);
     border: 3px solid black;
 }
 
-#statbox {
+.stat-box {
     background: url(img/dirt.png);
+    border: 3px solid black;
 }
 
-.header-box .title {
+.stat-box .title {
     background-color: #333;
     padding: 5px;
     margin-bottom: 1em;
 }
 
 #content {
+}
+
+#slogan {
+    font-style: italic;
+    font-size:xx-small;
+}
+
+#content .item, #content .comments {
     clear: both;
-    background:url(img/cobblestone.png);
     border: 3px solid black;
     color: #fff;
     padding: 2em;
     margin-bottom: 2em;
+}
+
+#content .item {
+    background:url(img/cobblestone.png);
+}
+
+#content .comments {
+    background:url(img/dirt.png);
 }
 
 a:link {
@@ -107,11 +127,26 @@ tr.odd {
 }
 
 #nav {
-    margin: 5px;
+    background-color:#000;
+    color:#fff;
+    margin-bottom: 1em;
+    background: url('img/brick.png');
+    border: 3px solid black;
+}
+
+#nav .title {
+    float: left;
+    padding: 10px;
+    padding-right: 30px;
+    background-color:#aaa;
+    background: url('img/stone-brick.png');
+    border-right: 3px solid black;
 }
 
 #nav ul {
     list-style: none;
+    float: right;
+    padding: 10px;
 }
 
 #nav li {

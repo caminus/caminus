@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'news_base.html' %}
 {% load static %}
 {% load markup %}
 
@@ -6,12 +6,14 @@
 
 {% block content %}
 {% for post in items.object_list %}
+<div class='item'>
 <h2><a href="{{post.get_absolute_url}}">{{post.title}}</a></h2>
 <div class="byline">By {{post.author}}</div>
 <div class="content">
     {{post.body|truncatewords:"45"|markdown}}
 </div>
 <div class="commentcount"><a href="{{post.get_absolute_url}}">{{post.comments.all|length}} comment{{post.comments.all|length|pluralize}} &raquo;</a></div>
+</div>
 {% endfor %}
 
 {% get_static_prefix as STATIC_PREFIX %}

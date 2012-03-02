@@ -1,14 +1,16 @@
-{% extends 'base.html' %}
+{% extends 'news_base.html' %}
 {% load markup %}
 {% load mptt_tags %}
 
 {% block title %}News - {{item.title}}{% endblock %}
 
 {% block content %}
-<h2><a href="{{post.get_absolute_url}}">{{post.title}}</a></h2>
+<div class="item">
+<h2><a href="{{post.get_absolute_url}}">{{item.title}}</a></h2>
 <div class="byline">By {{item.author}}</div>
 <div class="content">
     {{item.body|markdown}}
+</div>
 </div>
 <div class="comments">
 <h3>Comments</h3>

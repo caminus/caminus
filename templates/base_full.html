@@ -1,0 +1,101 @@
+{%load static %}
+{% load cache %}
+{% load flatpages %}
+{% get_static_prefix as STATIC_PREFIX %}
+<html>
+<head>
+<title>{% block title %}Caminus{%endblock%} - Caminus</title>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_PREFIX }}/css/reset.css"/>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_PREFIX }}/css/text.css"/>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_PREFIX }}/css/960.css"/>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_PREFIX }}/css/main.css"/>
+</style>
+</head>
+<body>
+<div id="wrapper" class="container_12">
+    <div id="header">
+      <div class="grid_4">
+          <div id="title" class="stat-box">
+              <a href="/">
+                  <img src="{{ STATIC_PREFIX }}images/logo.png"/>
+                  <h1>Caminus</h1>
+              </a>
+              <div id="slogan">{{ quote }}</div>
+          </div>
+      </div>
+      <div class="grid_8">
+          <div id="epicenter" class="stat-box">
+          {% if user.is_authenticated %}
+          <h2 class="title">{{user.username}}</h2>
+          <ul>
+              <li><a href="{% url user_profile %}">Profile</a></li>
+              <li><a href="{% url profiles.views.logout %}">Logout</a></li>
+              {% if user.is_staff %}
+              <li><a href="{% url admin:index %}">Admin</a></li>
+              {% endif %}
+          </ul>
+          {% else %}
+          <h2 class="title">Login</h2>
+          <p>Welcome! Do you have an invite? <a href="{% url profiles.views.claimInvite %}">Claim it!</a><p>
+          <form method="POST" action="{%url profiles.views.login %}">
+          {%csrf_token%}
+          {{login_form.as_p}}
+          <input type="submit" value="Login"/>
+          </form>
+          {% endif %}
+          </div>
+      </div>
+      <div class="clear"></div>
+      <div class="grid_12">
+          <div id="nav">
+              <div class="title">
+                  <h1>{%block sectiontitle %}Caminus{%endblock%}</h1>
+                  <p>{% block breadcrumb %}{% endblock %}</p>
+              </div>
+              <ul>
+                  <li><a href="/">Home</a></li>
+                  <li><a href="{%url forums.views.index%}">Forums</a></li>
+                  <li><a href="{% url petition.views.create %}">Create Petition</a></li>
+                  <li><a href="http://{{minecraftServer.hostname}}/map/">Live Map</a></li>
+                  {% get_flatpages '/' as pages %}
+                  {% for page in pages %}
+                  <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+                  {% endfor %}
+              </ul>
+              <br style="clear:both"/>
+          </div>
+      </div>
+    </div>
+    <div class="clear"></div>
+    <div id="content">
+        {% block main %}
+        {% endblock main %}
+    </div>
+    <div class="grid_4">
+        <div id="statbox" class="stat-box">
+            <h2 class="title">World Status</h2>
+            {% for server in minecraft_servers %}
+                <h3>{{server.hostname}}:{{server.port}}</h3>
+                <ul>
+                {% if server.online_players %}
+                  {% for player in server.online_players%}
+                      <li>{{player}}</li>
+                  {% endfor %}
+                {% else %}
+                    <li><em>Nobody...</em></li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="grid_12">
+        <div id="footer">
+            <p>&copy;2012 Team Caminus. All Rights Reserved.</p>
+            <p><a href="http://github.com/tdfischer/caminus/commit/{{app_version}}">Running {{app_version}}</a></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

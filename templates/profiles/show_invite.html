@@ -1,14 +1,14 @@
-{% extends 'base.html' %}
+{% extends 'base_simple.html' %}
 
 {% block title %}Invite{% endblock %}
 
 {% block content %}
-<p>To invite a friend to Caminus, simply share them this code, or link to this page:</p>
-<div id="invite-code">
-<p>Code</p>
-<input type="text" value="{{invite.code}}" onClick="this.select()"/>
-<br />
-<p>Link</p>
-<input type="text" value="http://{{site_url}}{{ invite.get_absolute_url }}" onClick="this.select()"/>
-</div>
+    <p>To invite a friend to Caminus, simply share them this code, or link to this page:</p>
+    <div id="invite-code">
+        <p>Code</p>
+        <input type="text" value="{{invite.code}}" onClick="this.select()"/>
+        <br />
+        <p>Link</p>
+        <input type="text" value="http://{{site_url}}{{ invite.get_absolute_url }}" onClick="this.select()"/>
+    </div>
 {% endblock %}
