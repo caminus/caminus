@@ -1,6 +1,7 @@
 {%load static %}
 {% load cache %}
 {% load flatpages %}
+{% load avatar_tags %}
 {% get_static_prefix as STATIC_PREFIX %}
 <html>
 <head>
@@ -27,6 +28,9 @@
           <div id="epicenter" class="stat-box">
           {% if user.is_authenticated %}
           <h2 class="title">{{user.username}}</h2>
+          <div style="float:right">
+          {% avatar user %}
+          </div>
           <ul>
               <li><a href="{% url user_profile %}">Profile</a></li>
               <li><a href="{% url profiles.views.logout %}">Logout</a></li>
