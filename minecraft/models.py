@@ -1,6 +1,8 @@
 from django.db import models
 import pyspy
 from django.core.cache import cache
+from django.core.exceptions import ObjectDoesNotExist
+from profiles.models import MinecraftProfile
 import socket
 
 class Server(models.Model):
@@ -13,21 +15,21 @@ class Server(models.Model):
             ('login_all', 'Can login to all minecraft servers'),
         )
 
-    def online_playaers(self):
+    def online_players(self):
         players = cache.get('minecraftPlayerList-%s:%s'%(self.hostname, self.query_port))
         if players is None:
             players = []
             try:
-                client = pyspy.GamespyClient(server.hostname, server.query_port)
+                client = pyspy.GamespyClient(self.hostname, self.query_port)
                 client.update()
                 pList = client.players()
                 for p in pList:
                     try:
-                        player = Player.objects.get(username__exact = p)
+                        player = MinecraftProfile.objects.get(mc_username__exact = p)
                     except ObjectDoesNotExist, e:
-                        player = Player()
-                        player.username = p
-                cache.set('minecraftPlayerList-%s:%s'%(self.hostname, self.query_port), players, 120)
+                        player = MinecraftProfile()
+                        player.mc_username = p
+                cache.set('minecraftPlayerList-%s:%s'%(self.hostname, self.query_port), players, 10)
             except socket.error:
                 pass
         return players
