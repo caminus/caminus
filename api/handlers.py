@@ -1,6 +1,6 @@
 from piston.handler import AnonymousBaseHandler, BaseHandler
 from profiles.models import MinecraftProfile, Quote
-from minecraft.models import MOTD
+from minecraft.models import MOTD, Server
 from django.http import HttpResponse
 
 class WhitelistHandler(AnonymousBaseHandler):
@@ -33,3 +33,10 @@ class BalanceHandler(BaseHandler):
     def read(self, request):
         user = request.user
         return {"balance":user.get_profile().currencyaccount.balance}
+
+class ServerHandler(AnonymousBaseHandler):
+    allowed_methods = ('GET',)
+
+    def read(self, request, hostname):
+        s = Server.objects.get(hostname__exact=hostname)
+        return {"hostname":hostname, "port":s.port, "players": map(lambda x:x.mc_username, s.online_players())}
