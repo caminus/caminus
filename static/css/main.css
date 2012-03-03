@@ -228,4 +228,17 @@ tr.sticky a:link {
     border-bottom: 0px;
     color: #fff;
     padding: 1em;
+    margin-top: 1em;
+}
+
+#profile-list ul {
+    display:block;
+    list-style: none;
+}
+
+#profile-list li {
+    float: left;
+    border:3px solid black;
+    padding: 3px;
+    text-align: center;
 }

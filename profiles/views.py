@@ -112,3 +112,7 @@ def claimInvite(request, code=None):
         request.session['profile-invite'] = invite
         return HttpResponseRedirect(reverse('profiles.views.register'))
     return render_to_response('profiles/claim_invite.html', {'form': form}, context_instance = RequestContext(request))
+
+def list(request):
+    profiles = User.objects.all()
+    return render_to_response('profiles/list.html', {'profiles': profiles}, context_instance = RequestContext(request))

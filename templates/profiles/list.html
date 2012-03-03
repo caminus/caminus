@@ -1,0 +1,13 @@
+{% extends 'base_simple.html' %}
+{% load avatar_tags %}
+
+{% block title %}Users{% endblock %}
+{% block sectiontitle %}Users{% endblock %}
+
+{% block content %}
+<ul id='profile-list'>
+{% for user in profiles %}
+<li>{% avatar user %}<p>{{user}}</p></li>
+{% endfor %}
+</ul>
+{% endblock %}
