@@ -1,4 +1,4 @@
-from piston.handler import AnonymousBaseHandler
+from piston.handler import AnonymousBaseHandler, BaseHandler
 from profiles.models import MinecraftProfile, Quote
 from minecraft.models import MOTD
 from django.http import HttpResponse
@@ -28,3 +28,8 @@ class MOTDHandler(AnonymousBaseHandler):
         if len(quote) > 0:
             motd += "\n"+'"'+quote[0].text+'"'
         return {"motd":motd.split('\n')}
+
+class BalanceHandler(BaseHandler):
+    def read(self, request):
+        user = request.user
+        return {"balance":user.get_profile().currencyaccount.balance}
