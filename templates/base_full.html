@@ -28,8 +28,13 @@
           <div id="epicenter" class="stat-box">
           {% if user.is_authenticated %}
           <h2 class="title">{{user.username}}</h2>
-          <div style="float:right">
+          <div class="userbox">
+          <div class="avatar">
           {% avatar user %}
+          </div>
+          <div class="balance">
+          {{ user.get_profile.currencyaccount.balance|floatformat:2 }} grist
+          </div>
           </div>
           <ul>
               <li><a href="{% url user_profile %}">Profile</a></li>

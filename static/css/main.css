@@ -40,6 +40,24 @@ body {
     border: 3px solid black;
 }
 
+#epicenter .avatar {
+    float: right;
+    margin:3px;
+}
+
+#epicenter .balance {
+    float:right;
+    font-family:"Minecraft";
+    font-size:x-large;
+}
+
+#epicenter .userbox {
+    float: right;
+    border: 3px solid black;
+    padding: 4px;
+    background-color:#020;
+}
+
 .stat-box {
     background: url(img/dirt.png);
     border: 3px solid black;
