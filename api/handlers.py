@@ -9,8 +9,8 @@ class WhitelistHandler(AnonymousBaseHandler):
     def read(self, request, username=None):
         if username:
             try:
-                profile = MinecraftProfile.objects.get(mc_username__iexact=username)
-            except Exception, e:
+                profile = MinecraftProfile.objects.all().filter(mc_username__iexact=username)[0]
+            except IndexError, e:
                 return HttpResponse(status=403)
             if profile.user.is_active:
                 return HttpResponse(status=204)
