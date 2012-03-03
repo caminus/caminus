@@ -11,6 +11,10 @@
 <link rel="stylesheet" type="text/css" href="{{ STATIC_PREFIX }}/css/960.css"/>
 <link rel="stylesheet" type="text/css" href="{{ STATIC_PREFIX }}/css/main.css"/>
 </style>
+<script type="text/javascript" language="javascript" src="{{STATIC_PREFIX}}/js/jquery.js"></script>
+{% if user.is_authenticated %}
+<script type="text/javascript" language="javascript" src="{{STATIC_PREFIX}}/js/balance-poll.js"></script>
+{% endif %}
 </head>
 <body>
 <div id="wrapper" class="container_12">
@@ -33,7 +37,7 @@
           {% avatar user %}
           </div>
           <div class="balance">
-          {{ user.get_profile.currencyaccount.balance|floatformat:2 }} grist
+          <span id="balance-display">{{ user.get_profile.currencyaccount.balance|floatformat:2 }}</span> grist
           </div>
           </div>
           <ul>
