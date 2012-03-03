@@ -15,6 +15,6 @@ class CurrencyAccount(models.Model):
 
 def create_account(sender, instance, created, **kwargs):
     if created:
-        CurrencyAccount.objects.create(profile=sender)
+        CurrencyAccount.objects.create(profile=instance)
 
 post_save.connect(create_account, sender=MinecraftProfile)
