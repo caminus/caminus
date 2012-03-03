@@ -30,7 +30,7 @@ class Command(BaseCommand):
  	    except ObjectDoesNotExist, e:
 	        djangoUser = User()
 	    djangoUser.username = u[0]
-	    djangoUser.password = 'md5$'+u[1]
+	    djangoUser.password = 'md5$$'+u[1]
 	    djangoUser.email = u[2]
 	    djangoUser.date_joined = datetime.fromtimestamp(u[4])
 	    djangoUser.last_login = datetime.fromtimestamp(u[4])
