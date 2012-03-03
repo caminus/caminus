@@ -129,7 +129,6 @@ INSTALLED_APPS = (
     'profiles',
     'south',
     'news',
-    'django.contrib.comments',
     'django.contrib.flatpages',
     'minecraft',
     'petition'
