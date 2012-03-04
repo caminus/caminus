@@ -58,7 +58,7 @@ def invites(request):
 def createInvite(request):
     invite = models.Invite()
     invite.creator = request.user
-    invite.code = shortuuid.uuid()[:6]
+    invite.code = shortuuid.uuid()[:6].upper()
     invite.save()
     return HttpResponseRedirect(reverse('profiles.views.invites'))
 
