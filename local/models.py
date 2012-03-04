@@ -5,7 +5,7 @@ from django.db.models.signals import post_save
 class CurrencyAccount(models.Model):
     profile = models.OneToOneField(MinecraftProfile, to_field='mc_username', db_column='username')
     balance = models.FloatField(default=3000)
-    status = models.IntegerField()
+    status = models.IntegerField(default=0)
 
     class Meta:
         db_table = 'iConomy'
