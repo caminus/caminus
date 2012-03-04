@@ -260,3 +260,13 @@ tr.sticky a:link {
     padding: 3px;
     text-align: center;
 }
+
+#epicenter ul {
+    list-style:none;
+}
+
+#epicenter ul a {
+    color: #fff;
+    font-size:large;
+    text-decoration: none;
+}
