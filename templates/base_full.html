@@ -35,19 +35,16 @@
           <h2 class="title">{{user.username}}</h2>
           <div class="userbox">
           <div class="avatar">
-          {% avatar user.get_profile.mc_username %}
+          <a href="{%url user_profile %}">{% avatar user.get_profile.mc_username %}</a>
           </div>
           <div class="balance">
           <span id="balance-display">{{ user.get_profile.currencyaccount.balance|floatformat:2 }}</span> grist
           </div>
-          <div class="time">
-            <span id="time-display"></span>
-          </div>
           </div>
           <ul>
-              <li><a href="{% url user_profile %}">Profile</a></li>
+              <li><a href="{% url user_profile %}">Your Profile</a></li>
               <li><a href="{% url profiles.views.logout %}">Logout</a></li>
-              {% if user.is_staff %}
+              {% if user.is_staff or user.is_superuser %}
               <li><a href="{% url admin:index %}">Admin</a></li>
               {% endif %}
           </ul>
@@ -91,6 +88,9 @@
     <div class="grid_4">
         <div id="statbox" class="stat-box">
             <h2 class="title">World Status</h2>
+            <div class="time">
+              Current time: <span id="time-display"></span>
+            </div>
             {% for server in minecraft_servers %}
                 <a href="http://{{server.hostname}}/map/">Live Map</a>
                 <h3>{{server.hostname}}:{{server.port}}</h3>
