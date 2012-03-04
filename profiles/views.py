@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 import django.contrib.auth
 from django.contrib.auth import authenticate, login
+from django.core.exceptions import ObjectDoesNotExist
 import forms
 import models
 import shortuuid
@@ -71,18 +72,23 @@ def register(request):
         userForm = forms.UserForm(prefix='user')
         profileForm = forms.ProfileForm(prefix='profile')
     if userForm.is_valid() and profileForm.is_valid():
-        user = User()
-        user.username = userForm.cleaned_data['username']
-        user.email = userForm.cleaned_data['email']
-        user.set_password(userForm.cleaned_data['password'])
-        user.save()
-        invite.claimer = user
-        invite.save()
-        profile = user.get_profile()
-        profile.mc_username = profileForm.cleaned_data['mc_username']
-        profile.save()
-        del request.session['profile-invite']
-        return HttpResponseRedirect("/")
+        oldUser = None
+        try:
+            oldUser = User.objects.get(username__exact=userForm.cleaned_data['username'])
+        except ObjectDoesNotExist, e:
+            pass
+        if not oldUser:
+            user = User.objects.create_user(userForm.cleaned_data['username'], userForm.cleaned_data['email'], userForm.cleaned_data['password'])
+            user.save()
+            invite.claimer = user
+            invite.save()
+            profile = user.get_profile()
+            profile.mc_username = profileForm.cleaned_data['mc_username']
+            profile.save()
+            user = django.contrib.auth.authenticate(userForm.cleaned_data['username'], userForm.cleaned_data['password'])
+            django.contrib.auth.login(request, user)
+            del request.session['profile-invite']
+            return HttpResponseRedirect("/")
     return render_to_response('profiles/register.html', {'userForm': userForm, 'profileForm': profileForm, 'invite':invite}, context_instance = RequestContext(request))
 
 @login_required
