@@ -1,7 +1,7 @@
 {%load static %}
 {% load cache %}
 {% load flatpages %}
-{% load avatar_tags %}
+{% load minecraft %}
 {% get_static_prefix as STATIC_PREFIX %}
 <html>
 <head>
@@ -34,7 +34,7 @@
           <h2 class="title">{{user.username}}</h2>
           <div class="userbox">
           <div class="avatar">
-          {% avatar user %}
+          {% avatar user.get_profile.mc_username %}
           </div>
           <div class="balance">
           <span id="balance-display">{{ user.get_profile.currencyaccount.balance|floatformat:2 }}</span> grist
