@@ -12,6 +12,7 @@
 <link rel="stylesheet" type="text/css" href="{{ STATIC_PREFIX }}/css/main.css"/>
 </style>
 <script type="text/javascript" language="javascript" src="{{STATIC_PREFIX}}/js/jquery.js"></script>
+<script type="text/javascript" language="javascript" src="{{STATIC_PREFIX}}/js/server-poll.js"></script>
 {% if user.is_authenticated %}
 <script type="text/javascript" language="javascript" src="{{STATIC_PREFIX}}/js/balance-poll.js"></script>
 {% endif %}
@@ -38,6 +39,9 @@
           </div>
           <div class="balance">
           <span id="balance-display">{{ user.get_profile.currencyaccount.balance|floatformat:2 }}</span> grist
+          </div>
+          <div class="time">
+            <span id="time-display"></span>
           </div>
           </div>
           <ul>

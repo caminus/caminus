@@ -2,6 +2,8 @@ from piston.handler import AnonymousBaseHandler, BaseHandler
 from profiles.models import MinecraftProfile, Quote
 from minecraft.models import MOTD, Server
 from django.http import HttpResponse
+from urllib2 import urlopen
+import json
 
 class WhitelistHandler(AnonymousBaseHandler):
     allowed_methods = ('GET',)
@@ -39,4 +41,9 @@ class ServerHandler(AnonymousBaseHandler):
 
     def read(self, request, hostname):
         s = Server.objects.get(hostname__exact=hostname)
-        return {"hostname":hostname, "port":s.port, "players": map(lambda x:x.mc_username, s.online_players())}
+        try:
+            dynMapJS = json.load(urlopen("http://%s/map/up/world/world/0"%(hostname)))
+            serverTime = dynMapJS["servertime"]
+        except Exception, e:
+            serverTime = -1
+        return {"hostname":hostname, "port":s.port, "players": map(lambda x:x.mc_username, s.online_players()), "time":serverTime}
