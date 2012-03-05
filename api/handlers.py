@@ -34,7 +34,7 @@ class MOTDHandler(AnonymousBaseHandler):
 class BalanceHandler(BaseHandler):
     def read(self, request):
         user = request.user
-        return {"balance":user.get_profile().currencyaccount.balance}
+        return {"balance":user.minecraftprofile.currencyaccount.balance}
 
 class ServerHandler(AnonymousBaseHandler):
     allowed_methods = ('GET',)

@@ -37,7 +37,7 @@ class Command(BaseCommand):
 	    djangoUser.save()
 	    djangoUser.groups.add(importGroup)
 	    djangoUser.save()
-	    profile = djangoUser.get_profile()
+	    profile = djangoUser.minecraftprofile
 	    profile.mc_username = u[6]
 	    profile.save()
 	    print "Imported %s <%s>"%(u[0], u[6])

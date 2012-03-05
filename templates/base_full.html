@@ -35,10 +35,10 @@
           <h2 class="title">{{user.username}}</h2>
           <div class="userbox">
           <div class="avatar">
-          {% avatar user.get_profile.mc_username %}
+          {% avatar user.minecraftprofile.mc_username %}
           </div>
           <div class="balance">
-          <span id="balance-display">{{ user.get_profile.currencyaccount.balance|floatformat:2 }}</span> grist
+          <span id="balance-display">{{ user.minecraftprofile.currencyaccount.balance|floatformat:2 }}</span> grist
           </div>
           <div class="time">
             <span id="time-display"></span>

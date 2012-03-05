@@ -1,5 +1,5 @@
 from django.db import models
-from profiles.models import MinecraftProfile
+from minecraft.models import MinecraftProfile
 from django.db.models.signals import post_save
 
 class CurrencyAccount(models.Model):

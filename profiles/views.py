@@ -10,6 +10,7 @@ from django.contrib.auth import authenticate, login
 import forms
 import models
 import shortuuid
+from minecraft.forms import ProfileForm
 
 @login_required
 def profile(request):
@@ -18,11 +19,11 @@ def profile(request):
 @login_required
 def edit(request):
     if request.method == 'POST':
-        form = forms.ProfileForm(request.POST, instance=request.user.get_profile())
+        form = ProfileForm(request.POST, instance=request.user.minecraftprofile)
     else:
-        form = forms.ProfileForm(instance=request.user.get_profile())
+        form = ProfileForm(instance=request.user.minecraftprofile)
     if form.is_valid():
-        profile = request.user.get_profile()
+        profile = request.user.minecraftprofile
         profile.mc_username = form.cleaned_data['mc_username']
         profile.save()
         return HttpResponseRedirect(reverse('profiles.views.profile'))
@@ -66,10 +67,10 @@ def register(request):
     invite = request.session['profile-invite']
     if request.method == 'POST':
         userForm = forms.UserForm(request.POST, prefix='user')
-        profileForm = forms.ProfileForm(request.POST, prefix='profile')
+        profileForm = ProfileForm(request.POST, prefix='profile')
     else:
         userForm = forms.UserForm(prefix='user')
-        profileForm = forms.ProfileForm(prefix='profile')
+        profileForm = ProfileForm(prefix='profile')
     if userForm.is_valid() and profileForm.is_valid():
         user = User()
         user.username = userForm.cleaned_data['username']
@@ -78,7 +79,7 @@ def register(request):
         user.save()
         invite.claimer = user
         invite.save()
-        profile = user.get_profile()
+        profile = user.minecraftprofile
         profile.mc_username = profileForm.cleaned_data['mc_username']
         profile.save()
         del request.session['profile-invite']
