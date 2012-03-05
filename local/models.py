@@ -14,6 +14,7 @@ class CurrencyAccount(models.Model):
     def save(self, *args, **kwargs):
         if not self.username:
             self.username = self.profile.mc_username
+        super(CurrencyAccount, self).save(*args, **kwargs)
 
 class Quote(models.Model):
     text = models.CharField(max_length=50)
