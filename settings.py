@@ -123,7 +123,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'forums',
     'mptt',
-    'avatar',
     'api',
     'django.contrib.markup',
     'profiles',
