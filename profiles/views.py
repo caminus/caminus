@@ -62,7 +62,7 @@ def register(request):
             user.save()
             invite.claimer = user
             invite.save()
-            profile = user.minecraftprofile()
+            profile = user.minecraftprofile
             profile.mc_username = profileForm.cleaned_data['mc_username']
             profile.save()
             user = django.contrib.auth.authenticate(userForm.cleaned_data['username'], userForm.cleaned_data['password'])
