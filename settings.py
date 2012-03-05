@@ -173,8 +173,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "appversion.context.git_version"
 )
 
-LOGIN_URL = '/profiles/login'
-LOGOUT_URL = '/profiles/logout'
 LOGIN_REDIRECT_URL = '/'
 
 APPVERSION_GIT_REPO = os.path.sep.join((os.path.dirname(__file__), '.git'))
