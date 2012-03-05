@@ -8,6 +8,9 @@ class Invite(models.Model):
     claimer = models.OneToOneField(User, related_name='claimed_invite', blank=True, null=True)
     deleted = models.BooleanField(default=False)
 
+    def __unicode__(self):
+        return self.code
+
     class Meta:
         ordering = ['deleted']
 
