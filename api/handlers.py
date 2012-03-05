@@ -9,15 +9,13 @@ import json
 class WhitelistHandler(AnonymousBaseHandler):
     allowed_methods = ('GET',)
 
-    def read(self, request, username=None):
-        if username:
-            try:
-                profile = MinecraftProfile.objects.all().filter(mc_username__iexact=username)[0]
-            except IndexError, e:
-                return HttpResponse(status=403)
-            if profile.user.is_active:
-                return HttpResponse(status=204)
-        return HttpResponse(status=404)
+    def read(self, request, username):
+        try:
+            profile = MinecraftProfile.objects.all().filter(mc_username__iexact=username)[0]
+        except IndexError, e:
+            return {'valid': False, 'error': 'User not found'}
+        if profile.user.is_active:
+            return {'valid': True, 'error': ''}
 
 class MOTDHandler(AnonymousBaseHandler):
     allowed_methods = ('GET',)
