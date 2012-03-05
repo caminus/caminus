@@ -35,26 +35,24 @@
           <h2 class="title">{{user.username}}</h2>
           <div class="userbox">
           <div class="avatar">
-          {% avatar user.minecraftprofile.mc_username %}
+          <a href="{%url user_profile %}">{% avatar user.minecraftprofile.mc_username %}</a>
           </div>
           <div class="balance">
           <span id="balance-display">{{ user.minecraftprofile.currencyaccount.balance|floatformat:2 }}</span> grist
           </div>
-          <div class="time">
-            <span id="time-display"></span>
-          </div>
           </div>
           <ul>
-              <li><a href="{% url user_profile %}">Profile</a></li>
+              <li><a href="{% url user_profile %}">Your Profile</a></li>
               <li><a href="{% url profiles.views.logout %}">Logout</a></li>
-              {% if user.is_staff %}
+              {% if user.is_staff or user.is_superuser %}
               <li><a href="{% url admin:index %}">Admin</a></li>
               {% endif %}
           </ul>
           {% else %}
           <h2 class="title">Login</h2>
           <p>Welcome! Do you have an invite? <a href="{% url profiles.views.claimInvite %}">Claim it!</a><p>
-          <form method="POST" action="{%url profiles.views.login %}">
+          <p><a href="{% url django.contrib.auth.views.password_reset %}">Forgot your password?</a>
+          <form method="POST" action="{%url django.contrib.auth.views.login %}">
           {%csrf_token%}
           {{login_form.as_p}}
           <input type="submit" value="Login"/>
@@ -91,6 +89,9 @@
     <div class="grid_4">
         <div id="statbox" class="stat-box">
             <h2 class="title">World Status</h2>
+            <div class="time">
+              Current time: <span id="time-display"></span>
+            </div>
             {% for server in minecraft_servers %}
                 <a href="http://{{server.hostname}}/map/">Live Map</a>
                 <h3>{{server.hostname}}:{{server.port}}</h3>

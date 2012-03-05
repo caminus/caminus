@@ -54,6 +54,6 @@ class MOTD(models.Model):
 
 def create_profile(sender, instance, created, **kwargs):
     if created:
-        MinecraftProfile.objects.create(user=instance)
+        MinecraftProfile.objects.create(user=instance, mc_username=instance.username)
 
 post_save.connect(create_profile, sender=User)

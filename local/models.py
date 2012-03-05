@@ -6,7 +6,7 @@ class CurrencyAccount(models.Model):
     profile = models.OneToOneField(MinecraftProfile)
     username = models.CharField(max_length=255, unique=True, null=True)
     balance = models.FloatField(default=3000)
-    status = models.IntegerField()
+    status = models.IntegerField(default=0)
 
     def __unicode__(self):
         return self.username

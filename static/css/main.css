@@ -227,14 +227,6 @@ tr.sticky a:link {
     margin: 0;
 }
 
-#epicenter label {
-    float:left;
-}
-
-#epicenter input[type="text"] {
-    float:right;
-}
-
 #content input[type="text"], #content textarea {
     width: 100%;
 }
@@ -259,4 +251,14 @@ tr.sticky a:link {
     border:3px solid black;
     padding: 3px;
     text-align: center;
+}
+
+#epicenter ul {
+    list-style:none;
+}
+
+#epicenter ul a {
+    color: #fff;
+    font-size:large;
+    text-decoration: none;
 }
