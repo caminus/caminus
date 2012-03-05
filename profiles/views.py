@@ -30,27 +30,6 @@ def edit(request):
         return HttpResponseRedirect(reverse('profiles.views.profile'))
     return render_to_response('profiles/edit.html', {"form":form}, context_instance = RequestContext(request))
 
-def logout(request):
-    django.contrib.auth.logout(request)
-    return HttpResponseRedirect("/")
-
-def login(request):
-    if request.method == 'POST':
-        form = forms.LoginForm(request.POST)
-    else:
-        form = forms.LoginForm()
-    if form.is_valid():
-        username = form.cleaned_data['username']
-        password = form.cleaned_data['password']
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                django.contrib.auth.login(request, user)
-                return HttpResponseRedirect("/")
-            else:
-                return HttpResponseRedirect(reverse('disabled_account'))
-    return render_to_response('profiles/login.html', {"login_form":form}, context_instance = RequestContext(request))
-
 @login_required
 def invites(request):
     invites = request.user.invites.all()

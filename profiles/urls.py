@@ -12,7 +12,5 @@ urlpatterns = patterns('profiles',
     url(r'^invites/new$', 'views.createInvite'),
     url(r'^invites$', 'views.invites'),
     url(r'^edit$', 'views.edit'),
-    url(r'^login$', 'views.login'),
-    url(r'^logout$', 'views.logout'),
     url(r'^disabled$', direct_to_template, {'template': 'profiles/disabled.html'}, name='disabled_account')
 )

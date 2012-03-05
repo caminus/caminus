@@ -1,4 +1,3 @@
-import forms
-
+from django.contrib.auth.forms import AuthenticationForm
 def login_form(request):
-    return {'login_form': forms.LoginForm()}
+    return {'login_form': AuthenticationForm()}
