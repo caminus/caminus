@@ -15,6 +15,12 @@ class CurrencyAccount(models.Model):
         if not self.username:
             self.username = self.profile.mc_username
 
+class Quote(models.Model):
+    text = models.CharField(max_length=50)
+
+    def __unicode__(self):
+        return self.text
+
 def create_account(sender, instance, created, **kwargs):
     if created:
         CurrencyAccount.objects.create(profile=instance)

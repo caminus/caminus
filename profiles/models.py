@@ -14,9 +14,3 @@ class Invite(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('profiles.views.claimInvite', [], {'code': self.code})
-
-class Quote(models.Model):
-    text = models.CharField(max_length=50)
-
-    def __unicode__(self):
-        return self.text

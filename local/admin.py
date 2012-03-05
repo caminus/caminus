@@ -6,3 +6,4 @@ class CurrencyAdmin(admin.ModelAdmin):
     search_fields = ('profile__mc_username',)
 
 admin.site.register(models.CurrencyAccount, CurrencyAdmin)
+admin.site.register(models.Quote)

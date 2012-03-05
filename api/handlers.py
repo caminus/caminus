@@ -1,5 +1,6 @@
 from piston.handler import AnonymousBaseHandler, BaseHandler
-from profiles.models import MinecraftProfile, Quote
+from profiles.models import MinecraftProfile
+from local.models import Quote
 from minecraft.models import MOTD, Server
 from django.http import HttpResponse
 from urllib2 import urlopen
