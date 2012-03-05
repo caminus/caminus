@@ -1,5 +1,5 @@
 from piston.handler import AnonymousBaseHandler, BaseHandler
-from profiles.models import MinecraftProfile
+from minecraft.models import MinecraftProfile
 from local.models import Quote
 from minecraft.models import MOTD, Server
 from django.http import HttpResponse
