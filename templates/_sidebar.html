@@ -1,0 +1,22 @@
+<div class="grid_4">
+    <div id="statbox" class="stat-box">
+        <h2 class="title">World Status</h2>
+        <div class="time">
+          Current time: <span id="time-display"></span>
+        </div>
+        {% for server in minecraft_servers %}
+            <a href="http://{{server.hostname}}/map/">Live Map</a>
+            <h3>{{server.hostname}}:{{server.port}}</h3>
+            <ul>
+            {% if server.online_players %}
+              {% for player in server.online_players%}
+                  <li>{{player}}</li>
+              {% endfor %}
+            {% else %}
+                <li><em>Nobody...</em></li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+

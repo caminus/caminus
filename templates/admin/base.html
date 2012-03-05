@@ -1,0 +1,17 @@
+{% extends 'base_fullwidth_simple.html' %}
+{% load adminmedia %}
+{% load static %}
+
+{% block sectiontitle %}Administration{% endblock sectiontitle %}
+
+{%
+
+{% block breadcrumb %}
+    {% block breadcrumbs %}
+    {% endblock breadcrumbs %}
+{% endblock breadcrumb %}
+
+{% block extracss %}
+    {% get_static_prefix as STATIC_PREFIX %}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_PREFIX }}css/admin.css"/>
+{% endblock %}

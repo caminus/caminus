@@ -1,0 +1,19 @@
+.module {
+    background-color: #111;
+    padding: 5px;
+    margin-bottom: 1em;
+    border:1px solid black;
+}
+
+.module table {
+    background-color: #444;
+}
+
+.module caption {
+    padding: 3px;
+    background-color:#222;
+}
+
+.module tr {
+    border-bottom: 3px solid #333;
+}
