@@ -65,8 +65,8 @@ def register(request):
             profile = user.minecraftprofile
             profile.mc_username = profileForm.cleaned_data['mc_username']
             profile.save()
-            user = django.contrib.auth.authenticate(userForm.cleaned_data['username'], userForm.cleaned_data['password'])
-            django.contrib.auth.login(request, user)
+            user = authenticate(username=userForm.cleaned_data['username'], password=userForm.cleaned_data['password'])
+            login(request, user)
             del request.session['profile-invite']
             return HttpResponseRedirect("/")
     return render_to_response('profiles/register.html', {'userForm': userForm, 'profileForm': profileForm, 'invite':invite}, context_instance = RequestContext(request))
