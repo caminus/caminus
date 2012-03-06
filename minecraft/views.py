@@ -4,6 +4,8 @@ from urllib2 import urlopen
 from cStringIO import StringIO
 from django.core.cache import cache
 from django.views.decorators.cache import cache_control
+from django.shortcuts import render_to_response
+import models
 
 def avatar(request, username):
     avatar = cache.get('minecraft-avatar-%s'%(username))
@@ -17,3 +19,7 @@ def avatar(request, username):
         avatar = buf.getvalue()
     cache.set('minecraft-avatar-%s', avatar, 86400)
     return HttpResponse(avatar, content_type="image/png")
+
+def rules(request, server, port):
+    s = models.Server.objects.get(hostname__exact=server, port__exact=port)
+    return render_to_response('minecraft/rules.html', {'server': s})

@@ -6,6 +6,7 @@
         </div>
         {% for server in minecraft_servers %}
             <a href="http://{{server.hostname}}/map/">Live Map</a>
+            <a href="{% url minecraft.views.rules server=server.hostname port=server.port %}">Server Rules</a>
             <h3>{{server.hostname}}:{{server.port}}</h3>
             <ul>
             {% if server.online_players %}
