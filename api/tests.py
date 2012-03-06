@@ -27,11 +27,12 @@ class BalanceTest(unittest.TestCase):
         self.user.delete()
 
     def testWithoutLogin(self):
-        response = json.loads(self.client.get('/api/balance'))
+        result = self.client.get('/api/balance').content
+        self.assertEqual(result, "")
 
     def testWithLogin(self):
         self.client.login(username=self.user.username, password='password')
-        response = json.loads(self.client.get('/api/balance'))
+        response = json.loads(self.client.get('/api/balance').content)
         self.assertEqual(response['balance'], 1000)
 
 
