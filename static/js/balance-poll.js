@@ -6,7 +6,7 @@ function updateBalance() {
 
 function pollBalance() {
     updateBalance();
-    window.setTimeout(pollBalance, 1000);
+    window.setTimeout(pollBalance, 3000);
 }
 
 $(document).ready(function () {
