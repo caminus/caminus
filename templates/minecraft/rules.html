@@ -2,6 +2,7 @@
 {% load markup %}
 
 {% block sectiontitle %}Server Rules{% endblock %}
+{% block breadcrumb %}{{server}}{% endblock %}
 
 {% block content %}
 {{server.ruleset|markdown}}
