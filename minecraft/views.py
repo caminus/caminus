@@ -5,6 +5,7 @@ from cStringIO import StringIO
 from django.core.cache import cache
 from django.views.decorators.cache import cache_control
 from django.shortcuts import render_to_response
+from django.template import RequestContext
 import models
 
 def avatar(request, username):
@@ -22,4 +23,4 @@ def avatar(request, username):
 
 def rules(request, server, port):
     s = models.Server.objects.get(hostname__exact=server, port__exact=port)
-    return render_to_response('minecraft/rules.html', {'server': s})
+    return render_to_response('minecraft/rules.html', {'server': s}, context_instance = RequestContext(request))
