@@ -45,4 +45,4 @@ class ServerHandler(AnonymousBaseHandler):
             serverTime = dynMapJS["servertime"]
         except Exception, e:
             serverTime = -1
-        return {"hostname":hostname, "port":s.port, "players": map(lambda x:x.mc_username, s.online_players()), "time":serverTime}
+        return {"hostname":hostname, "port":s.port, "players": map(lambda x:x.mc_username, s.online_players()), "time":serverTime, "rules": s.ruleset.split('\n')}
