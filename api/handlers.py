@@ -1,4 +1,5 @@
 from piston.handler import AnonymousBaseHandler, BaseHandler
+from django.core.cache import cache
 from minecraft.models import MinecraftProfile
 from local.models import Quote
 from minecraft.models import MOTD, Server
@@ -43,9 +44,14 @@ class ServerHandler(AnonymousBaseHandler):
 
     def read(self, request, hostname):
         s = Server.objects.get(hostname__exact=hostname)
-        try:
-            dynMapJS = json.load(urlopen("http://%s/map/up/world/world/0"%(hostname)))
-            serverTime = dynMapJS["servertime"]
-        except Exception, e:
-            serverTime = -1
-        return {"hostname":hostname, "port":s.port, "players": map(lambda x:x.mc_username, s.online_players()), "time":serverTime, "rules": s.ruleset.split('\n')}
+        serverTime = cache.get('minecraftServerTime-%s:%s'%(s.hostname, s.port))
+        playerList = []
+        if serverTime is None:
+            try:
+                dynMapJS = json.load(urlopen("http://%s/map/up/world/world/0"%(hostname)))
+                serverTime = dynMapJS["servertime"]
+                playerList = dynMapJS["players"]
+                cache.set('minecraftServerTime-%s:%s'%(s.hostname, s.port), serverTime, 120)
+            except Exception, e:
+                serverTime = -1
+        return {"hostname":hostname, "port":s.port, "players": playerList, "time":serverTime, "rules": s.ruleset.split('\n')}
