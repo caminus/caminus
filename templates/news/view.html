@@ -1,6 +1,7 @@
 {% extends 'news_base.html' %}
 {% load markup %}
 {% load mptt_tags %}
+{% load minecraft %}
 
 {% block title %}News - {{item.title}}{% endblock %}
 
@@ -16,8 +17,12 @@
 <h3>Comments</h3>
 {% recursetree item.comments %}
 <div class="comment-tree">
-    <a name="c{{ node.id }}" href="#c{{node.id}}">#{{node.id}}</a> by {{node.author}}
     <div class="comment">
+        <a name="c{{ node.id }}" href="#c{{node.id}}">#{{node.id}}</a>
+        <div class="forum-post-user">
+        {%avatar node.author%}
+        {{node.author}}
+        </div>
         {{node.body|markdown:"safe"}}
         <form action="{% url news.views.comment parent=node.id %}" method="post">
         {{ commentForm.as_p }}
