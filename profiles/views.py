@@ -10,7 +10,6 @@ from django.contrib.auth import authenticate, login
 from django.core.exceptions import ObjectDoesNotExist
 import forms
 import models
-import shortuuid
 from minecraft.forms import ProfileForm
 
 @login_required
@@ -39,7 +38,6 @@ def invites(request):
 def createInvite(request):
     invite = models.Invite()
     invite.creator = request.user
-    invite.code = shortuuid.uuid()[:6].upper()
     invite.save()
     return HttpResponseRedirect(reverse('profiles.views.invites'))
 

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
+import shortuuid
 
 class Invite(models.Model):
     code = models.CharField(max_length=30)
@@ -10,6 +11,11 @@ class Invite(models.Model):
 
     def __unicode__(self):
         return self.code
+
+    def save(self, *args, **kwargs):
+        if not self.code:
+            self.code = shortuuid.uuid()[:6].upper()
+        super(Invite, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ['deleted']
