@@ -6,12 +6,18 @@ from django.core.cache import cache
 from django.views.decorators.cache import cache_control
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.template.loader import select_template
 import models
+import os
 
 def avatar(request, username):
     avatar = cache.get('minecraft-avatar-%s'%(username))
     if avatar is None:
-        imgStream = StringIO(urlopen("http://minecraft.net/skin/%s.png"%(username)).read())
+        try:
+            skinStream = urlopen("http://minecraft.net/skin/%s.png"%(username))
+        except IOError, e:
+            skinStream = open(os.path.dirname(__file__)+"/static/skin.png")
+        imgStream = StringIO(skinStream.read())
         img = Image.open(imgStream)
         img = img.crop((8, 8, 16,16))
         img = img.resize((64, 64), Image.NEAREST)
