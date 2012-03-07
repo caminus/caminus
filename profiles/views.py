@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.models import Site
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.auth.models import User
@@ -92,7 +92,10 @@ def claimInvite(request, code=None):
     if form.is_valid():
         code = form.cleaned_data['code']
     if code:
-        invite = models.Invite.objects.get(code__exact=code)
+        try:
+            invite = models.Invite.objects.get(code__exact=code, claimer__exact=None, deleted__exact=False)
+        except models.Invite.DoesNotExist:
+            raise Http404
         request.session['profile-invite'] = invite
         return HttpResponseRedirect(reverse('profiles.views.register'))
     return render_to_response('profiles/claim_invite.html', {'form': form}, context_instance = RequestContext(request))
