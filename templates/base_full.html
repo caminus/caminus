@@ -46,6 +46,7 @@
           <ul>
               <li><a href="{% url user_profile %}">Your Profile</a></li>
               <li><a href="{% url django.contrib.auth.views.logout %}">Logout</a></li>
+              <li><a href="{% url messages.views.inbox %}">Mail</a></li>
               {% if user.is_staff or user.is_superuser %}
               <li><a href="{% url admin:index %}">Admin</a></li>
               {% endif %}

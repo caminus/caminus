@@ -132,6 +132,7 @@ INSTALLED_APPS = (
     'minecraft',
     'petition',
     'local',
+    'messages',
 # Uncomment the next line to enable admin documentation:
 # 'django.contrib.admindocs',
 )

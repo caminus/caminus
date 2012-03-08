@@ -116,16 +116,16 @@ td {
     padding: 0.5em;
 }
 
-tr.header {
+thead tr, tr.header {
     background-color: #aaa;
     color: #000;
 }
 
-tr.even {
+tbody tr:nth-child(even) {
     background-color:#444;
 }
 
-tr.odd {
+tbody tr:nth-child(odd) {
     background-color:#222;
 }
 
@@ -261,4 +261,17 @@ tr.sticky a:link {
     color: #fff;
     font-size:large;
     text-decoration: none;
+}
+
+#localnav {
+    border: 2px solid black;
+    margin-bottom: 1em;
+}
+
+#localnav ul {
+    list-style: none;
+}
+
+#localnav ul li {
+    float: left;
 }

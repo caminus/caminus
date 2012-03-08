@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block sectiontitle %}Mail{% endblock %}
+
+{% block main %}
+<div id="content">
+    <div class="grid_12">
+        <div id="localnav">
+            <ul>
+            <li><a href="{% url messages.views.compose %}">Compose</a></li>
+            <li><a href="{% url messages.views.inbox %}">Inbox</a></li>
+            <li><a href="{% url messages.views.outbox %}">Sent</a></li>
+            <li><a href="{% url messages.views.trash %}">Trash</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="grid_8">
+        <div class="item">
+          {% block content %}
+          {% endblock content%}
+        </diV>
+    </div>
+</div>
+{% include '_sidebar.html' %}
+{% endblock %}
