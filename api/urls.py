@@ -9,5 +9,6 @@ urlpatterns = patterns('api',
     url(r'^validate/(?P<username>.*)$', whitelistHandler),
     url(r'^motd/(?P<username>.*)$', motdHandler),
     url(r'^balance$', Resource(handlers.BalanceHandler)),
-    url(r'^server/(?P<hostname>.*)$', Resource(handlers.ServerHandler))
+    url(r'^server/(?P<hostname>.*)$', Resource(handlers.ServerHandler)),
+    url(r'^session$', Resource(handlers.PlayerSessionHandler)),
 )

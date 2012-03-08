@@ -2,10 +2,11 @@ from piston.handler import AnonymousBaseHandler, BaseHandler
 from django.core.cache import cache
 from minecraft.models import MinecraftProfile
 from local.models import Quote
-from minecraft.models import MOTD, Server
+from minecraft.models import MOTD, Server, PlayerSession
 from django.http import HttpResponse
 from urllib2 import urlopen
 import json
+from datetime import datetime
 
 class WhitelistHandler(AnonymousBaseHandler):
     allowed_methods = ('GET',)
@@ -55,3 +56,22 @@ class ServerHandler(AnonymousBaseHandler):
             except Exception, e:
                 serverTime = -1
         return {"hostname":hostname, "port":s.port, "players": playerList, "time":serverTime, "rules": s.ruleset.split('\n')}
+
+class PlayerSessionHandler(BaseHandler):
+    allowed_methods = ('POST', 'PUT')
+    model = PlayerSession
+
+    def create(self, request):
+        hostname = request.POST['hostname']
+        playername = request.POST['player']
+        ip = request.POST['ip']
+
+        server = Server.objects.get(hostname__exact=hostname)
+        profile = MinecraftProfile.objects.get(mc_username__exact=playername)
+        session = PlayerSession.objects.create(server=server, player=profile, ip=ip)
+        return {'session':session.id}
+
+    def update(self, request):
+        session = PlayerSession.objects.get(id__exact=request.POST['session'])
+        session.end = datetime.now()
+        session.save()

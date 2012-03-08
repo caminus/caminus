@@ -53,6 +53,13 @@ class MOTD(models.Model):
     def __unicode__(self):
         return self.text
 
+class PlayerSession(models.Model):
+    server = models.ForeignKey(Server)
+    player = models.ForeignKey(MinecraftProfile)
+    ip = models.IPAddressField()
+    start = models.DateTimeField(auto_now_add=True, blank=False, null=False)
+    end = models.DateTimeField(blank=True, null=True)
+
 def create_profile(sender, instance, created, **kwargs):
     if created:
         MinecraftProfile.objects.create(user=instance, mc_username=instance.username)
