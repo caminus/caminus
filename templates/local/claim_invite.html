@@ -2,6 +2,8 @@
 {%block title%}Claim an Invite{%endblock%}
 
 {%block content %}
+<p>Caminus is an invite-only community. If you know someone with an active account, ask for one!</p>
+<p>If you have an invite, please enter the code below:</p>
 <form method="POST" action="{%url local.views.claimInvite%}">
 {% csrf_token %}
 {{form.as_p}}

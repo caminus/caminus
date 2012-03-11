@@ -1,11 +1,17 @@
 {% extends "base_simple.html" %}
 {%block title%}Register an Account{%endblock%}
 
+{% block sectiontitle %}Welcome!{%endblock%}
+
 {%block content %}
+<p>Congratulations on recieving a caminus invite! You were invited here by {{invite.creator}}.</p>
+<p>To accept this invite, please register an account:</p>
 <form method="POST" action="{%url local.views.register %}">
 {% csrf_token %}
+<fieldset>
 {{profileForm.as_p}}
-{{userForm.as_p}}
+{{userForm.as_table}}
+</fieldset>
 <input type="submit" value="Register!"/>
 </form>
 {%endblock%}
