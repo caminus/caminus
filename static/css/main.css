@@ -227,8 +227,9 @@ tr.sticky a:link {
     margin: 0;
 }
 
-#content input[type="text"], #content textarea {
+#content input, #content textarea {
     width: 100%;
+    margin-bottom: 1em;
 }
 
 #footer {
@@ -274,4 +275,9 @@ tr.sticky a:link {
 
 #localnav ul li {
     float: left;
+}
+
+fieldset {
+    background-color:#111;
+    border: 1px solid black;
 }
