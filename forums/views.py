@@ -5,6 +5,7 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
+from notification import models as notification
 
 def index(request):
     forums = models.Forum.objects.filter(parent=None)
@@ -37,6 +38,7 @@ def reply(request, topicID=None):
         reply.body = form.cleaned_data['body']
         reply.user = request.user
         reply.save()
+        notification.send([reply.parent.user], "forum_reply", {"reply": reply})
         return HttpResponseRedirect(reverse('forums.views.post', kwargs={"id":reply.id}))
     return render_to_response('forums/reply.html', {"post":parentPost, "form":form}, context_instance = RequestContext(request))
 

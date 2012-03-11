@@ -91,10 +91,10 @@ class Post(MPTTModel):
     created = models.DateTimeField(editable=False, auto_now_add=True)
     updated = models.DateTimeField(editable=False, auto_now=True)
 
-    def forum(self):
+    def topic(self):
         if parent is None:
-            return Forum.objects.get(rootTopic=self.id)
-        return parent.forum()
+            return Topic.objects.get(rootTopic=self.id)
+        return parent.topic()
 
     @models.permalink
     def get_absolute_url(self):

@@ -5,6 +5,7 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
+from notification import models as notification
 import forms
 
 def index(request, page=0):
@@ -31,6 +32,7 @@ def comment(request, id=None, parent=None):
         if parent:
             parentPost = models.Comment.objects.get(id__exact=parent)
             c.parent = parentPost
+            notification.send([parentPost.author], "news_comment_reply", {"comment": c})
         elif id:
             newsPost = models.Post.objects.get(id__exact=id)
             c.post = newsPost
