@@ -6,16 +6,27 @@ http://camin.us
 
 # Installation
 
-    ./manage.py syncdb --migrate
+Caminus is designed to keep sensitive database credentials and whatnot out of settings.py. To accomplish this,
+you'll need to create a local_settings.py in the same directory as settings.py. Override anything you see fit.
 
-Answer "no" when prompted to create a superuser. The tables for the local app
-have not been created yet, and will cause saving a user to fail, as we
-automatically create profiles and currency accounts when a new User is saved.
+For example:
+
+    TEMPLATE_DIRS = (
+        "/usr/share/caminus/templates/"
+    )
+    
+    STATCFILES_DIRS = (
+        "/usr/share/caminus/static/"
+    )
+    
+Next, install the database:
+
+    ./manage.py syncdb --migrate --noinput
+    
+Finally, create a superuser account:
 
     ./manage.py createsuperuser
 
 # Updating
 
     ./manage.py syncdb --migrate
-
-That *hopefully* should be it.
