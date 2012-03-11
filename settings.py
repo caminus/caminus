@@ -125,7 +125,6 @@ INSTALLED_APPS = (
     'mptt',
     'api',
     'django.contrib.markup',
-    'profiles',
     'south',
     'news',
     'django.contrib.flatpages',
@@ -133,6 +132,7 @@ INSTALLED_APPS = (
     'petition',
     'local',
     'messages',
+    'notification'
 # Uncomment the next line to enable admin documentation:
 # 'django.contrib.admindocs',
 )

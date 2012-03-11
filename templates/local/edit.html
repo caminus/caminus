@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="item">
-<form method="POST" action="{%url profiles.views.edit %}">
+<form method="POST" action="{%url local.views.edit %}">
 {% csrf_token %}
 {{ form.as_p }}
 <input type="submit" value="Submit"/>

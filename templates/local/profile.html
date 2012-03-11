@@ -7,8 +7,8 @@
 {%block content %}
 <div class="item">
 {% avatar user %}
-<a href="{%url profiles.views.edit %}">Edit profile</a>
-<a href="{%url profiles.views.invites %}">Invites</a>
+<a href="{%url local.views.edit %}">Edit profile</a>
+<a href="{%url local.views.invites %}">Invites</a>
 <ul>
 <li>Member Since: {{user.date_joined|date:"SHORT_DATE_FORMAT"}}</li>
 <li>Last seen: {{user.last_login|date:"SHORT_DATE_FORMAT"}}</li>

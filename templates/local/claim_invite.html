@@ -2,7 +2,7 @@
 {%block title%}Claim an Invite{%endblock%}
 
 {%block content %}
-<form method="POST" action="{%url profiles.views.claimInvite%}">
+<form method="POST" action="{%url local.views.claimInvite%}">
 {% csrf_token %}
 {{form.as_p}}
 <input type="submit" value="Claim!"/>

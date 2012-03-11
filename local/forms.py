@@ -10,3 +10,4 @@ class UserForm(forms.Form):
 
 class InviteClaimForm(forms.Form):
     code = forms.CharField()
+

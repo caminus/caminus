@@ -53,7 +53,7 @@
           </ul>
           {% else %}
           <h2 class="title">Login</h2>
-          <p>Welcome! Do you have an invite? <a href="{% url profiles.views.claimInvite %}">Claim it!</a><p>
+          <p>Welcome! Do you have an invite? <a href="{% url local.views.claimInvite %}">Claim it!</a><p>
           <p><a href="{% url django.contrib.auth.views.password_reset %}">Forgot your password?</a>
           <form method="POST" action="{%url django.contrib.auth.views.login %}">
           {%csrf_token%}
@@ -73,7 +73,7 @@
               <ul>
                   <li><a href="/">Home</a></li>
                   <li><a href="{%url forums.views.index%}">Forums</a></li>
-                  <li><a href="{%url profiles.views.list %}">User List</a></li>
+                  <li><a href="{%url local.views.list %}">User List</a></li>
                   <li><a href="{% url petition.views.create %}">Create Petition</a></li>
                   {% get_flatpages '/' as pages %}
                   {% for page in pages %}

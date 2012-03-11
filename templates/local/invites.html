@@ -28,7 +28,7 @@
         {% if invite.deleted %}
             <em>Deleted</em>
         {% else %}
-            <a href="{%url profiles.views.deleteInvite code=invite.code %}">Delete</a>
+            <a href="{%url local.views.deleteInvite code=invite.code %}">Delete</a>
         {% endif %}
     {% endif %}
     </td>
@@ -41,7 +41,7 @@
 {% endif %}
 <tr class="actionBar">
     <td colspan="2">
-        <a href="{% url profiles.views.createInvite %}">Create a new invite</a>
+        <a href="{% url local.views.createInvite %}">Create a new invite</a>
     </td>
 </tr>
 </table>

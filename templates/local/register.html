@@ -2,7 +2,7 @@
 {%block title%}Register an Account{%endblock%}
 
 {%block content %}
-<form method="POST" action="{%url profiles.views.register %}">
+<form method="POST" action="{%url local.views.register %}">
 {% csrf_token %}
 {{profileForm.as_p}}
 {{userForm.as_p}}

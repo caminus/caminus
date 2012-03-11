@@ -11,14 +11,14 @@ urlpatterns = patterns('',
     url(r'^news/', include('news.urls')),
     url(r'^minecraft/', include('minecraft.urls')),
     url(r'^mail/', include('messages.urls')),
-    url(r'^profiles/', include('profiles.urls')),
+    url(r'^profiles/', include('local.urls')),
     url(r'^accounts/logout', 'django.contrib.auth.views.logout', kwargs={'next_page':'/'}),
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^forums/', include('forums.urls')),
     url(r'^api/', include('api.urls')),
-    url(r'^i/(?P<code>.+)', 'profiles.views.claimInvite')
+    url(r'^i/(?P<code>.+)', 'local.views.claimInvite')
 )
 
 urlpatterns += staticfiles_urlpatterns()
