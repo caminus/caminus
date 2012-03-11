@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 from django.core import mail
 import models
 
-class InviteTest(TestCase):
+class InviteUseTest(TestCase):
     def setUp(self):
         self.client = Client()
         self.user = User.objects.create_user('ValidUsername', 'test@example.com')
@@ -49,6 +49,26 @@ class InviteTest(TestCase):
         data['profile-mc_username'] = 'Testificate'
         resp = self.client.post(reverse('local.views.register' ), data)
         self.assertEqual(len(mail.outbox), 1)
+
+class InviteManageTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user('ValidUsername', 'test@example.com', 'password')
+        self.user.save()
+        self.client.login(username='ValidUsername', password='password')
+
+    def tearDown(self):
+        self.user.delete()
+
+    def testCreateMaxInvites(self):
+        for i in range(0, 100):
+            self.client.get(reverse('local.views.createInvite'))
+        self.assertEqual(len(self.user.invites.all()), 2)
+
+    def testDeleteInvites(self):
+        self.client.get(reverse('local.views.createInvite'))
+        self.client.post(reverse('local.views.deleteInvite', kwargs={'code':self.user.invites.all()[0]}))
+        self.assertEqual(len(self.user.invites.exclude(deleted=True)), 0)
 
 class AccountCreationTest(TestCase):
     def testCreation(self):

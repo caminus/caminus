@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.models import Site
+from django.contrib import messages
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response
 from notification import models as notification
@@ -37,9 +38,13 @@ def invites(request):
 
 @login_required
 def createInvite(request):
-    invite = models.Invite()
-    invite.creator = request.user
-    invite.save()
+    activeCount = request.user.invites.exclude(deleted=True).filter(claimer=None)
+    if len(activeCount) < 2:
+        invite = models.Invite()
+        invite.creator = request.user
+        invite.save()
+    else:
+        messages.error(request, "You already have your maximum number of active invites.")
     return HttpResponseRedirect(reverse('local.views.invites'))
 
 def register(request):
@@ -75,10 +80,12 @@ def register(request):
 def deleteInvite(request, code=None):
     invite = models.Invite.objects.get(code__exact=code)
     if invite.claimer:
+        messages.error(request, "That invite is already claimed.")
         return HttpResponseRedirect(reverse('local.views.invites'))
     if request.method == 'POST':
         invite.deleted = True
         invite.save()
+        messages.info(request, "Invite deleted.")
         return HttpResponseRedirect(reverse('local.views.invites'))
     return render_to_response('local/delete_invite.html', {'invite':invite}, context_instance = RequestContext(request))
 
