@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^forums/', include('forums.urls')),
     url(r'^api/', include('api.urls')),
+    url(r'^notification/', include('notification.urls')),
     url(r'^i/(?P<code>.+)', 'local.views.claimInvite')
 )
 

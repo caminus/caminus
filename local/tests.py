@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from django.test.client import Client
 from django.core.urlresolvers import reverse
+from django.core import mail
 import models
 
 class InviteTest(TestCase):
@@ -36,6 +37,18 @@ class InviteTest(TestCase):
     def testUseInvite(self):
         resp = self.client.get(reverse('local.views.claimInvite', kwargs={'code':self.invite.code}), follow=True)
         self.assertEqual(200, resp.status_code)
+
+    def testRegisterViaInvite(self):
+        resp = self.client.get(reverse('local.views.claimInvite', kwargs={'code':self.invite.code}), follow=True)
+        self.assertEqual(200, resp.status_code)
+        data = {}
+        data['user-username'] = 'TestUser'
+        data['user-password'] = 'abcd'
+        data['user-password_confirm'] = 'abcd'
+        data['user-email'] = 'email@example.com'
+        data['profile-mc_username'] = 'Testificate'
+        resp = self.client.post(reverse('local.views.register' ), data)
+        self.assertEqual(len(mail.outbox), 1)
 
 class AccountCreationTest(TestCase):
     def testCreation(self):

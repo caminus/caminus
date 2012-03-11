@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.sites.models import Site
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response
+from notification import models as notification
 from django.template import RequestContext
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
@@ -64,6 +65,7 @@ def register(request):
             profile.mc_username = profileForm.cleaned_data['mc_username']
             profile.save()
             user = authenticate(username=userForm.cleaned_data['username'], password=userForm.cleaned_data['password'])
+            notification.send_now([invite.creator], "invite_accepted", {"new_user": user})
             login(request, user)
             del request.session['profile-invite']
             return HttpResponseRedirect("/")
