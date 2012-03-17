@@ -19,3 +19,14 @@ automatically create profiles and currency accounts when a new User is saved.
     ./manage.py syncdb --migrate
 
 That *hopefully* should be it.
+
+# Dependencies
+
+* shortuuid
+* pyspy
+* PIL
+* django-mptt
+* django-messaging
+* django-notifications
+* Django
+* south
