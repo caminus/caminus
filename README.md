@@ -30,3 +30,14 @@ Finally, create a superuser account:
 # Updating
 
     ./manage.py syncdb --migrate
+
+# Dependencies
+
+* shortuuid
+* pyspy
+* PIL
+* django-mptt
+* django-messaging
+* django-notifications
+* Django
+* south
