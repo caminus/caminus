@@ -27,8 +27,7 @@ class Command(BaseCommand):
             try:
                 djangoUser = User.objects.get(username__exact=u[0])
             except ObjectDoesNotExist, e:
-                djangoUser = User()
-                djangoUser.username = u[0]
+                djangoUser = User.objects.create_user(u[0], u[2])
                 djangoUser.date_joined = datetime.fromtimestamp(u[4])
                 djangoUser.groups.add(importGroup)
             djangoUser.last_login = datetime.fromtimestamp(u[4])
