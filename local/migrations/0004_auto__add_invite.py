@@ -11,7 +11,7 @@ class Migration(SchemaMigration):
         
         try:
             db.rename_table('profiles_invite', 'local_invite')
-        except DatabaseError, e:
+        except Exception, e:
             # Adding model 'Invite'
             db.create_table('local_invite', (
                 ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),

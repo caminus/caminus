@@ -11,7 +11,7 @@ class Migration(SchemaMigration):
         
         try:
             db.rename_table('profiles_quote', 'local_quote')
-        except DatabaseError, e:
+        except Exception, e:
             # Adding model 'Quote'
             db.create_table('local_quote', (
                 ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),

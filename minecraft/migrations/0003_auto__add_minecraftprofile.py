@@ -11,7 +11,7 @@ class Migration(SchemaMigration):
         
         try: 
             db.rename_table('profiles_minecraftprofile', 'minecraft_minecraftprofile')
-        except DatabaseError, e:
+        except Exception, e:
             # Adding model 'MinecraftProfile'
             db.create_table('minecraft_minecraftprofile', (
                 ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
