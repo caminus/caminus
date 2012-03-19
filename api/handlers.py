@@ -15,9 +15,14 @@ class WhitelistHandler(AnonymousBaseHandler):
         try:
             profile = MinecraftProfile.objects.all().filter(mc_username__iexact=username)[0]
         except IndexError, e:
-            return {'valid': False, 'error': 'User not found'}
+            return {'valid': False, 'error': 'User not found', 'permissions': []}
         if profile.user.is_active:
-            return {'valid': True, 'error': ''}
+            perms = []
+            if profile.user.is_staff:
+                perms.append('bukkit.command.op.give')
+            return {'valid': True, 'error': '', 'permissions': perms}
+        else:
+            return {'valid': False, 'error': 'Your account is inactive.', 'permissions': []}
 
 class MOTDHandler(AnonymousBaseHandler):
     allowed_methods = ('GET',)
