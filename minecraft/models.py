@@ -18,6 +18,7 @@ class Server(models.Model):
     port = models.IntegerField(default=25565)
     query_port = models.IntegerField(default=25565)
     ruleset = models.TextField(default='')
+    secret = models.CharField(max_length=100)
 
     class Meta:
         permissions = (
