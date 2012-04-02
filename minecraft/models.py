@@ -30,7 +30,8 @@ class Server(models.Model):
             players = []
             try:
                 client = pyspy.GamespyClient(self.hostname, self.query_port)
-                client.update()
+                # FIXME: pyspy sometimes hangs here
+                #client.update()
                 pList = client.players()
                 for p in pList:
                     try:
