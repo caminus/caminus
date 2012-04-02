@@ -45,5 +45,6 @@ urlpatterns = patterns('api',
     url(r'^server/whoami$', ServerResource(handlers.ServerPingHandler)),
     url(r'^server/info/(?P<hostname>.*)$', Resource(handlers.ServerHandler)),
     url(r'^server/economy/(?P<playername>.*)$', ServerResource(handlers.EconomyHandler)),
-    url(r'^server/session/(?P<playername>.*)$', ServerResource(handlers.PlayerSessionHandler)),
+    url(r'^server/session/(?P<playername>.*)/new$', ServerResource(handlers.NewPlayerSessionHandler)),
+    url(r'^server/session/(?P<playername>.*)/close$', ServerResource(handlers.ClosePlayerSessionHandler)),
 )

@@ -90,18 +90,15 @@ class SessionTest(unittest.TestCase):
         self.server.delete()
 
     def testSessionStart(self):
-        resp = self.client.post('/api/server/session/%s'%(self.user.minecraftprofile.mc_username), {'hostname':self.server.hostname, 'ip': '127.0.0.1'}, HTTP_AUTHORIZATION="X-Caminus %s"%(self.token))
+        resp = self.client.post('/api/server/session/%s/new'%(self.user.minecraftprofile.mc_username), {'ip': '127.0.0.1'}, HTTP_AUTHORIZATION="X-Caminus %s"%(self.token))
         self.assertEqual(resp.status_code, 200)
         session = json.loads(resp.content)
-        sessionObj = PlayerSession.objects.get(id__exact=session['session'])
 
     def testSessionEnd(self):
-        resp = self.client.post('/api/server/session/%s'%(self.user.minecraftprofile.mc_username), {'hostname':self.server.hostname, 'ip': '127.0.0.1'}, HTTP_AUTHORIZATION="X-Caminus %s"%(self.token))
+        resp = self.client.post('/api/server/session/%s/new'%(self.user.minecraftprofile.mc_username), {'ip': '127.0.0.1'}, HTTP_AUTHORIZATION="X-Caminus %s"%(self.token))
         session = json.loads(resp.content)
-        resp = self.client.put('/api/server/session/%s'%(self.user.minecraftprofile.mc_username), {'session':session['session']}, HTTP_AUTHORIZATION="X-Caminus %s"%(self.token))
+        resp = self.client.get('/api/server/session/%s/close'%(self.user.minecraftprofile.mc_username), HTTP_AUTHORIZATION="X-Caminus %s"%(self.token))
         self.assertEqual(resp.status_code, 200)
-        sessionObj = PlayerSession.objects.get(id__exact=session['session'])
-        self.assertNotEqual(sessionObj.end, None)
 
 class EconomyTest(unittest.TestCase):
     def setUp(self):
