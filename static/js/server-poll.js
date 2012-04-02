@@ -1,5 +1,5 @@
 function updateServer() {
-    $.get("/api/server/dev.camin.us", function(data) {
+    $.get("/api/server/info/dev.camin.us", function(data) {
         hours = parseInt((data['time']/1000)+8)%24;
         minutes = parseInt(((data['time']/1000)%1)*60);
         var day = hours < 12;

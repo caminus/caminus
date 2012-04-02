@@ -1,14 +1,49 @@
 from django.conf.urls.defaults import patterns, include, url
 from piston.resource import Resource
 import handlers
+from minecraft.models import Server
+import hashlib
+from django.http import HttpResponse
 
 whitelistHandler = Resource(handlers.WhitelistHandler)
 motdHandler = Resource(handlers.MOTDHandler)
+
+class ServerAuther(object):
+    def is_authenticated(self, request):
+        authstring  = request.META.get("HTTP_AUTHORIZATION", None)
+        if not authstring:
+            return False
+        authmeth, auth = authstring.split(' ', 1)
+        if not authmeth.lower() == 'x-caminus':
+            return False
+        serverName,salt,token = auth.split('$', 2)
+        try:
+            server = Server.objects.get(hostname=serverName)
+        except Server.DoesNotExist, e:
+            return False
+        tokenHash = hashlib.sha1()
+        tokenHash.update("%s%s%s"%(serverName, salt, server.secret))
+        if tokenHash.hexdigest() == token:
+            request.server = server
+            return True
+        return False
+
+    def challenge(self):
+        resp = HttpResponse("Authorization Required")
+        resp["WWW-Authenticate"] = 'X-Caminus realm=API'
+        resp.status_code = 401
+        return resp
+
+class ServerResource(Resource):
+    def __init__(self, handler):
+        super(ServerResource, self).__init__(handler, ServerAuther())
 
 urlpatterns = patterns('api',
     url(r'^validate/(?P<username>.*)$', whitelistHandler),
     url(r'^motd/(?P<username>.*)$', motdHandler),
     url(r'^balance$', Resource(handlers.BalanceHandler)),
-    url(r'^server/(?P<hostname>.*)$', Resource(handlers.ServerHandler)),
-    url(r'^session$', Resource(handlers.PlayerSessionHandler)),
+    url(r'^server/whoami$', ServerResource(handlers.ServerPingHandler)),
+    url(r'^server/info/(?P<hostname>.*)$', Resource(handlers.ServerHandler)),
+    url(r'^server/economy/(?P<playername>.*)$', ServerResource(handlers.EconomyHandler)),
+    url(r'^server/session/(?P<playername>.*)$', ServerResource(handlers.PlayerSessionHandler)),
 )

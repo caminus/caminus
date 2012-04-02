@@ -66,17 +66,39 @@ class PlayerSessionHandler(BaseHandler):
     allowed_methods = ('POST', 'PUT')
     model = PlayerSession
 
-    def create(self, request):
-        hostname = request.POST['hostname']
-        playername = request.POST['player']
+    def create(self, request, playername):
         ip = request.POST['ip']
 
-        server = Server.objects.get(hostname__exact=hostname)
+        server = request.server
         profile = MinecraftProfile.objects.get(mc_username__exact=playername)
         session = PlayerSession.objects.create(server=server, player=profile, ip=ip)
         return {'session':session.id}
 
-    def update(self, request):
+    def update(self, request, playername):
         session = PlayerSession.objects.get(id__exact=request.POST['session'])
         session.end = datetime.now()
         session.save()
+
+class EconomyHandler(BaseHandler):
+    allowed_methods = ('PUT','GET')
+
+    def read(self, request, playername):
+        player = MinecraftProfile.objects.get(mc_username__exact=playername)
+        return {'balance': player.currencyaccount.balance}
+
+    def update(self, request, playername):
+        player = MinecraftProfile.objects.get(mc_username__exact=playername)
+        delta = request.POST['delta']
+        newBalance = player.currencyaccount.balance+float(delta)
+        if newBalance >= 0:
+            player.currencyaccount.balance = newBalance
+            player.currencyaccount.save()
+            return {'success': True, 'balance': newBalance, 'message': ""}
+        else:
+            return {'success': False, 'balance': player.currencyaccount.balance, 'message': "Insufficient balance"}
+
+class ServerPingHandler(BaseHandler):
+    allowed_methods = ('GET',)
+
+    def read(self, request):
+        return {'identity': request.server}
