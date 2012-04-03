@@ -34,6 +34,7 @@ class Post(models.Model):
     body = models.TextField()
     slug = models.SlugField(blank=True)
     author = models.ForeignKey(User, related_name='news_posts')
+    published = models.BooleanField(default=True)
     created = models.DateTimeField(editable=False, auto_now_add=True)
     updated = models.DateTimeField(editable=False, auto_now=True)
 

@@ -9,7 +9,7 @@ from notification import models as notification
 import forms
 
 def index(request, page=0):
-    all_news = models.Post.objects.all()
+    all_news = models.Post.objects.all().filter(published=True)
     paginator = Paginator(all_news, 25)
     try: 
         items = paginator.page(page)

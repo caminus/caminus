@@ -9,7 +9,7 @@ class NewsFeed(Feed):
     description_template = 'news/_feed_description.html'
 
     def items(self):
-        return models.Post.objects.order_by('-created')[:5]
+        return models.Post.objects.order_by('-created').filter(published=True)[:5]
 
     def item_title(self, item):
         return item.title
