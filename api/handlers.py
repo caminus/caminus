@@ -20,6 +20,9 @@ class WhitelistHandler(AnonymousBaseHandler):
             perms = []
             if profile.user.is_staff:
                 perms.append('bukkit.command.op.give')
+            for group in profile.user.groups.all():
+                for perm in group.minecraftgroup.permissionList.split("\n"):
+                    perms.append(perm.strip())
             return {'valid': True, 'error': '', 'permissions': perms}
         else:
             return {'valid': False, 'error': 'Your account is inactive.', 'permissions': []}

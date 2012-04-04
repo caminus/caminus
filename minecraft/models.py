@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.db.models.signals import post_save
 import pyspy
 from django.core.cache import cache
@@ -67,3 +67,16 @@ def create_profile(sender, instance, created, **kwargs):
         MinecraftProfile.objects.create(user=instance, mc_username=instance.username)
 
 post_save.connect(create_profile, sender=User)
+
+class MinecraftGroup(models.Model):
+    authGroup = models.OneToOneField(Group)
+    permissionList = models.TextField()
+
+    def __unicode__(self):
+        return self.authGroup.__unicode__()
+
+def create_group(sender, instance, created, **kwargs):
+    if created:
+        MinecraftGroup.objects.create(authGroup = instance)
+
+post_save.connect(create_group, sender=Group)
