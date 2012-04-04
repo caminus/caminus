@@ -17,6 +17,8 @@ class WhitelistHandler(AnonymousBaseHandler):
         except IndexError, e:
             return {'valid': False, 'error': 'User not found', 'permissions': []}
         if profile.user.is_active:
+            if profile.isBanned():
+                return {'valid': False, 'error': 'Your account is banned.', 'permissions': []}
             return {'valid': True, 'error': '', 'permissions': profile.serverPermissions()}
         else:
             return {'valid': False, 'error': 'Your account is inactive.', 'permissions': []}

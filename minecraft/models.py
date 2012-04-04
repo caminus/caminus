@@ -5,10 +5,18 @@ import pyspy
 from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist
 import socket
+import datetime
 
 class MinecraftProfile(models.Model):
     user = models.OneToOneField(User)
     mc_username = models.CharField(max_length=30, verbose_name="Minecraft.net Username", unique=True)
+
+    def isBanned(self):
+        if self.bans.filter(expiration__gt=datetime.datetime.today()):
+            return True
+        if self.bans.filter(expiration__isnull=True):
+            return True
+        return False
 
     def serverPermissions(self):
         perms = []
@@ -87,3 +95,13 @@ def create_group(sender, instance, created, **kwargs):
         MinecraftGroup.objects.create(authGroup = instance)
 
 post_save.connect(create_group, sender=Group)
+
+class Ban(models.Model):
+    player = models.ForeignKey(MinecraftProfile, related_name='bans')
+    banner = models.ForeignKey(User)
+    start = models.DateTimeField(auto_now_add=True)
+    expiration = models.DateTimeField(blank=True)
+    reason = models.TextField()
+
+    def __unicode__(self):
+        return "%s: %s"%(self.player, self.reason)
