@@ -17,13 +17,7 @@ class WhitelistHandler(AnonymousBaseHandler):
         except IndexError, e:
             return {'valid': False, 'error': 'User not found', 'permissions': []}
         if profile.user.is_active:
-            perms = []
-            if profile.user.is_staff:
-                perms.append('bukkit.command.op.give')
-            for group in profile.user.groups.all():
-                for perm in group.minecraftgroup.permissionList.split("\n"):
-                    perms.append(perm.strip())
-            return {'valid': True, 'error': '', 'permissions': perms}
+            return {'valid': True, 'error': '', 'permissions': profile.serverPermissions()}
         else:
             return {'valid': False, 'error': 'Your account is inactive.', 'permissions': []}
 
@@ -74,14 +68,11 @@ class NewPlayerSessionHandler(BaseHandler):
         except IndexError, e:
             return {'valid': False, 'error': 'User not found', 'permissions': []}
         if profile.user.is_active:
-            perms = []
-            if profile.user.is_staff:
-                perms.append('bukkit.command.op.give')
             ip = request.POST['ip']
             server = request.server
             profile = MinecraftProfile.objects.get(mc_username__exact=playername)
             session = PlayerSession.objects.create(server=server, player=profile, ip=ip)
-            return {'success': True, 'error': '', 'permissions': perms, 'sessionId': session.id}
+            return {'success': True, 'error': '', 'permissions': profile.serverPermissions(), 'sessionId': session.id}
         else:
             return {'success': False, 'error': 'Your account is inactive.', 'permissions': []}
 
