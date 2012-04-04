@@ -79,7 +79,7 @@ post_save.connect(create_profile, sender=User)
 
 class MinecraftGroup(models.Model):
     authGroup = models.OneToOneField(Group)
-    permissionList = models.TextField()
+    permissionList = models.TextField(blank=True)
 
     def __unicode__(self):
         return self.authGroup.__unicode__()
