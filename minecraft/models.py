@@ -12,8 +12,6 @@ class MinecraftProfile(models.Model):
 
     def serverPermissions(self):
         perms = []
-        if self.user.is_staff:
-            perms.append('bukkit.command.op.give')
         for group in self.user.groups.all():
             for perm in group.minecraftgroup.permissionList.split("\n"):
                 perms.append(perm.strip())
