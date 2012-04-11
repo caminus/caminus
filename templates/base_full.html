@@ -76,6 +76,7 @@
                   <li><a href="{%url forums.views.index%}">Forums</a></li>
                   <li><a href="{%url local.views.list %}">User List</a></li>
                   <li><a href="{% url petition.views.create %}">Create Petition</a></li>
+                  <li><a href="{% url donate.views.index %}">Donate!</a></li>
                   {% get_flatpages '/' as pages %}
                   {% for page in pages %}
                   <li><a href="{{ page.url }}">{{ page.title }}</a></li>
