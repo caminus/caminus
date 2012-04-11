@@ -133,7 +133,8 @@ INSTALLED_APPS = (
     'local',
     'messages',
     'notification',
-    'piston'
+    'piston',
+    'donate'
 # Uncomment the next line to enable admin documentation:
 # 'django.contrib.admindocs',
 )

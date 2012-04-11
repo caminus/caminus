@@ -1,0 +1,11 @@
+{% extends 'base_simple.html'%}
+
+{% block content %}
+<p>Donating to caminus helps keep us alive!</p>
+<p>All donations recieve 2000gr per $1 USD. You must be logged in before donating to recieve this.</p>
+<form method="POST">
+{{form.as_p}}
+{%csrf_token%}
+<input type="submit"/>
+</form>
+{% endblock %}

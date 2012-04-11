@@ -19,7 +19,8 @@ urlpatterns = patterns('',
     url(r'^forums/', include('forums.urls')),
     url(r'^api/', include('api.urls')),
     url(r'^notification/', include('notification.urls')),
-    url(r'^i/(?P<code>.+)', 'local.views.claimInvite')
+    url(r'^i/(?P<code>.+)', 'local.views.claimInvite'),
+    url(r'^donate/', include('donate.urls'))
 )
 
 urlpatterns += staticfiles_urlpatterns()

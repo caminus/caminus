@@ -1,0 +1,3 @@
+We have recieved a donation of {{donation.quantity}} through Dwolla.
+
+Your account has been credited {{credit}}gr.
