@@ -3,6 +3,7 @@ from django.core.cache import cache
 from minecraft.models import MinecraftProfile
 from local.models import Quote
 from minecraft.models import MOTD, Server, PlayerSession
+from django.db.models import F
 from django.http import HttpResponse
 from urllib2 import urlopen
 import json
@@ -102,7 +103,7 @@ class EconomyHandler(BaseHandler):
         delta = request.POST['delta']
         newBalance = player.currencyaccount.balance+float(delta)
         if newBalance >= 0:
-            player.currencyaccount.balance = newBalance
+            player.currencyaccount.balance = F('balance')+float(delta)
             player.currencyaccount.save()
             return {'success': True, 'balance': newBalance, 'message': ""}
         else:
