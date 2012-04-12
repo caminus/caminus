@@ -1,0 +1,28 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:foaf="http://xmlns.com/foaf/0.1/"
+         xmlns="http://usefulinc.com/ns/doap#">
+  <name>Caminus</name>
+  <homepage rdf:resource="http://camin.us/" />
+  <created>2010-12-10</created>
+  <shortdesc xml:lang="en">
+    Caminus Minecraft Community
+  </shortdesc>
+  <description xml:lang="en">
+    Caminus is an international Minecraft community.
+  </description>
+  <maintainer>
+    <foaf:Person>
+      <foaf:name>Trever Fischer</foaf:name>
+      <foaf:homepage rdf:resource="http://wm161.net/"/>
+      <foaf:mbox rdf:resource="mailto@wm161@wm161.net"/>
+    </foaf:Person>
+  </maintainer>
+  <license rdf:resource="http://usefulinc.com/doap/licenses/GPL" />
+  <repository>
+    <GitRepository>
+      <location rdf:resource="git://github.com/tdfischer/caminus.git"/>
+      <browse rdf:resource="https://github.com/tdfischer/caminus"/>
+    </GitRepository>
+  </repository>
+</Project>
