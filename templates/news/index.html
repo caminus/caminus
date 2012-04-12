@@ -6,13 +6,13 @@
 
 {% block content %}
 {% for post in items.object_list %}
-<div class='item'>
-<h2><a href="{{post.get_absolute_url}}">{{post.title}}</a></h2>
-<div class="byline">By {{post.author}}</div>
-<div class="content">
+<div class='item' itemscope itemtype="http://schema.org/BlogPosting">
+<h2><a href="{{post.get_absolute_url}}" itemprop="name">{{post.title}}</a></h2>
+<div class="byline">By <span itemprop="author">{{post.author}}</span></div>
+<div class="content" itemprop="articleBody">
     {{post.body|truncatewords:"100"|markdown}}
 </div>
-<div class="commentcount"><a href="{{post.get_absolute_url}}">{{post.comments.all|length}} comment{{post.comments.all|length|pluralize}} &raquo;</a></div>
+<div class="commentcount"><a href="{{post.get_absolute_url}}"><span itemprop="interactionCount">{{post.comments.all|length}} comment{{post.comments.all|length|pluralize}}</span> &raquo;</a></div>
 </div>
 {% endfor %}
 
