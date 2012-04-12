@@ -12,6 +12,16 @@
 <link rel="stylesheet" type="text/css" href="{{ STATIC_PREFIX }}/css/main.css"/>
 <link rel="icon" type="image/png" href="{{ STATIC_PREFIX }}/images/logo.png"/>
 {% block extracss %}{% endblock extracss %}
+<!-- Google+ -->
+<script type="text/javascript">
+window.___gcfg = {lang: 'en'};
+(function() 
+{var po = document.createElement("script");
+po.type = "text/javascript"; po.async = true;po.src = "https://apis.google.com/js/plusone.js";
+var s = document.getElementsByTagName("script")[0];
+s.parentNode.insertBefore(po, s);
+})();</script>
+
 <script type="text/javascript" language="javascript" src="{{STATIC_PREFIX}}/js/jquery.js"></script>
 <script type="text/javascript" language="javascript" src="{{STATIC_PREFIX}}/js/server-poll.js"></script>
 {% if user.is_authenticated %}
@@ -96,6 +106,7 @@
         <div id="footer">
             <p>&copy;2012 Team Caminus. All Rights Reserved.</p>
             <p><a href="http://github.com/tdfischer/caminus/commit/{{app_version}}">Running {{app_version}}</a></p>
+            <p><div class="g-plus" data-href="https://plus.google.com/114314721632174286634?rel=publisher" data-width="300" data-height="131" data-theme="dark"></div></p>
         </div>
     </div>
     {% endif %}
