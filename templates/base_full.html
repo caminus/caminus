@@ -35,11 +35,13 @@ s.parentNode.insertBefore(po, s);
     <div id="header">
       <div class="grid_4">
           <div id="title" class="stat-box">
-              <a href="/">
-                  <img src="{{ STATIC_PREFIX }}/images/logo.png"/>
-                  <h1>Caminus</h1>
-              </a>
-              <div id="slogan">{{ quote }}</div>
+              <div xmlns:v="http://rdf.data-vocabulary.org/#" typeof="v:Organization">
+                  <a href="/">
+                      <img src="{{ STATIC_PREFIX }}/images/logo.png"/>
+                      <h1><span property="v:name">Caminus</span></h1>
+                  </a>
+                  <div id="slogan">{{ quote }}</div>
+              </div>
           </div>
       </div>
       <div class="grid_8">
