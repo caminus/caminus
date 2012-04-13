@@ -6,12 +6,14 @@
 {% block title %}News - {{item.title}}{% endblock %}
 
 {% block content %}
-<div class="item" itemscope itemtype="http://schema.org/BlogPosting">
-<h2><a href="{{post.get_absolute_url}}" itemprop="name">{{item.title}}</a></h2>
-<div class="byline">By <span itemprop="author">{{item.author}}</span></div>
+<div class="item news-item" itemscope itemtype="http://schema.org/BlogPosting">
+<h2><a href="{{item.get_absolute_url}}" itemprop="name">{{item.title}}</a></h2>
+<div class="byline">By <span itemprop="author">{{item.author}}</span> <div class="avatar">{% avatar item.author %}</div></div>
+<div class="dateline">On {{item.created}}</div>
 <div class="content" itemprop="articleBody">
     {{item.body|markdown}}
 </div>
+<br style="clear:both"/>
 </div>
 <div class="comments">
 <h3>Comments</h3>

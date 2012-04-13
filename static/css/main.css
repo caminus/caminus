@@ -281,3 +281,19 @@ fieldset {
     background-color:#111;
     border: 1px solid black;
 }
+
+.avatar {
+  border: 3px solid black;
+}
+
+.news-item .byline {
+  float: right;
+}
+
+.news-item .dateline {
+  clear: left;
+}
+
+.news-item h2 {
+  float: left;
+}
