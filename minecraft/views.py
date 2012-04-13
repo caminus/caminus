@@ -7,6 +7,7 @@ from django.views.decorators.cache import cache_control
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.template.loader import select_template
+from httplib import HTTPException
 import models
 import os
 
@@ -15,7 +16,7 @@ def avatar(request, username):
     if avatar is None:
         try:
             skinStream = urlopen("http://minecraft.net/skin/%s.png"%(username))
-        except IOError, e:
+        except (IOError, HTTPException), e:
             skinStream = open(os.path.dirname(__file__)+"/static/skin.png")
         imgStream = StringIO(skinStream.read())
         img = Image.open(imgStream)
