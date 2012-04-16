@@ -34,7 +34,6 @@ Finally, create a superuser account:
 # Dependencies
 
 * shortuuid
-* pyspy
 * PIL
 * django-mptt
 * django-messaging
