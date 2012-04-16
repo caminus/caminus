@@ -21,5 +21,13 @@
         {% block sidebar %}
         {% endblock %}
     </div>
+    <div class="stat-box">
+        <h2 class="title">Forums</h2>
+        <h3>Latest Posts</h3>
+        <ul>
+        {% for post in latestForumPosts %}
+            <li>{{post.user}} in <a href="{{post.topic.get_absolute_url}}">{{post.topic}}</a></li>
+        {% endfor %}
+        </ul>
+    </div>
 </div>
-

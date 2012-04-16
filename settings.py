@@ -171,6 +171,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.messages.context_processors.messages",
     "local.context.random_quote",
     "local.context.login_form",
+    "local.context.forum_activity",
     "minecraft.context.server_info",
     "appversion.context.git_version"
 )
