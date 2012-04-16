@@ -8,6 +8,7 @@ body {
 .stat-box {
     padding: 1em;
     color: #fff;
+    margin-bottom: 1em;
 }
 
 #header .stat-box {
