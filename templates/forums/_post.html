@@ -2,7 +2,7 @@
 
 <div class="forum-post">
     {% include "forums/_post_children.html" with post=post %}
-{% recursetree post.children %}
+{% recursetree post.get_descendants %}
     <div class="forum-post">
         {% include "forums/_post_children.html" with post=node %}
         {{children}}
