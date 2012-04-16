@@ -3,8 +3,13 @@
 
 <a name="reply-{{post.id}}"></a>
 <div class="forum-post-user">
+<div class="byline">
 {%avatar post.user%}
 {{post.user}}
+</div>
+<div class="dateline">
+{{post.created}}
+</div>
 </div>
 <div class="forum-post-content">
 {{post.body|markdown:"safe"}}

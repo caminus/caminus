@@ -140,13 +140,16 @@ tbody tr:nth-child(odd) {
     width: 100px;
     text-align: center;
     background-color: #888;
-    padding: 1em
+}
+
+.forum-post-user .byline {
+    padding: 1em;
 }
 
 .forum-post-content {
+    padding: 1em;
+    margin-left: 100px;
     background-color: #555;
-    padding: 1em
-    margin-left: 200px;
 }
 
 #nav {
