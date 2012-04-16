@@ -10,7 +10,8 @@
 {% block content %}
 
 <h2>{{ forum.name }}</h2>
-{%include "forums/_forum_table.html" with forums=forums.children%}
+<h3>Subforums</h3>
+{%include "forums/_forum_table.html" with forums=forum.children.all %}
 <table>
 <tr class="header">
     <th>Title</th>
