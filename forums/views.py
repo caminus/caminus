@@ -23,7 +23,7 @@ def topic(request, topicID, forumSlug=None, topicSlug=None):
 def post(request, id):
     post = models.Post.objects.get(id=id)
     rootPost = post.get_root()
-    return HttpResponseRedirect(reverse('forums.views.topic', kwargs={"topicID":rootPost.topic.id})+"#reply-"+id)
+    return HttpResponseRedirect(reverse('forums.views.topic', kwargs={"topicID":rootPost.topic().id})+"#reply-"+id)
 
 @login_required
 def reply(request, topicID=None):
