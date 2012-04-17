@@ -11,8 +11,9 @@ from httplib import HTTPException
 import models
 import os
 
-def avatar(request, username):
-    avatar = cache.get('minecraft-avatar-%s'%(username))
+def avatar(request, username, size=64):
+    avatar = cache.get('minecraft-avatar-%s-%s'%(username, size))
+    size = int(size)
     if avatar is None:
         try:
             skinStream = urlopen("http://minecraft.net/skin/%s.png"%(username))
@@ -21,11 +22,11 @@ def avatar(request, username):
         imgStream = StringIO(skinStream.read())
         img = Image.open(imgStream)
         img = img.crop((8, 8, 16,16))
-        img = img.resize((64, 64), Image.NEAREST)
+        img = img.resize((size, size), Image.NEAREST)
         buf = StringIO()
         img.save(buf, "PNG")
         avatar = buf.getvalue()
-    cache.set('minecraft-avatar-%s', avatar, 86400)
+    cache.set('minecraft-avatar-%s-%s'%(username, size), avatar, 86400)
     return HttpResponse(avatar, content_type="image/png")
 
 def rules(request, server, port):
