@@ -33,7 +33,15 @@ s.parentNode.insertBefore(po, s);
 
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-1828743-4']);
+  _gaq.push(['_setDomainName', 'camin.us']);
   _gaq.push(['_trackPageview']);
+  _gaq.push(['_setCustomVar', 1, 'Logged In',
+  {% if user.is_authenticated %}
+  true,
+  {% else %}
+  false,
+  {% endif %}
+  1);
 
   (function() {
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
