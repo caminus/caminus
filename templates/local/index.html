@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load minecraft %}
+{% load markup %}
+
+{%block title %}Caminus{% endblock %}
+
+{% block content %}
+<div class='item news-item'>
+<h2><a href="{{news.get_absolute_url}}">{{news.title}}</a></h2>
+<div class="byline">By <span itemprop="author">{{news.author}}</span> <div class="avatar">{% avatar news.author %}</div></div>
+<div class="dateline">On {{news.created}}</div>
+<div class="content" itemprop="articleBody">
+    {{news.body|truncatewords:"100"|markdown}}
+</div>
+<div class="commentcount"><a href="{{news.get_absolute_url}}"><span itemprop="interactionCount">{{news.comments.all|length}} comment{{news.comments.all|length|pluralize}}</span> &raquo;</a></div>
+<br style="clear:both"/>
+<a href="{% url news.views.index %}">News Archive &raquo;</a>
+</div>
+<div class="item">
+<h2>Forums</h2>
+{%include "forums/_forum_table.html" with forums=forums%}
+</div>
+{%endblock%}

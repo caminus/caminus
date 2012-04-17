@@ -12,6 +12,8 @@ from django.contrib.auth import authenticate, login
 from django.core.exceptions import ObjectDoesNotExist
 import forms
 import models
+from forums.models import Forum
+from news.models import Post
 from minecraft.forms import ProfileForm
 
 @login_required
@@ -112,3 +114,8 @@ def claimInvite(request, code=None):
 def list(request):
     profiles = User.objects.all()
     return render_to_response('local/list.html', {'profiles': profiles}, context_instance = RequestContext(request))
+
+def index(request):
+    latestNews = Post.objects.all()[0]
+    forums = Forum.objects.filter(parent=None)
+    return render_to_response('local/index.html', {'news': latestNews, 'forums': forums}, context_instance = RequestContext(request))
