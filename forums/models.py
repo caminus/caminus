@@ -42,11 +42,9 @@ class Forum(MPTTModel):
     def topicCount(self):
         return self.topic_set.count()
 
-    def latestTopic(self):
-        try:
-            return self.topic_set.extra(order_by = ['created'])[0]
-        except IndexError, e:
-            return None
+    def freshestTopic(self):
+        freshestForum = self.get_descendants(True).extra(order_by = ['-topic__updated'])[0]
+        return freshestForum.topic_set.extra(order_by = ['-updated'])[0]
 
     @models.permalink
     def get_absolute_url(self):

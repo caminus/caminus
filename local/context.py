@@ -9,7 +9,7 @@ def random_quote(request):
     return {}
 
 def forum_activity(request):
-    latestPosts = forums.models.Post.objects.all().order_by('updated')[0:5]
+    latestPosts = forums.models.Post.objects.all().order_by('-updated')[0:5]
     return {'latestForumPosts': latestPosts}
 
 def login_form(request):
