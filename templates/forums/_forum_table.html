@@ -10,7 +10,15 @@
 </tr>
 {% for f in forums %}
     <tr class="{% cycle 'even' 'odd' %} subforum">
-        <td class="topic-link"><ul><li><a href="{{ f.get_absolute_url }}">{{ f.name }}</a></li><li>{{f.description|markdown}}</li></ul></td>
+        <td class="topic-link"><ul><li class="link"><a href="{{ f.get_absolute_url }}">{{ f.name }}</a></li><li>{{f.description|markdown}}</li>
+        {% if f.children.all %}
+        <li>Subforums:
+        {%for subforum in f.children.all %}
+          <a href="{{subforum.get_absolute_url}}">{{subforum}}</a>
+        {% endfor %}
+        </li>
+        {% endif %}
+        </ul></td>
         <td>{{ f.topicCount }}</td>
         {% if f.latestTopic %}
         <td class="author-info"><div class="avatar">{% avatar f.latestTopic.lastPost.user 32 %}</div><ul><li>{{f.latestTopic.lastPost.user}}</li><li>{{f.latestTopic.created}}</li><li>In <em><a href="{{f.latestTopic.get_absolute_url}}">{{f.latestTopic}}</a></em></ul></td>

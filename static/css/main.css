@@ -338,8 +338,12 @@ fieldset {
     font-size: x-small;
 }
 
-.forum .topic-link a {
+.forum .topic-link .link a {
     font-size: large;
+}
+
+.forum .topic-link p {
+    margin-bottom: 1em;
 }
 
 .forum tr, .forum tr {
