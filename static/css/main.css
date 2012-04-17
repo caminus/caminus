@@ -327,22 +327,22 @@ fieldset {
     vertical-align: middle;
 }
 
-.topic .topic-link {
+.forum .topic-link {
     background: url(img/torch-on.png) no-repeat left center;
     height: 48px;
     padding-left: 48px;
 }
 
-.topic .topic-link ul {
+.forum .topic-link ul {
     list-style: none;
     font-size: x-small;
 }
 
-.topic .topic-link a {
+.forum .topic-link a {
     font-size: large;
 }
 
-.forum tr.topic {
+.forum tr, .forum tr {
   border-top: #888 solid 1px;
   border-bottom: #aaa solid 1px;
 }
