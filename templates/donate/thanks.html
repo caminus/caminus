@@ -1,0 +1,11 @@
+{% extends 'base_simple.html' %}
+
+{% block extraAnalytics %}
+_gaq.push(['_addTrans', '{{donation.id}}', '', '{{donation.quantity}}', '0.00', '0.00', '', '', '']);
+_gaq.push(['_addItem', '{{donation.id}}', 'donation', 'Donation', '', '{{donation.quantity}}', '1']);
+_gaq.push(['_trackTrans']);
+{% endblock %}
+
+{% block content %}
+Thanks for donating!
+{% endblock %}

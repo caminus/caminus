@@ -34,9 +34,9 @@ def index(request):
         data['Key'] = settings.DWOLLA_API_KEY
         data['Secret'] = settings.DWOLLA_API_SECRET
         data['Callback'] = 'http://camin.us%s'%reverse('donate.views.dwollaCallback')
-        data['Redirect'] = 'http://camin.us%s'%reverse('donate.views.thanks')
         donation = models.Donation.objects.create(quantity=form.cleaned_data['quantity'], user=request.user)
         order['OrderId'] = donation.id
+        data['Redirect'] = 'http://camin.us%s'%reverse('donate.views.thanks', donation.id)
         req = urllib2.Request("https://www.dwolla.com/payment/request", data=json.dumps(data), headers={'Content-Type': 'application/json'})
         response = json.load(urllib2.urlopen(req))
         return HttpResponseRedirect("https://www.dwolla.com/payment/checkout/%s"%(response['CheckoutId']))
@@ -57,5 +57,6 @@ def dwollaCallback(request):
         notification.send_now([donation.user], "donation_paid", {"donation":donation, "credit":donation.quantity*2000})
     return HttpResponse(status=204)
 
-def thanks(request):
-    return render_to_response('donate/thanks.html')
+def thanks(request, donation):
+    donationObj = models.Donation.objects.get(id=donation)
+    return render_to_response('donate/thanks.html', {'donation': donationObj}, context_instance = RequestContext(request))
