@@ -1,4 +1,5 @@
 {% extends "forum_base.html" %}
+{% load minecraft %}
 
 {% block breadcrumb %}
 <a href="{% url forums.views.index%}">Forums</a>
@@ -12,18 +13,16 @@
 <h2>{{ forum.name }}</h2>
 <h3>Subforums</h3>
 {%include "forums/_forum_table.html" with forums=forum.children.all %}
-<table>
+<table class="forum">
 <tr class="header">
-    <th>Title</th>
-    <th>Posted</th>
-    <th>Latest Activity</th>
+    <th>Topic</th>
+    <th>Last Post</th>
 </tr>
 {% if topics %}
 {% for topic in topics %}
-<tr class="{%cycle 'even' 'odd' %} {% if topic.sticky %}sticky{% endif %}">
-    <td><a href="{{topic.get_absolute_url}}">{{ topic.title }}</a></td>
-    <td>{{ topic.created }} </td>
-    <td>{{topic.lastPost.created}} by {{ topic.lastPost.user }} </td>
+<tr class="{%cycle 'even' 'odd' %} {% if topic.sticky %}sticky{% endif %} topic">
+    <td class="topic-link"><ul><li><a href="{{topic.get_absolute_url}}">{{ topic.title }}</a></li><li>Started by {{topic.rootPost.user}} on {{topic.created}}</li></ul></td>
+    <td class="author-info"><div class="avatar">{% avatar topic.lastPost.user 32 %}</div><ul><li>{{topic.lastPost.user}}</li><li>{{topic.created}}</li></ul></td>
 </tr>
 {% endfor %}
 {% else %}

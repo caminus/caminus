@@ -1,16 +1,21 @@
 {% load mptt_tags %}
+{% load minecraft %}
 {% if forums %}
-<table>
+<table class="forum">
 <tr class="header">
     <th>Name</th>
     <th>Topics</th>
     <th>Last Post</th>
 </tr>
 {% for f in forums %}
-    <tr class="{% cycle 'even' 'odd' %}">
+    <tr class="{% cycle 'even' 'odd' %} subforum">
         <td><a href="{{ f.get_absolute_url }}">{{ f.name }}</a></td>
         <td>{{ f.topicCount }}</td>
-        <td><a href="{{f.latestTopic.get_absolute_url}}">{{f.latestTopic.title}}</a> by {{f.latestTopic.rootPost.user}}</td>
+        {% if f.latestTopic %}
+        <td><a href="{{f.latestTopic.get_absolute_url}}">{{f.latestTopic.title}}</a> {% include 'common/user_tile.html' with user=f.latestTopic.lastPost.user %}</td>
+        {% else %}
+        <td><em>No posts...</em></td>
+        {% endif %}
     </tr>
 {% endfor %}
 </table>

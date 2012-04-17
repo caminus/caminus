@@ -286,7 +286,7 @@ fieldset {
     border: 1px solid black;
 }
 
-.avatar {
+.avatar img {
   border: 3px solid black;
 }
 
@@ -300,4 +300,74 @@ fieldset {
 
 .news-item h2 {
   float: left;
+}
+
+.forum {
+    vertical-align: middle;
+}
+
+.forum a {
+    color: #f00;
+}
+
+.forum a:visited {
+    color: #f33;
+}
+
+.forum .avatar {
+    float: left;
+}
+
+.forum .author-info ul {
+    list-style: none;
+    margin-left: 32;
+}
+
+.forum td {
+    vertical-align: middle;
+}
+
+.topic .topic-link {
+    background: url(img/torch-on.png) no-repeat left center;
+    height: 48px;
+    padding-left: 48px;
+}
+
+.topic .topic-link ul {
+    list-style: none;
+    font-size: x-small;
+}
+
+.topic .topic-link a {
+    font-size: large;
+}
+
+.forum tr.topic {
+  border-top: #888 solid 1px;
+  border-bottom: #aaa solid 1px;
+}
+
+.topic .avatar {
+    float: left;
+}
+
+.topic h2 {
+    margin-left: 42px;
+}
+
+.forum-post {
+    background: url(img/adminium.png);
+}
+
+.post {
+    background-color: #888;
+}
+
+.post a {
+    color: #f33;
+}
+
+.post .dateline {
+    float: right;
+    font-size: x-small;
 }
