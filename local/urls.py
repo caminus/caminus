@@ -5,6 +5,7 @@ from django.views.generic.simple import direct_to_template
 urlpatterns = patterns('local',
     url(r'^me$', 'views.profile', name='user_profile'),
     url(r'^list$', 'views.list'),
+    url(r'^welcome', direct_to_template, {'template': 'local/welcome.html'}, name='welcome'),
     url(r'^register', 'views.register'),
     url(r'^invites/claim$', 'views.claimInvite'),
     url(r'^invites/claim/(?P<code>.+)$', 'views.claimInvite'),

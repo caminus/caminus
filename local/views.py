@@ -75,7 +75,7 @@ def register(request):
             notification.send_now([invite.creator], "invite_accepted", {"new_user": user})
             login(request, user)
             del request.session['profile-invite']
-            return HttpResponseRedirect("/")
+            return HttpResponseRedirect(reverse('welcome'))
     return render_to_response('local/register.html', {'userForm': userForm, 'profileForm': profileForm, 'invite':invite}, context_instance = RequestContext(request))
 
 @login_required
