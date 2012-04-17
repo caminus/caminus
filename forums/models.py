@@ -58,7 +58,7 @@ class Forum(MPTTModel):
 class Topic(models.Model):
     forum = models.ForeignKey(Forum)
     title = models.CharField(max_length=100)
-    rootPost = models.OneToOneField('Post')
+    rootPost = models.OneToOneField('Post', related_name='parentTopic')
     created = models.DateTimeField(editable=False, auto_now_add=True)
     updated = models.DateTimeField(editable=False, auto_now=True)
     slug = models.SlugField(editable=False, blank=True)
@@ -92,9 +92,7 @@ class Post(MPTTModel):
     updated = models.DateTimeField(editable=False, auto_now=True)
 
     def topic(self):
-        if parent is None:
-            return Topic.objects.get(rootTopic=self.id)
-        return parent.topic()
+        return self.get_root().parentTopic
 
     @models.permalink
     def get_absolute_url(self):
