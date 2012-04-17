@@ -44,7 +44,10 @@ class Forum(MPTTModel):
 
     def freshestTopic(self):
         freshestForum = self.get_descendants(True).extra(order_by = ['-topic__updated'])[0]
-        return freshestForum.topic_set.extra(order_by = ['-updated'])[0]
+        try:
+            return freshestForum.topic_set.extra(order_by = ['-updated'])[0]
+        except IndexError, e:
+            return None
 
     @models.permalink
     def get_absolute_url(self):
