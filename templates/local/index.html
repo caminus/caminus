@@ -8,7 +8,7 @@
 <div class='item news-item'>
 <h2><a href="{{news.get_absolute_url}}">{{news.title}}</a></h2>
 <div class="byline">By <span itemprop="author">{{news.author}}</span> <div class="avatar">{% avatar news.author %}</div></div>
-<div class="dateline">On {{news.created}}</div>
+<div class="dateline">Posted {{news.created|timesince}} ago</div>
 <div class="content" itemprop="articleBody">
     {{news.body|truncatewords:"100"|markdown}}
 </div>
