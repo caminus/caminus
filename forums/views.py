@@ -1,6 +1,6 @@
 import models
 import forms
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
@@ -63,3 +63,17 @@ def newTopic(request, forumID=None):
         topic.save()
         return HttpResponseRedirect(reverse('forums.views.post', kwargs={'id': reply.id}))
     return render_to_response('forums/newTopic.html', {"forum":parentForum, "replyForm":replyForm, "topicForm": topicForm}, context_instance = RequestContext(request))
+
+@permission_required('forums.delete_topic')
+def deleteTopic(request, topicID):
+    topic = models.Topic.objects.get(id__exact=topicID)
+    forumID = topic.forum.slug
+    topic.delete()
+    return HttpResponseRedirect(reverse('forums.views.forum', kwargs={'forum': forumID}))
+
+@permission_required('forums.sticky_topic')
+def stickyTopic(request, topicID):
+    topic = models.Topic.objects.get(id__exact=topicID)
+    topic.sticky = (not topic.sticky)
+    topic.save()
+    return HttpResponseRedirect(reverse('forums.views.topic', kwargs={'topicID': topic.id}))

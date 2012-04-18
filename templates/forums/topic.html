@@ -17,6 +17,22 @@
 <div class="avatar">{% avatar topic.rootPost.user 32 %}</div>
 <h2>{{topic.title}}</h2>
 <div class="byline">Started by <span itemprop="author">{{topic.rootPost.user}}</span> {{ topic.created|timesince }} ago</div>
+{% if perms.forums %}
+<ul>
+{% if perms.forums.delete_topic %}
+<li><a href="{% url forums.views.deleteTopic topicID=topic.id %}">Delete Topic</a></li>
+{% endif %}
+{% if perms.forums.sticky_topic %}
+<li><a href="{% url forums.views.stickyTopic topicID=topic.id %}">
+{% if topic.sticky %}
+UnSticky
+{% else %}
+Make Sticky
+{% endif %}
+</a></li>
+{% endif %}
+</ul>
+{% endif %}
 <br style="clear:both;"/>
 {% include "forums/_post.html" with post=topic.rootPost %}
 </div>

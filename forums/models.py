@@ -67,10 +67,20 @@ class Topic(models.Model):
 
     class Meta:
         ordering = ['-sticky', '-updated']
+        permissions = (
+            ('delete_topic', "Can delete topics"),
+            ('move_topic', "Can move topics"),
+            ('sticky_topic', "Can sticky topics"),
+        )
 
     def save(self, *args, **kwargs):
         unique_slug(self, slug_source='title', slug_field='slug')
         super(Topic, self).save(*args, **kwargs)
+    
+    def delete(self, *args, **kwargs):
+        for p in self.rootPost.get_descendants(True):
+            p.delete()
+        super(Topic, self).delete(*args, **kwargs)
 
     def lastPost(self):
         try:
