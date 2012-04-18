@@ -13,8 +13,8 @@ from django.core.exceptions import ObjectDoesNotExist
 import forms
 import models
 from forums.models import Forum
-from news.models import Post
 from minecraft.forms import ProfileForm
+from django.conf import settings
 
 @login_required
 def profile(request):
@@ -116,6 +116,10 @@ def list(request):
     return render_to_response('local/list.html', {'profiles': profiles}, context_instance = RequestContext(request))
 
 def index(request):
-    latestNews = Post.objects.all()[0]
+    newsForum = Forum.objects.get(id=settings.CAMINUS_NEWS_FORUM_ID)
+    try:
+        latestNews = newsForum.topic_set.order_by('-created')[0]
+    except IndexError, e:
+        latestNews = None
     forums = Forum.objects.filter(parent=None)
     return render_to_response('local/index.html', {'news': latestNews, 'forums': forums}, context_instance = RequestContext(request))

@@ -126,7 +126,6 @@ INSTALLED_APPS = (
     'api',
     'django.contrib.markup',
     'south',
-    'news',
     'django.contrib.flatpages',
     'minecraft',
     'petition',

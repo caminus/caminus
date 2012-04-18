@@ -5,17 +5,19 @@
 {%block title %}Caminus{% endblock %}
 
 {% block content %}
+{% if news %}
 <div class='item news-item'>
 <h2><a href="{{news.get_absolute_url}}">{{news.title}}</a></h2>
-<div class="byline">By <span itemprop="author">{{news.author}}</span> <div class="avatar">{% avatar news.author %}</div></div>
+<div class="byline">By <span itemprop="author">{{news.rootPost.user}}</span> <div class="avatar">{% avatar news.rootPost.user %}</div></div>
 <div class="dateline">Posted {{news.created|timesince}} ago</div>
 <div class="content" itemprop="articleBody">
-    {{news.body|truncatewords:"100"|markdown}}
+    {{news.rootPost.body|truncatewords:"100"|markdown}}
 </div>
-<div class="commentcount"><a href="{{news.get_absolute_url}}"><span itemprop="interactionCount">{{news.comments.all|length}} comment{{news.comments.all|length|pluralize}}</span> &raquo;</a></div>
+<div class="commentcount"><a href="{{news.get_absolute_url}}"><span itemprop="interactionCount">{{news.rootPost.get_descendant_count}} comment{{news.rootPost.get_descendant_count|pluralize}}</span> &raquo;</a></div>
 <br style="clear:both"/>
-<a href="{% url news.views.index %}">News Archive &raquo;</a>
+<a href="{{ news.forum.get_absolute_url }}">News Forum &raquo;</a>
 </div>
+{% endif %}
 <div class="item">
 <h2>Forums</h2>
 {%include "forums/_forum_table.html" with forums=forums%}
