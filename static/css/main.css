@@ -1,8 +1,12 @@
 @font-face {font-family:"Minecraft";src:url("minecraft.eot") format("eot"),url("minecraft.woff") format("woff"),url("minecraft.ttf") format("truetype"),url("minecraft.svg#Minecraft") format("svg");font-weight:normal;font-style:normal;}
 
-body {
+html {
     background: url(img/blocks.gif);
     font-family: Verdana,Tahoma,"DejaVu Sans",sans-serif;
+}
+
+body {
+    background: top left url(img/bg_grass.png) repeat-x;
 }
 
 .stat-box {
@@ -396,4 +400,12 @@ fieldset {
 #messages li.info {
     background-color: #00b;
     border: 1px solid #c0c0ff;
+}
+
+#epicenter .staff-link {
+    float: right;
+    clear: both;
+}
+#epicenter .staff-link a {
+    font-size: small;
 }
