@@ -12,6 +12,7 @@
 <ul>
 <li>Member Since: {{user.date_joined|date:"SHORT_DATE_FORMAT"}}</li>
 <li>Last seen: {{user.last_login|date:"SHORT_DATE_FORMAT"}}</li>
+<li>Invited here by: {{user.claimed_invite.creator|default:"Nobody!"}}</li>
 </ul>
 </div>
 {%endblock%}
