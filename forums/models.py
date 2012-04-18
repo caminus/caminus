@@ -85,7 +85,7 @@ class Topic(models.Model):
 
     def lastPost(self):
         try:
-            return self.rootPost.get_descendants(True).extra(order_by = ['updated'])[0]
+            return self.rootPost.get_descendants(True).extra(order_by = ['-updated'])[0]
         except IndexError, e:
             return None
 
