@@ -40,6 +40,7 @@ def reply(request, topicID=None):
         reply.user = request.user
         reply.save()
         notification.send([reply.parent.user], "forum_reply", {"reply": reply})
+        messages.info(request, "Reply successful")
         return HttpResponseRedirect(reverse('forums.views.post', kwargs={"id":reply.id}))
     return render_to_response('forums/reply.html', {"post":parentPost, "form":form}, context_instance = RequestContext(request))
 
@@ -76,6 +77,7 @@ def newTopic(request, forumID=None):
         reply.save()
         topic.rootPost = reply
         topic.save()
+        messages.info(request, "Posting successful")
         return HttpResponseRedirect(reverse('forums.views.post', kwargs={'id': reply.id}))
     return render_to_response('forums/newTopic.html', {"forum":parentForum, "replyForm":replyForm, "topicForm": topicForm}, context_instance = RequestContext(request))
 
@@ -84,6 +86,7 @@ def deleteTopic(request, topicID):
     topic = models.Topic.objects.get(id__exact=topicID)
     forumID = topic.forum.slug
     topic.delete()
+    messages.info(request, "Thread deleted.")
     return HttpResponseRedirect(reverse('forums.views.forum', kwargs={'forum': forumID}))
 
 @permission_required('forums.sticky_topic')
@@ -91,4 +94,8 @@ def stickyTopic(request, topicID):
     topic = models.Topic.objects.get(id__exact=topicID)
     topic.sticky = (not topic.sticky)
     topic.save()
+    if topic.sticky:
+        messages.info(request, "Topic is now sticky")
+    else:
+        messages.info(request, "Topic is no longer sticky")
     return HttpResponseRedirect(reverse('forums.views.topic', kwargs={'topicID': topic.id}))
