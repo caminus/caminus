@@ -11,7 +11,7 @@
 <div class="byline">By <span itemprop="author">{{news.rootPost.user}}</span> <div class="avatar">{% avatar news.rootPost.user %}</div></div>
 <div class="dateline">Posted {{news.created|timesince}} ago</div>
 <div class="content" itemprop="articleBody">
-    {{news.rootPost.body|truncatewords:"100"|markdown}}
+    {{news.rootPost.body|markdown|truncatewords_html:"100"}}
 </div>
 <div class="commentcount"><a href="{{news.get_absolute_url}}"><span itemprop="interactionCount">{{news.rootPost.get_descendant_count}} comment{{news.rootPost.get_descendant_count|pluralize}}</span> &raquo;</a></div>
 <br style="clear:both"/>
