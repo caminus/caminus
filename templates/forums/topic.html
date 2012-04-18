@@ -16,7 +16,7 @@
 <div class="topic">
 <div class="avatar">{% avatar topic.rootPost.user 32 %}</div>
 <h2>{{topic.title}}</h2>
-<div class="byline">Started by <span itemprop="author">{{topic.rootPost.user}}</span> {{ topic.created|timesince }} ago</div>
+<div class="byline">Started by <span itemprop="author">{{topic.rootPost.user}}</span> {{ topic.created|timesince }} ago.<br />Last updated {{topic.updated|timesince}} ago.</div>
 {% if perms.forums %}
 <ul>
 {% if perms.forums.delete_topic %}

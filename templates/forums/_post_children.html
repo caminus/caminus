@@ -10,6 +10,10 @@
 </div>
 <div class="dateline">
 Posted {{post.created}}
+{% if post.created != post.updated %}
+<br />
+Edited {{post.updated}}
+{% endif %}
 </div>
 <div class="forum-post-content">
 {{post.body|markdown:"safe"}}
