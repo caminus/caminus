@@ -1,3 +1,0 @@
-{{comment.author}} replied to your comment on {{comment.news_post}}:
-
-{{comment.body}}
