@@ -16,7 +16,7 @@ def avatar(request, username, size=64):
     size = int(size)
     if avatar is None:
         try:
-            skinStream = urlopen("http://minecraft.net/skin/%s.png"%(username))
+            skinStream = urlopen("http://minecraft.net/skin/%s.png"%(username.replace(" ", "_")))
         except (IOError, HTTPException), e:
             skinStream = open(os.path.dirname(__file__)+"/static/skin.png")
         imgStream = StringIO(skinStream.read())
