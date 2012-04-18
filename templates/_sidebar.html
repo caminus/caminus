@@ -1,3 +1,4 @@
+{% load minecraft %}
 <div class="grid_4">
     <div id="statbox" class="stat-box">
         <h2 class="title">World Status</h2>
@@ -11,7 +12,7 @@
             <ul>
             {% if server.online_players %}
               {% for player in server.online_players%}
-                  <li>{{player}}</li>
+                  <li><span class="avatar">{% avatar player.user 16 %}</span>{{player}}</li>
               {% endfor %}
             {% else %}
                 <li><em>Nobody...</em></li>

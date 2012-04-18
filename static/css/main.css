@@ -409,3 +409,7 @@ fieldset {
 #epicenter .staff-link a {
     font-size: small;
 }
+
+#statbox .avatar {
+    padding: 5px;
+}
