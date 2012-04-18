@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
 from mptt.models import MPTTModel, TreeForeignKey
+from datetime import datetime
 
 def unique_slug(item,slug_source,slug_field):
   """Ensures a unique slug field by appending an integer counter to duplicate slugs.
@@ -101,6 +102,11 @@ class Post(MPTTModel):
     body = models.TextField()
     created = models.DateTimeField(editable=False, auto_now_add=True)
     updated = models.DateTimeField(editable=False, auto_now=True)
+
+    def save(self, *args, **kwargs):
+        super(Post, self).save(*args, **kwargs)
+        self.topic().updated = datetime.now()
+        self.topic().save()
 
     def topic(self):
         return self.get_root().parentTopic
