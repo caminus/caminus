@@ -1,6 +1,7 @@
 import models
 import forms
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib import messages
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
@@ -45,6 +46,20 @@ def reply(request, topicID=None):
 @login_required
 def newTopic(request, forumID=None):
     parentForum = models.Forum.objects.get(id__exact=forumID)
+    permitted = False
+    postingRights = parentForum.acls.all()
+    if len(postingRights) == 0:
+        permitted = True
+    for group in request.user.groups.all():
+        if permitted:
+            break
+        for acl in postingRights:
+            if group == acl.group:
+                permitted = True
+                break
+    if not permitted:
+        messages.error(request, "You are not permitted to post in this forum.")
+        return HttpResponseRedirect(parentForum.get_absolute_url())
     if request.method == 'POST':
         replyForm = forms.ReplyForm(request.POST, prefix='reply')
         topicForm = forms.TopicForm(request.POST, prefix='topic')

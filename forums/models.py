@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from mptt.models import MPTTModel, TreeForeignKey
 
 def unique_slug(item,slug_source,slug_field):
@@ -111,3 +111,7 @@ class Post(MPTTModel):
 
     def __unicode__(self):
         return self.body
+
+class ForumPostingRight(models.Model):
+    forum = models.ForeignKey(Forum, related_name='acls')
+    group = models.ForeignKey(Group)
