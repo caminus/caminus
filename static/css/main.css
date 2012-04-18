@@ -375,3 +375,20 @@ fieldset {
     float: right;
     font-size: x-small;
 }
+
+#messages {
+    color: #fff;
+}
+
+#messages ul {
+    list-style: none;
+}
+
+#messages li {
+    padding: 3px;
+}
+
+#messages li.error {
+    background-color: #a00;
+    border: 1px solid #faa;
+}
