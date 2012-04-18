@@ -2,11 +2,11 @@
 
 html {
     background: url(img/blocks.gif);
-    font-family: Verdana,Tahoma,"DejaVu Sans",sans-serif;
 }
 
 body {
     background: top left url(img/bg_grass.png) repeat-x;
+    font-family: Verdana,Tahoma,"DejaVu Sans",sans-serif;
 }
 
 .stat-box {
