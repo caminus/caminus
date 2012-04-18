@@ -25,7 +25,10 @@ def avatar(request, username, size=64):
         face.load()
         overlay = img.crop((40, 8, 48, 16))
         overlay.load()
-        img = Image.composite(overlay, face, overlay)
+        try:
+            img = Image.composite(overlay, face, overlay)
+        except ValueError, e:
+            img = face
         img = img.resize((size, size), Image.NEAREST)
         buf = StringIO()
         img.save(buf, "PNG")
