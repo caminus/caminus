@@ -8,7 +8,6 @@ from django.http import HttpResponse
 from urllib2 import urlopen
 import json
 from datetime import datetime
-from models import cachePlayerList
 
 class WhitelistHandler(AnonymousBaseHandler):
     allowed_methods = ('GET',)
@@ -115,16 +114,3 @@ class ServerPingHandler(BaseHandler):
 
     def read(self, request):
         return {'identity': request.server}
-
-class PollHandler(BaseHandler):
-    allowed_methods = ('GET',)
-
-    def read(self, request, timestamp):
-        serverInfo = cache.get('caminus-server-info')
-        if serverInfo == None:
-            cachePlayerList()
-        pollData = {'server-info': {}, 'user-info': {}}
-        pollData['server-info'] = cache.get('caminus-server-info')
-        if not request.user.is_anonymous():
-            pollData['user-info']['balance'] = request.user.minecraftprofile.currencyaccount.balance
-        return pollData
