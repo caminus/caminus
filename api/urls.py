@@ -39,8 +39,11 @@ class ServerResource(Resource):
         super(ServerResource, self).__init__(handler, ServerAuther())
 
 urlpatterns = patterns('api',
+    url(r'^validate/(?P<username>.*)$', whitelistHandler),
     url(r'^motd/(?P<username>.*)$', motdHandler),
+    url(r'^balance$', Resource(handlers.BalanceHandler)),
     url(r'^server/whoami$', ServerResource(handlers.ServerPingHandler)),
+    url(r'^server/info/(?P<hostname>.*)$', Resource(handlers.ServerHandler)),
     url(r'^server/economy/(?P<playername>.*)$', ServerResource(handlers.EconomyHandler)),
     url(r'^server/session/(?P<playername>.*)/new$', ServerResource(handlers.NewPlayerSessionHandler)),
     url(r'^server/session/(?P<playername>.*)/close$', ServerResource(handlers.ClosePlayerSessionHandler)),
