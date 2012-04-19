@@ -5,6 +5,7 @@ from minecraft.models import Server
 import hashlib
 from django.http import HttpResponse
 
+whitelistHandler = Resource(handlers.WhitelistHandler)
 motdHandler = Resource(handlers.MOTDHandler)
 
 class ServerAuther(object):
