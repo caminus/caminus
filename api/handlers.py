@@ -10,21 +10,6 @@ import json
 from datetime import datetime
 from models import cachePlayerList
 
-class WhitelistHandler(AnonymousBaseHandler):
-    allowed_methods = ('GET',)
-
-    def read(self, request, username):
-        try:
-            profile = MinecraftProfile.objects.all().filter(mc_username__iexact=username)[0]
-        except IndexError, e:
-            return {'valid': False, 'error': 'User not found', 'permissions': []}
-        if profile.user.is_active:
-            if profile.isBanned():
-                return {'valid': False, 'error': 'Your account is banned.', 'permissions': []}
-            return {'valid': True, 'error': '', 'permissions': profile.serverPermissions()}
-        else:
-            return {'valid': False, 'error': 'Your account is inactive.', 'permissions': []}
-
 class MOTDHandler(AnonymousBaseHandler):
     allowed_methods = ('GET',)
     
@@ -37,31 +22,6 @@ class MOTDHandler(AnonymousBaseHandler):
         if len(quote) > 0:
             motd += "\n"+'"'+quote[0].text+'"'
         return {"motd":motd.split('\n')}
-
-class BalanceHandler(BaseHandler):
-    def read(self, request):
-        user = request.user
-        if user.is_anonymous():
-            return HttpResponse(status=403)
-        else:
-            return {"balance":user.minecraftprofile.currencyaccount.balance}
-
-class ServerHandler(AnonymousBaseHandler):
-    allowed_methods = ('GET',)
-
-    def read(self, request, hostname):
-        s = Server.objects.get(hostname__exact=hostname)
-        serverTime = cache.get('minecraftServerTime-%s:%s'%(s.hostname, s.port))
-        playerList = []
-        if serverTime is None:
-            try:
-                dynMapJS = json.load(urlopen("http://%s/map/up/world/world/0"%(hostname)))
-                serverTime = dynMapJS["servertime"]
-                playerList = dynMapJS["players"]
-                cache.set('minecraftServerTime-%s:%s'%(s.hostname, s.port), serverTime, 120)
-            except Exception, e:
-                serverTime = -1
-        return {"hostname":hostname, "port":s.port, "players": playerList, "time":serverTime, "rules": s.ruleset.split('\n')}
 
 class NewPlayerSessionHandler(BaseHandler):
     allowed_methods = ('POST',)
