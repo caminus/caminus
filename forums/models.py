@@ -105,8 +105,11 @@ class Post(MPTTModel):
 
     def save(self, *args, **kwargs):
         super(Post, self).save(*args, **kwargs)
-        self.topic().updated = datetime.now()
-        self.topic().save()
+        try:
+            self.topic().updated = datetime.now()
+            self.topic().save()
+        except Topic.DoesNotExist, e:
+            pass
 
     def topic(self):
         return self.get_root().parentTopic
