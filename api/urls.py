@@ -47,4 +47,5 @@ urlpatterns = patterns('api',
     url(r'^server/economy/(?P<playername>.*)$', ServerResource(handlers.EconomyHandler)),
     url(r'^server/session/(?P<playername>.*)/new$', ServerResource(handlers.NewPlayerSessionHandler)),
     url(r'^server/session/(?P<playername>.*)/close$', ServerResource(handlers.ClosePlayerSessionHandler)),
+    url(r'^poll/(?P<timestamp>[0-9]+)$', Resource(handlers.PollHandler)),
 )
