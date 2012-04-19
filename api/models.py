@@ -7,7 +7,7 @@ def cachePlayerList():
     for s in Server.objects.all():
         playerList = []
         for p in s.online_players():
-            playerList.append(p.name)
+            playerList.append(p.mc_username)
         serverInfo[s.hostname] = {'players':playerList}
     cache.set('caminus-server-info', serverInfo, 30)
 
