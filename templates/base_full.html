@@ -24,10 +24,7 @@ s.parentNode.insertBefore(po, s);
 })();</script>
 
 <script type="text/javascript" language="javascript" src="{{STATIC_PREFIX}}/js/jquery.js"></script>
-<script type="text/javascript" language="javascript" src="{{STATIC_PREFIX}}/js/server-poll.js"></script>
-{% if user.is_authenticated %}
-<script type="text/javascript" language="javascript" src="{{STATIC_PREFIX}}/js/balance-poll.js"></script>
-{% endif %}
+<script type="text/javascript" language="javascript" src="{{STATIC_PREFIX}}/js/poll.js"></script>
 {% block extrahead %}{% endblock %}
 <script type="text/javascript">
 
