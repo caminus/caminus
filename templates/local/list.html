@@ -8,11 +8,12 @@
 {% for group in groups %}
   <h2>{{group}}</h2>
   <ul class='profile-list'>
-    {% for user in group.users %}
+    {% for user in group.user_set.all %}
     <li><a href="{% url local.views.profile username=user.username %}">{% avatar user %}<p>{{user}}</p></a></li>
     {% endfor %}
   </ul>
 {% endfor %}
+<br style="clear:both"/>
 <h2>All Players</h2>
 <ul class='profile-list'>
 {% for user in profiles %}
