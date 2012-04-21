@@ -84,7 +84,7 @@ s.parentNode.insertBefore(po, s);
               <li class="staff-link"><a href="{% url django.contrib.auth.views.logout %}">Logout</a></li>
               <li><a href="{% url user_profile %}">Your Profile</a></li>
               <li><a href="{% url local.views.invites %}">Invites</a></li>
-              <li><a href="{% url messages.views.inbox %}">Mail</a></li>
+              <li><a href="{% url messages.views.inbox %}">Mail: {{ messages_inbox_count }}</a></li>
           </ul>
           {% else %}
           <h2 class="title">Login</h2>

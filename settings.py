@@ -172,7 +172,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "local.context.login_form",
     "local.context.forum_activity",
     "minecraft.context.server_info",
-    "appversion.context.git_version"
+    "appversion.context.git_version",
+    "messages.context_processors.inbox",
 )
 
 LOGIN_REDIRECT_URL = '/'
