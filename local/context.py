@@ -22,10 +22,14 @@ def login_form(request):
 def donation_info(request):
     now = datetime.now()
     monthStart = datetime(now.year, now.month, 1)
-    donations = Donation.objects.filter(created__gt=monthStart).aggregate(Sum('quantity'))['quantity__sum']
+    donations = Donation.objects.filter(created__gt=monthStart).aggregate(Sum('quantity'))
     goal = getattr(settings, 'CAMINUS_DONATION_GOAL', 0)
-    if donations > goal:
+    donationTotal = donations['quantity__sum']
+    if donationTotal is None:
+        progress = 0
+        donationTotal = 0
+    if donationTotal> goal:
         progress = 100
     else:
-        progress = donations/goal*100
-    return {'donation_month_total': donations, 'donation_month_goal': goal, 'donation_goal_progress': progress}
+        progress = donationTotal/goal*100
+    return {'donation_month_total': donationTotal, 'donation_month_goal': goal, 'donation_goal_progress': progress}
