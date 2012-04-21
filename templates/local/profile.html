@@ -6,15 +6,33 @@
 
 {%block content %}
 <div class="item">
-{% avatar profile %}
+<div class="avatar">{% avatar profile 128 %}</div>
+{% if user == profile %}
 <a href="{%url local.views.edit %}">Edit profile</a>
-<a href="{%url local.views.invites %}">Invites</a>
+{% endif %}
 <ul>
 <li>Member Since: {{profile.date_joined|date:"SHORT_DATE_FORMAT"}}</li>
 <li>Last seen: {{profile.last_login|date:"SHORT_DATE_FORMAT"}}</li>
-<li>Invited here by: {{profile.claimed_invite.creator|default:"Nobody!"}}</li>
+<li>Invited here by: 
+{% if profile.claimed_invite.creator %}
+<a href="{{profile.claimed_invite.creator.get_absolute_url}}">{{profile.claimed_invite.creator}}</a></li>
+{% else %}
+Nobody!
+{% endif %}
 <li>Average Playtime: {{profile.minecraftprofile.averagePlaytime}}</li>
 <li>Total Playtime: {{profile.minecraftprofile.totalPlaytime}}</li>
+</ul>
+<h2>Forum Activity</h2>
+<ul>
+{% for post in user.post_set.all %}
+<li><a href="{{post.get_absolute_url}}">{{post.topic}}</a></li>
+{% endfor %}
+</ul>
+<h2>Invited Players</h2>
+<ul>
+{% for invite in user.invites.all %}
+<li><a href="{{invite.claimer.get_absolute_url}}">{{invite.claimer}}</a></li>
+{% endfor %}
 </ul>
 </div>
 {%endblock%}
