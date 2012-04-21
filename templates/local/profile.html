@@ -24,13 +24,13 @@ Nobody!
 </ul>
 <h2>Forum Activity</h2>
 <ul>
-{% for post in user.post_set.all %}
+{% for post in profile.post_set.all %}
 <li><a href="{{post.get_absolute_url}}">{{post.topic}}</a></li>
 {% endfor %}
 </ul>
 <h2>Invited Players</h2>
 <ul>
-{% for invite in user.invites.all %}
+{% for invite in profile.invites.all %}
 <li><a href="{{invite.claimer.get_absolute_url}}">{{invite.claimer}}</a></li>
 {% endfor %}
 </ul>
