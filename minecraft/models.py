@@ -27,7 +27,11 @@ class MinecraftProfile(models.Model):
     def totalPlaytime(self):
         total = datetime.datetime.now()-datetime.datetime.now()
         for session in self.playersession_set.all():
-            total = total + session.end-session.start
+            if not session.end:
+                end = datetime.datetime.now()
+            else:
+                end = session.end
+            total = total + end-session.start
         return total
 
     def averagePlaytime(self):
