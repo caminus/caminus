@@ -171,6 +171,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "local.context.random_quote",
     "local.context.login_form",
     "local.context.forum_activity",
+    "local.context.donation_info",
     "minecraft.context.server_info",
     "appversion.context.git_version",
     "messages.context_processors.inbox",

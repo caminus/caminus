@@ -132,6 +132,12 @@ s.parentNode.insertBefore(po, s);
         </div>
     </div>
     {% endif %}
+    <div class="grid_12">
+        <div id="donation-slider">
+          <div id="donation-text"><a href="{% url donate.views.index %}">Donations this month: ${{donation_month_total}} of ${{donation_month_goal}}</a></div>
+          <div id="donation-progress" style="width: {{donation_goal_progress}}%"></div>
+        </div>
+    </div>
     {% block main %}
     {% endblock main %}
     <div class="clear"></div>
