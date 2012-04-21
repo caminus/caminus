@@ -22,7 +22,7 @@ Home
 {% if topics %}
 {% for topic in topics %}
 <tr class="{%cycle 'even' 'odd' %} {% if topic.sticky %}sticky{% endif %} topic">
-    <td class="topic-link"><ul><li class="link"><a href="{{topic.get_absolute_url}}">{{ topic.title }}</a></li><li>Started by {{topic.rootPost.user}} {{topic.created|timesince}} ago</li></ul></td>
+    <td class="topic-link"><ul><li class="link">{% if topic.sticky %}Sticky: {% endif%}<a href="{{topic.get_absolute_url}}">{{ topic.title }}</a></li><li>Started by {{topic.rootPost.user}} {{topic.created|timesince}} ago</li></ul></td>
     <td class="author-info"><div class="avatar">{% avatar topic.lastPost.user 32 %}</div><ul><li>{{topic.lastPost.user}}</li><li>{{topic.created|timesince}} ago</li></ul></td>
 </tr>
 {% endfor %}

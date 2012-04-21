@@ -135,15 +135,16 @@ tbody tr:nth-child(odd) {
 }
 
 .forum-post {
-    border: 1px solid black;
+    border-top: 1px solid black;
+    border-left: 1px solid #888;
     margin-left: 1em;
+    background: url(img/adminium.png);
 }
 
 .forum-post-user {
     float: left;
     width: 100px;
     text-align: center;
-    background-color: #888;
 }
 
 .forum-post-user .byline {
@@ -153,7 +154,8 @@ tbody tr:nth-child(odd) {
 .forum-post-content {
     padding: 1em;
     margin-left: 100px;
-    background-color: #555;
+    background: #222;
+    border-left: 3px solid black;
 }
 
 #nav {
@@ -197,11 +199,6 @@ tr.infoBar td {
     text-align: center;
     font-size: large;
     background-color: #111;
-}
-
-tr.sticky {
-    background-color:#f80;
-    color: #000;
 }
 
 tr.sticky a:link {
@@ -363,12 +360,17 @@ fieldset {
     margin-left: 42px;
 }
 
-.forum-post {
-    background: url(img/adminium.png);
+.post {
+    background: url(img/wood.png);
 }
 
-.post {
-    background-color: #888;
+.topic.sticky {
+    background-color: #d50;
+    color: #000;
+}
+
+.topic.sticky a {
+    color: #fff;
 }
 
 .post a {
