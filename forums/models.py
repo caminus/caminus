@@ -103,6 +103,9 @@ class Post(MPTTModel):
     created = models.DateTimeField(editable=False, auto_now_add=True)
     updated = models.DateTimeField(editable=False, auto_now=True)
 
+    class Meta:
+        ordering = ['-updated']
+
     def save(self, *args, **kwargs):
         super(Post, self).save(*args, **kwargs)
         try:
