@@ -24,6 +24,15 @@ class MinecraftProfile(models.Model):
                 perms.append(perm.strip())
         return perms
 
+    def totalPlaytime(self):
+        total = datetime.datetime.now()-datetime.datetime.now()
+        for session in self.playersession_set.all():
+            total = total + session.end-session.start
+        return total
+
+    def averagePlaytime(self):
+        return self.totalPlaytime()/len(self.playersession_set.all())
+
     def __unicode__(self):
         return self.mc_username
 
