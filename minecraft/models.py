@@ -35,6 +35,8 @@ class MinecraftProfile(models.Model):
         return total
 
     def averagePlaytime(self):
+        if len(self.playersession_set.all()) == 0:
+            return datetime.datetime.now()-datetime.datetime.now();
         return self.totalPlaytime()/len(self.playersession_set.all())
 
     def __unicode__(self):
