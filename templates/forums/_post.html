@@ -1,10 +1,10 @@
 {% load mptt_tags %}
 
-<div class="forum-post">
-    {% include "forums/_post_children.html" with post=post %}
+<div class="forum-post root">
+    {% include "forums/_reply.html" with post=post %}
 {% recursetree post.get_descendants %}
     <div class="forum-post">
-        {% include "forums/_post_children.html" with post=node %}
+        {% include "forums/_reply.html" with post=node %}
         {{children}}
     </div>
 {%endrecursetree%}

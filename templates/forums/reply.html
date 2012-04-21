@@ -2,7 +2,7 @@
 {%block content%}
 <div class="item">
 <h2>Replying to:</h2>
-{% include 'forums/_post_children.html' with post=post %}
+{% include 'forums/_reply.html' with post=post %}
 </div>
 <div class="item">
 <form method="POST" action="{%url forums.views.reply post.id %}">
