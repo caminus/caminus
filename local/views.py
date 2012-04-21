@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response
 from notification import models as notification
 from django.template import RequestContext
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.core.urlresolvers import reverse
 import django.contrib.auth
 from django.contrib.auth import authenticate, login
@@ -120,7 +120,8 @@ def claimInvite(request, code=None):
 
 def list(request):
     profiles = User.objects.all()
-    return render_to_response('local/list.html', {'profiles': profiles}, context_instance = RequestContext(request))
+    groups = Group.objects.all()
+    return render_to_response('local/list.html', {'profiles': profiles, 'groups': groups}, context_instance = RequestContext(request))
 
 def index(request):
     newsForum = Forum.objects.get(id=settings.CAMINUS_NEWS_FORUM_ID)

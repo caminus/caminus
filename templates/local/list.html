@@ -5,7 +5,18 @@
 {% block sectiontitle %}Users{% endblock %}
 
 {% block content %}
-<ul id='profile-list'>
+{% for group in groups %}
+  {% if group.users %}
+    <h2>{{group}}</h2>
+    <ul class='profile-list'>
+      {% for user in group.users %}
+      <li><a href="{% url local.views.profile username=user.username %}">{% avatar user %}<p>{{user}}</p></a></li>
+      {% endfor %}
+    </ul>
+  {% endif%}
+{% endfor %}
+<h2>All Players</h2>
+<ul class='profile-list'>
 {% for user in profiles %}
 <li><a href="{% url local.views.profile username=user.username %}">{% avatar user %}<p>{{user}}</p></a></li>
 {% endfor %}
