@@ -2,9 +2,9 @@
 {% load minecraft %}
 
 {% block breadcrumb %}
-<a href="{% url local.views.index%}">Home</a>
+Home
 {%for f in forum.get_ancestors %}
-&gt; <a href="{{f.get_relative_url}}">{{f}}</a>
+&gt; <a href="{{f.get_absolute_url}}">{{f}}</a>
 {%endfor%}
 &gt; {{forum}}
 {% endblock %}
