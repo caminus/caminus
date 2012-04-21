@@ -141,19 +141,28 @@ tbody tr:nth-child(odd) {
     background: url(img/adminium.png);
 }
 
-.forum-post-user {
-    float: left;
-    width: 100px;
+.user-tile {
+    display: block;
+    width: 150px;
+    height: 150px;
     text-align: center;
 }
 
-.forum-post-user .byline {
+.post .user-tile {
+    float: left;
+}
+
+.user-tile .byline {
     padding: 1em;
+}
+
+.user-tile a {
+    color: #fff;
 }
 
 .forum-post-content {
     padding: 1em;
-    margin-left: 100px;
+    margin-left: 150px;
     background: #222;
     border-left: 3px solid black;
 }
@@ -254,11 +263,13 @@ tr.sticky a:link {
 
 .profile-list li {
     float: left;
-    border:3px solid black;
-    padding: 3px;
-    width: 128px;
-    height: 128px;
+    margin: 1em;
     text-align: center;
+    background: url(img/wood.png)
+}
+
+.profile-list .user-tile {
+    border: 3px solid black;
 }
 
 #epicenter ul {
@@ -317,10 +328,6 @@ fieldset {
     color: #f33;
 }
 
-.forum .avatar {
-    float: left;
-}
-
 .forum .author-info ul {
     list-style: none;
     margin-left: 32;
@@ -352,10 +359,6 @@ fieldset {
 .forum tr, .forum tr {
   border-top: #888 solid 1px;
   border-bottom: #aaa solid 1px;
-}
-
-.topic .avatar {
-    float: left;
 }
 
 .topic h2 {
@@ -416,4 +419,8 @@ fieldset {
 
 #statbox .avatar {
     padding: 5px;
+}
+
+.topic .avatar {
+    float: left;
 }

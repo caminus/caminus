@@ -1,15 +1,7 @@
 {% load markup %}
-{% load minecraft %}
 <div class="post">
 <a name="reply-{{post.id}}"></a>
-<div class="forum-post-user">
-<div class="byline">
-<a href="{{post.user.get_absolute_url}}">
-<div class="avatar">{%avatar post.user%}</div>
-{{post.user}}
-</a>
-</div>
-</div>
+{% include "_profile_tile.html" %}
 <div class="dateline">
 Posted {{post.created}}
 {% if post.created != post.updated %}

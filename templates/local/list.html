@@ -9,7 +9,7 @@
   <h2>{{group}}</h2>
   <ul class='profile-list'>
     {% for user in group.user_set.all %}
-    <li><a href="{% url local.views.profile username=user.username %}">{% avatar user %}<p>{{user}}</p></a></li>
+    <li>{% include '_profile_tile.html' with user=user %}</li>
     {% endfor %}
   </ul>
   <br style="clear:both"/>
@@ -17,7 +17,7 @@
 <h2>All Players</h2>
 <ul class='profile-list'>
 {% for user in profiles %}
-<li><a href="{% url local.views.profile username=user.username %}">{% avatar user %}<p>{{user}}</p></a></li>
+  <li>{% include '_profile_tile.html' with user=user %}</li>
 {% endfor %}
 </ul>
 {% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block main %}
+<div id="content">
+    <div class="grid_12">
+        <div id="localnav">
+          {% block localnav %}
+          {% endblock %}
+        </div>
+    </div>
+    <div class="grid_8">
+        {% block content %}
+        {% endblock %}
+    </div>
+</div>
+{% include '_sidebar.html' %}
+{% endblock main %}
+

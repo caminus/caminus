@@ -1,5 +1,14 @@
-{% extends "profile_base.html" %}
+{% extends "base_with_nav.html" %}
 {% load minecraft %}
+
+{% block localnav %}
+{% if user == profile %}
+<ul>
+<li><a href="{%url local.views.edit %}">Edit profile</a></li>
+</ul>
+{% endif %}
+{% endblock%}
+
 {%block title%}{{profile}}{%endblock%}
 
 {% block sectiontitle %}{{profile}}{%endblock%}
@@ -7,9 +16,6 @@
 {%block content %}
 <div class="item">
 <div class="avatar">{% avatar profile 128 %}</div>
-{% if user == profile %}
-<a href="{%url local.views.edit %}">Edit profile</a>
-{% endif %}
 <ul>
 <li>Member Since: {{profile.date_joined|date:"SHORT_DATE_FORMAT"}}</li>
 <li>Last seen: {{profile.last_login|date:"SHORT_DATE_FORMAT"}}</li>

@@ -1,21 +1,10 @@
-{% extends "forum_base.html" %}
+{% extends "base_with_nav.html" %}
 {% load minecraft %}
 {% load mptt_tags %}
-{%block title %}{{topic.title}}{%endblock%}
 
-{%block breadcrumb %}
-Home
-{%for f in topic.forum.get_ancestors%}
-&gt; <a href="{{f.get_absolute_url}}">{{f}}</a>
-{%endfor%}
-&gt; <a href="{{topic.forum.get_absolute_url}}">{{topic.forum}}</a>
-{%endblock%}
+{% block sectiontitle %}Forums{% endblock %}
 
-{%block content %}
-<div class="topic">
-<div class="avatar">{% avatar topic.rootPost.user 32 %}</div>
-<h2>{{topic.title}}</h2>
-<div class="byline">Started by <span itemprop="author">{{topic.rootPost.user}}</span> {{ topic.created|timesince }} ago.<br />Last updated {{topic.updated|timesince}} ago.</div>
+{% block localnav %}
 {% if perms.forums %}
 <ul>
 {% if perms.forums.delete_topic %}
@@ -32,6 +21,25 @@ Make Sticky
 {% endif %}
 </ul>
 {% endif %}
+{% endblock %}
+
+{%block title %}{{topic.title}}{%endblock%}
+
+{%block breadcrumb %}
+Home
+{%for f in topic.forum.get_ancestors%}
+&gt; <a href="{{f.get_absolute_url}}">{{f}}</a>
+{%endfor%}
+&gt; <a href="{{topic.forum.get_absolute_url}}">{{topic.forum}}</a>
+{%endblock%}
+
+{%block content %}
+<div class="item">
+<div class="topic">
+<div class="avatar">{% avatar topic.rootPost.user 32 %}</div>
+<h2>{{topic.title}}</h2>
+<div class="byline">Started by <span itemprop="author">{{topic.rootPost.user}}</span> {{ topic.created|timesince }} ago.<br />Last updated {{topic.updated|timesince}} ago.</div>
+</div>
 <br style="clear:both;"/>
 {% include "forums/_post.html" with post=topic.rootPost %}
 </div>
