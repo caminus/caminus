@@ -1,8 +1,14 @@
-{% extends "forum_base.html" %}
+{% extends "base.html" %}
 {%block content%}
+<div class="item">
+<h2>Replying to:</h2>
+{% include 'forums/_post_children.html' with post=post %}
+</div>
+<div class="item">
 <form method="POST" action="{%url forums.views.reply post.id %}">
 {% csrf_token %}
 {{form.as_p}}
 <input type="submit" value="Submit"/>
 </form>
+</div>
 {%endblock%}
