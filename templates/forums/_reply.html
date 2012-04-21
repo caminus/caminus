@@ -1,7 +1,7 @@
 {% load markup %}
 <div class="post">
 <a name="reply-{{post.id}}"></a>
-{% include "_profile_tile.html" %}
+{% include "_profile_tile.html" with user=post.user %}
 <div class="dateline">
 Posted {{post.created}}
 {% if post.created != post.updated %}
