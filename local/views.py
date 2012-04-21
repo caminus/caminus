@@ -14,11 +14,18 @@ import forms
 import models
 from forums.models import Forum
 from minecraft.forms import ProfileForm
+from minecraft.models import MinecraftProfile
 from django.conf import settings
 
 @login_required
-def profile(request):
-    return render_to_response('local/profile.html', context_instance = RequestContext(request))
+def profile(request, username=None, mc_username=None):
+    if username is None and mc_username is None:
+        user = request.user
+    elif mc_username is None:
+        user = User.objects.get(username=username)
+    else:
+        user = MinecraftProfile.objects.get(mc_username=mc_username).user
+    return render_to_response('local/profile.html', {'profile': user}, context_instance = RequestContext(request))
 
 @login_required
 def edit(request):

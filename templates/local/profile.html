@@ -1,20 +1,20 @@
 {% extends "profile_base.html" %}
 {% load minecraft %}
-{%block title%}{{user}}{%endblock%}
+{%block title%}{{profile}}{%endblock%}
 
-{% block sectiontitle %}{{user}}{%endblock%}
+{% block sectiontitle %}{{profile}}{%endblock%}
 
 {%block content %}
 <div class="item">
-{% avatar user %}
+{% avatar profile %}
 <a href="{%url local.views.edit %}">Edit profile</a>
 <a href="{%url local.views.invites %}">Invites</a>
 <ul>
-<li>Member Since: {{user.date_joined|date:"SHORT_DATE_FORMAT"}}</li>
-<li>Last seen: {{user.last_login|date:"SHORT_DATE_FORMAT"}}</li>
-<li>Invited here by: {{user.claimed_invite.creator|default:"Nobody!"}}</li>
-<li>Average Playtime: {{user.minecraftprofile.averagePlaytime}}</li>
-<li>Total Playtime: {{user.minecraftprofile.totalPlaytime}}</li>
+<li>Member Since: {{profile.date_joined|date:"SHORT_DATE_FORMAT"}}</li>
+<li>Last seen: {{profile.last_login|date:"SHORT_DATE_FORMAT"}}</li>
+<li>Invited here by: {{profile.claimed_invite.creator|default:"Nobody!"}}</li>
+<li>Average Playtime: {{profile.minecraftprofile.averagePlaytime}}</li>
+<li>Total Playtime: {{profile.minecraftprofile.totalPlaytime}}</li>
 </ul>
 </div>
 {%endblock%}
