@@ -7,7 +7,7 @@
 {% block content %}
 <ul id='profile-list'>
 {% for user in profiles %}
-<li>{% avatar user %}<p>{{user}}</p></li>
+<li><a href="{% url local.views.profile username=user.username %}">{% avatar user %}<p>{{user}}</p></a></li>
 {% endfor %}
 </ul>
 {% endblock %}

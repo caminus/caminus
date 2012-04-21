@@ -21,7 +21,7 @@
         </ul></td>
         <td>{{ f.topicCount }}</td>
         {% if f.freshestTopic%}
-        <td class="author-info"><div class="avatar">{% avatar f.freshestTopic.lastPost.user 32 %}</div><ul><li>{{f.freshestTopic.lastPost.user}}</li><li>{{f.freshestTopic.updated|timesince}} ago</li><li>In <em><a href="{{f.freshestTopic.lastPost.get_absolute_url}}">{{f.freshestTopic}}</a></em></ul></td>
+        <td class="author-info"><a href="{{f.freshestTopic.lastPost.user.get_absolute_url}}"><div class="avatar">{% avatar f.freshestTopic.lastPost.user 32 %}</div></a><ul><li><a href="{{f.freshestTopic.lastPost.user.get_absolute_url}}">{{f.freshestTopic.lastPost.user}}</a></li><li>{{f.freshestTopic.updated|timesince}} ago</li><li>In <em><a href="{{f.freshestTopic.lastPost.get_absolute_url}}">{{f.freshestTopic}}</a></em></ul></td>
         {% else %}
         <td><em>No posts...</em></td>
         {% endif %}
