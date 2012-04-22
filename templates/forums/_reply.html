@@ -1,8 +1,8 @@
 {% load markup %}
-<div class="post">
-<a name="reply-{{post.id}}"></a>
+<div class="post" name="reply-{{post.id}}">
 {% include "_profile_tile.html" with user=post.user %}
 <div class="dateline">
+<br />
 Posted {{post.created}}
 {% if post.created != post.updated %}
 <br />
@@ -12,6 +12,7 @@ Edited {{post.updated}}
 <div class="forum-post-content">
 {{post.body|markdown:"safe"}}
 <br style="clear:both"/>
+<a href="{% url forums.views.post id=post.id%}">permalink</a>
 <a href="{%url forums.views.reply post.id%}">Reply &raquo;</a>
 </div>
 </div>
