@@ -17,7 +17,6 @@ from minecraft.forms import ProfileForm
 from minecraft.models import MinecraftProfile
 from django.conf import settings
 
-@login_required
 def profile(request, username=None, mc_username=None):
     if username is None and mc_username is None:
         user = request.user
@@ -83,7 +82,7 @@ def register(request):
             login(request, user)
             del request.session['profile-invite']
             return HttpResponseRedirect(reverse('welcome'))
-    return render_to_response('local/register.html', {'userForm': userForm, 'profileForm': profileForm, 'invite':invite}, context_instance = RequestContext(request))
+    return render_to_response('local/register.html', {'userForm': userForm, 'member_count': len(User.objects.all()), 'profileForm': profileForm, 'invite':invite}, context_instance = RequestContext(request))
 
 @login_required
 def deleteInvite(request, code=None):

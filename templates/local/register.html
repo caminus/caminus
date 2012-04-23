@@ -1,11 +1,44 @@
 {% extends "base_simple.html" %}
+{% block extrahead %}
+<script type="text/javascript">
+$(function() {
+  $("#register-button").click(function() {
+    $("#register-button").hide("blind");
+    $("#register-form").show("blind");
+    return false;
+  });
+});
+</script>
+{% endblock %}
 {%block title%}Register an Account{%endblock%}
 
 {% block sectiontitle %}Welcome!{%endblock%}
 
 {%block content %}
-<p>Congratulations on recieving a caminus invite! You were invited here by {{invite.creator}}.</p>
-<p>To accept this invite, please register an account:</p>
+<p>Congratulations on recieving a caminus invite!</p>
+<p>Founded in 2010 in an Akron, Ohio basement, caminus is a minecraft
+community that has since grown to {{member_count}} players and a world that is the size of a
+small earth city. While we aim to play as vanilla as possible, we have a number of unique features:</p>
+<ul>
+  <li>An active economy system</li>
+  <li>A large and friendly community</li>
+  <li>Attentive and helpful staff</li>
+  <li>IRC channel</li>
+  <li>Special events</li>
+  <li>Reliable server infrastructure</li>
+  <li>Forums</li>
+  <li>Read site mail in-game</li>
+  <li><a href="http://github.com/tdfischer/caminus">Open Source</a></li>
+  <li>SSH and SQL access</li>
+  <li>Regional chat</li>
+  <li>Expansive server-wide transportation network</li>
+  <li>Creative and survival on the same server</li>
+  <li>Mumble voice chat</li>
+</ul>
+<p>You were invited here by <a href="{{invite.creator.get_absolute_url}}">{{invite.creator}}</a>.
+To accept this invite, please register an account:</p>
+<input type="button" id="register-button" value="Sounds good!"/>
+<div id="register-form">
 <form method="POST" action="{%url local.views.register %}">
 {% csrf_token %}
 <fieldset>
@@ -14,5 +47,6 @@
 </fieldset>
 <input type="submit" value="Register!"/>
 </form>
+</div>
 {%endblock%}
 

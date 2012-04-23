@@ -462,3 +462,11 @@ fieldset {
 #donation-text a {
   color: #fff;
 }
+
+#register-form {
+  display: none;
+}
+
+#register-button {
+  font-size: xx-large;
+}
