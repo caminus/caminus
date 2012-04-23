@@ -11,6 +11,7 @@ from httplib import HTTPException
 import models
 import os
 
+@cache_control(public=True, private=False, no_cache=False, no_transform=False, must_revalidate=False, proxy_revalidate=False, max_age=86400)
 def avatar(request, username, size=64):
     avatar = cache.get('minecraft-avatar-%s-%s'%(username, size))
     size = int(size)
