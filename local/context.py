@@ -28,7 +28,7 @@ def donation_info(request):
     if donationTotal is None:
         progress = 0
         donationTotal = 0
-    if donationTotal> goal:
+    if donationTotal > goal or goal == 0:
         progress = 100
     else:
         progress = donationTotal/goal*100
