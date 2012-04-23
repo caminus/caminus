@@ -34,7 +34,6 @@ Home
 {%endblock%}
 
 {%block content %}
-<div class="item">
 <div class="topic">
 <div class="avatar">{% avatar topic.rootPost.user 32 %}</div>
 <h2>{{topic.title}}</h2>
@@ -42,5 +41,4 @@ Home
 </div>
 <br style="clear:both;"/>
 {% include "forums/_post.html" with post=topic.rootPost %}
-</div>
 {%endblock%}
