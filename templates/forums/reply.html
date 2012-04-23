@@ -1,4 +1,23 @@
 {% extends "forum_base.html" %}
+{% block extrahead %}
+<script type="text/javascript">
+$(function() {
+  var oldText = "";
+  function preview() {
+    if ($('#forum-preview').is(':hidden')) {
+      $('#forum-preview').show("blind");
+    }
+    var newText = $('#id_body').val();
+    if (newText != oldText)
+      $('#forum-preview').load("{% url forums.views.preview %}", {'body': newText});
+    oldText = newText;
+    setTimeout(preview, 500);
+  }
+  preview();
+});
+</script>
+{% endblock %}
+
 {%block content%}
 <div class="item">
 <h2>Replying to:</h2>
@@ -10,6 +29,8 @@
 {{form.as_p}}
 <input type="submit" value="Submit"/>
 </form>
+</div>
+<div class="item" id="forum-preview">
 </div>
 {%endblock%}
 
