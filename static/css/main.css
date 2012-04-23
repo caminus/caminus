@@ -298,6 +298,7 @@ tr.sticky a:link {
 fieldset {
     background-color:#111;
     border: 1px solid black;
+    padding: 1em;
 }
 
 .avatar img {
@@ -314,6 +315,10 @@ fieldset {
 
 .news-item h2 {
   float: left;
+}
+
+.news-item {
+  overflow: hidden;
 }
 
 .forum {
