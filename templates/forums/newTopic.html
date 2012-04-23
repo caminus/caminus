@@ -1,10 +1,12 @@
 {% extends "forum_base.html" %}
 
 {% block breadcrumb %}
-<a href="{% url forums.views.index%}">Forums</a>
+Home
 {%for f in forum.get_ancestors %}
-&gt; <a href="{{f.get_relative_url}}">{{f}}</a>
+&gt; <a href="{{f.get_absolute_url}}">{{f}}</a>
 {%endfor%}
+&gt; <a href="{{forum.get_absolute_url}}">{{forum}}</a>
+&gt; New Topic
 {% endblock %}
 
 {% block content %}

@@ -1,2 +1,14 @@
-{% extends "base_simple.html" %}
+{% extends "base_full.html" %}
 {% block sectiontitle %}Forums{% endblock %}
+
+{% block main %}
+<div id="content">
+    <div class="grid_12">
+        <div class="item">
+            {% block content %}
+            {% endblock content %}
+            <br style="clear:both"/>
+        </div>
+    </div>
+</div>
+{% endblock %}

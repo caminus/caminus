@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "forum_base.html" %}
 {%block content%}
 <div class="item">
 <h2>Replying to:</h2>
@@ -11,4 +11,14 @@
 <input type="submit" value="Submit"/>
 </form>
 </div>
+{%endblock%}
+
+{%block breadcrumb %}
+Home
+{%for f in post.topic.forum.get_ancestors%}
+&gt; <a href="{{f.get_absolute_url}}">{{f}}</a>
+{%endfor%}
+&gt; <a href="{{post.topic.forum.get_absolute_url}}">{{post.topic.forum}}</a>
+&gt; <a href="{{post.topic.get_absolute_url}}">{{post.topic}}</a>
+&gt; Reply
 {%endblock%}
