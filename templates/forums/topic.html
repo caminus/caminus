@@ -34,11 +34,13 @@ Home
 {%endblock%}
 
 {%block content %}
-<div class="topic">
+<div class="topic item">
 <div class="avatar">{% avatar topic.rootPost.user 32 %}</div>
 <h2>{{topic.title}}</h2>
 <div class="byline">Started by <span itemprop="author">{{topic.rootPost.user}}</span> {{ topic.created|timesince }} ago.<br />Last updated {{topic.updated|timesince}} ago.</div>
 </div>
 <br style="clear:both;"/>
+<div class="item">
 {% include "forums/_post.html" with post=topic.rootPost %}
+</div>
 {%endblock%}

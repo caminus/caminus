@@ -10,7 +10,7 @@ Home
 {% endblock %}
 
 {% block content %}
-
+<div class="item">
 <h2>{{ forum.name }}</h2>
 <h3>Subforums</h3>
 {%include "forums/_forum_table.html" with forums=forum.children.all %}
@@ -37,4 +37,5 @@ Home
     </td>
 </tr>
 </table>
+</div>
 {% endblock %}

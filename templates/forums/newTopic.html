@@ -1,4 +1,22 @@
 {% extends "forum_base.html" %}
+{% block extrahead %}
+<script type="text/javascript">
+$(function() {
+  var oldText = "";
+  function preview() {
+    if ($('#forum-preview').is(':hidden')) {
+      $('#forum-preview').show("blind");
+    }
+    var newText = $('#id_reply-body').val();
+    if (newText != oldText)
+      $('#forum-preview').load("{% url forums.views.preview %}", {'body': $('#id_reply-body').val()});
+    oldText = $('#id_reply-body').val();
+    setTimeout(preview, 500);
+  }
+  preview();
+});
+</script>
+{% endblock %}
 
 {% block breadcrumb %}
 Home
@@ -10,10 +28,14 @@ Home
 {% endblock %}
 
 {% block content %}
+<div class="item">
 <form method="POST" action="{%url forums.views.newTopic forumID=forum.id %}">
 {% csrf_token %}
 {{topicForm.as_p}}
 {{replyForm.as_p}}
 <input type="submit" value="Submit"/>
 </form>
+</div>
+<div class="item" id="forum-preview">
+</div>
 {% endblock %}

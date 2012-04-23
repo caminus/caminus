@@ -11,4 +11,5 @@ urlpatterns = patterns('forums',
     url(r'^reply/(?P<topicID>.*)', 'views.reply'),
     url(r'^reply$', 'views.reply'),
     url(r'^post/(?P<id>.*)$', 'views.post'),
+    url(r'^preview$', 'views.preview'),
 )

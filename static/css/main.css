@@ -475,3 +475,7 @@ fieldset {
 #register-button {
   font-size: xx-large;
 }
+
+#forum-preview {
+  display: none;
+}

@@ -4,11 +4,9 @@
 {% block main %}
 <div id="content">
     <div class="grid_12">
-        <div class="item">
-            {% block content %}
-            {% endblock content %}
-            <br style="clear:both"/>
-        </div>
+        {% block content %}
+        {% endblock content %}
+        <br style="clear:both"/>
     </div>
 </div>
 {% endblock %}

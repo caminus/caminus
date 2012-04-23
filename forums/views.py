@@ -1,5 +1,6 @@
 import models
 import forms
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
 from django.shortcuts import render_to_response
@@ -99,3 +100,8 @@ def stickyTopic(request, topicID):
     else:
         messages.info(request, "Topic is no longer sticky")
     return HttpResponseRedirect(reverse('forums.views.topic', kwargs={'topicID': topic.id}))
+
+@csrf_exempt
+def preview(request):
+    reply = models.Post(body=request.POST['body'], user=request.user)
+    return render_to_response('forums/_reply.html', {'post': reply}, context_instance = RequestContext(request))
