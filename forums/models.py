@@ -69,7 +69,6 @@ class Topic(models.Model):
     class Meta:
         ordering = ['-sticky', '-updated']
         permissions = (
-            ('delete_topic', "Can delete topics"),
             ('move_topic', "Can move topics"),
             ('sticky_topic', "Can sticky topics"),
         )
