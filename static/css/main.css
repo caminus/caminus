@@ -479,3 +479,7 @@ fieldset {
 #forum-preview {
   display: none;
 }
+
+.profile .avatar {
+    float: right;
+}
