@@ -1,0 +1,41 @@
+.badge {
+    width: 32px;
+    height: 32px;
+    background: url("badges/background.png");
+}
+
+.badge-list {
+    text-align: center;
+    padding: 0;
+    margin-left: 0;
+    text-indent: 0;
+    list-style-type: none;
+}
+
+.no-badge-message {
+    color: #444;
+    margin: 0 !important;
+    background: transparent !important;
+    text-align: center;
+    display:block;
+    width: 100%;
+}
+
+.badge-holder {
+    width: 32px;
+    height: 32px;
+    display:inline;
+    margin: 0px !important;
+}
+
+.badge-description {
+    display:none;
+}
+
+.badge:hover .badge-description {
+    display:block;
+    background-color:#000;
+    border:1px solid #f80;
+    position: absolute;
+    padding: 3px;
+}

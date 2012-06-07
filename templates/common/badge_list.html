@@ -1,0 +1,12 @@
+<ul class="badge-list">
+{% if badges %}
+{% for badge in badges %}
+<li class="badge-holder"><div class="badge badge-{{badge.slug}}"><div class="badge-description">{{badge.name}}</div></div></li>
+{% endfor %}
+{% else %}
+<li class="no-badge-message">
+no badges
+</li>
+{% endif %}
+</ul>
+<br style="clear:both"/>

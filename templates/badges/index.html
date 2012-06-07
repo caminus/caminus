@@ -1,0 +1,11 @@
+{% extends "base_simple.html" %}
+
+{% block title %}Badges{% endblock %}
+
+{% block content %}
+<ul>
+{% for badge in badges %}
+<li class="badge-holder"><div class="badge badge-{{badge.slug}}"><div class="badge-description">{{badge.name}}</div></div></li>
+{% endfor %}
+</ul>
+{% endblock %}

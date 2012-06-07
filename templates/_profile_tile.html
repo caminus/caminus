@@ -5,5 +5,9 @@
 <div class="avatar">{%avatar user%}</div>
 {{user}}
 </a>
+<br style="clear:both"/>
+<div class="badges">
+{%include "common/badge_list.html" with badges=user.badges.all %}
+</div>
 </div>
 </div>

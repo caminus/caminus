@@ -23,6 +23,7 @@ urlpatterns = patterns('',
     url(r'^i/(?P<code>.+)', 'local.views.claimInvite'),
     url(r'^donate/', include('donate.urls')),
     url(r'^f/(?P<id>.*)', 'forums.views.post'),
+    url(r'^badges/', include('badges.urls')),
 )
 
 urlpatterns += staticfiles_urlpatterns()
