@@ -1,0 +1,10 @@
+<div class="stat-box" id="forum-stats">
+    <h2 class="title">Forums</h2>
+    <h3>Latest Posts</h3>
+    <ul>
+    {% for post in latestForumPosts %}
+        <li><a href="{{post.user.get_absolute_url}}">{{post.user}}</a> in <a href="{{post.get_absolute_url}}">{{post.topic}}</a></li>
+    {% endfor %}
+    </ul>
+</div>
+

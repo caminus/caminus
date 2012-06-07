@@ -12,6 +12,10 @@
         {% endblock %}
     </div>
 </div>
-{% include '_sidebar.html' %}
+<div class="grid_4">
+{% block sidebar_extra %}
+{% endblock %}
+{% include 'common/default_sidebars.html' %}
+</div>
 {% endblock main %}
 

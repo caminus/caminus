@@ -1,34 +1,3 @@
 {% load minecraft %}
 <div class="grid_4">
-    <div id="statbox" class="stat-box">
-        <h2 class="title">World Status</h2>
-        <div class="time">
-          Current time: <span id="time-display"></span>
-        </div>
-        {% for server in minecraft_servers %}
-            <h3>{{server.hostname}}:{{server.port}}</h3>
-            <a href="http://{{server.hostname}}/map/">Live Map</a>
-            <a href="{% url minecraft.views.rules server=server.hostname port=server.port %}">Server Rules</a>
-            <ul>
-            {% if server.online_players %}
-              {% for player in server.online_players%}
-                  <li><a href="{{player.user.get_absolute_url}}"><span class="avatar">{% avatar player.user 16 %}</span>{{player}}</a></li>
-              {% endfor %}
-            {% else %}
-                <li><em>Nobody...</em></li>
-            {% endif %}
-        {% endfor %}
-        </ul>
-        {% block sidebar %}
-        {% endblock %}
-    </div>
-    <div class="stat-box" id="forum-stats">
-        <h2 class="title">Forums</h2>
-        <h3>Latest Posts</h3>
-        <ul>
-        {% for post in latestForumPosts %}
-            <li><a href="{{post.user.get_absolute_url}}">{{post.user}}</a> in <a href="{{post.get_absolute_url}}">{{post.topic}}</a></li>
-        {% endfor %}
-        </ul>
-    </div>
 </div>

@@ -88,6 +88,7 @@ s.parentNode.insertBefore(po, s);
               <li><a href="{% url user_profile %}">Your Profile</a></li>
               <li><a href="{% url local.views.invites %}">Invites</a></li>
               <li><a href="{% url messages.views.inbox %}">Mail: {{ messages_inbox_count }}</a></li>
+              <li><a href="{% url petition.views.index %}">Petitions: {{open_petitions|length}}</a></li>
           </ul>
           {% else %}
           <h2 class="title">Login</h2>

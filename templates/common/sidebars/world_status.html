@@ -1,0 +1,22 @@
+{% load minecraft %}
+<div id="statbox" class="stat-box">
+    <h2 class="title">World Status</h2>
+    <div class="time">
+      Current time: <span id="time-display"></span>
+    </div>
+    {% for server in minecraft_servers %}
+        <h3>{{server.hostname}}:{{server.port}}</h3>
+        <a href="http://{{server.hostname}}/map/">Live Map</a>
+        <a href="{% url minecraft.views.rules server=server.hostname port=server.port %}">Server Rules</a>
+        <ul>
+        {% if server.online_players %}
+          {% for player in server.online_players%}
+              <li><a href="{{player.user.get_absolute_url}}"><span class="avatar">{% avatar player.user 16 %}</span>{{player}}</a></li>
+          {% endfor %}
+        {% else %}
+            <li><em>Nobody...</em></li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+</div>
+
