@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load markup %}
+
+{% block title%}Petitions{%endblock%}
+
+{% block content %}
+<div class="item">
+<h2>Open Petitions</h2>
+<a href="{% url petition.views.create %}">Create Petition</a>
+<ul class="petition-list">
+{% for petition in openPetitions %}
+<li><div class="petition-title"><a href="{{petition.get_absolute_url}}">{{petition.id}} - {{petition.body|truncatewords:8}}</a></div>
+<div class="petition-summary">Filed by {{petition.author}}</div></li>
+{% endfor %}
+</ul>
+<h2>Closed Petitions</h2>
+<ul class="petition-list">
+{% for petition in closedPetitions %}
+<li><div class="petition-title"><a href="{{petition.get_absolute_url}}">{{petition.id}} - {{petition.body|truncatewords:8}}</a></div>
+<div class="petition-summary">Filed by {{petition.author}}</div></li>
+{% endfor %}
+</ul>
+</div>
+{% endblock %}

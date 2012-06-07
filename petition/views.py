@@ -21,6 +21,16 @@ def create(request):
     return render_to_response('petition/create.html', {'form':form}, context_instance = RequestContext(request))
 
 @login_required
+def index(request):
+    if request.user.is_staff or request.user.is_admin:
+        openPetitions = models.Petition.objects.filter(closed=False)
+        closedPetitions = models.Petition.objects.filter(closed=True)
+    else:
+        openPetitions = models.Petition.objects.filter(closed=False, author=request.user)
+        closedPetitions = models.Petition.objects.filter(closed=True, author=request.user)
+    return render_to_response('petition/index.html', {'openPetitions': openPetitions, 'closedPetitions': closedPetitions}, context_instance = RequestContext(request))
+
+@login_required
 def view(request, id):
     petition = models.Petition.objects.get(id__exact=id)
     commentForm = forms.CommentForm()

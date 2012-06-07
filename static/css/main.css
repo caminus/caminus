@@ -495,3 +495,10 @@ fieldset {
 .profile .avatar {
     float: right;
 }
+
+.petition-list {
+}
+
+.petition-list .petition-title {
+    font-size: xx-large;
+}

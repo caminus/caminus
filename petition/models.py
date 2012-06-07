@@ -7,6 +7,10 @@ class Petition(models.Model):
     updated = models.DateTimeField(editable=False, auto_now=True)
     body = models.TextField()
     closed = models.BooleanField(default=False)
+    
+    @models.permalink
+    def get_absolute_url(self):
+        return ('petition.views.view', [], {'id': self.id})
 
     def __unicode__(self):
         return self.body

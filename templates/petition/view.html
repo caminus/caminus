@@ -4,9 +4,12 @@
 {% block title %}Petition #{{petition.id}}{% endblock %}
 
 {% block content %}
+<div class="item">
 <p>Created by {{petition.author}}</p>
 {{petition.body|markdown:"safe"}}
+</div>
 
+<div class="item">
 {% for comment in petition.comment_set.all %}
 <p>By {{comment.author}}</p>
 {{comment.body|markdown:"safe"}}
@@ -17,4 +20,5 @@
 {{form.as_p}}
 <input type="submit" value="Submit"/>
 </form>
+</div>
 {% endblock %}
