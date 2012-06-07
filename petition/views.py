@@ -22,7 +22,7 @@ def create(request):
 
 @login_required
 def index(request):
-    if request.user.is_staff or request.user.is_admin:
+    if request.user.is_staff or request.user.is_superuser:
         openPetitions = models.Petition.objects.filter(closed=False)
         closedPetitions = models.Petition.objects.filter(closed=True)
     else:
