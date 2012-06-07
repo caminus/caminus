@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+import api
+from notification import models as notification
 
 def unique_slug(item,slug_source,slug_field):
   """Ensures a unique slug field by appending an integer counter to duplicate slugs.
@@ -32,7 +34,7 @@ class Badge(models.Model):
     name = models.TextField()
     description = models.TextField()
     slug = models.SlugField(blank=True)
-    users = models.ManyToManyField(User, related_name='badges')
+    users = models.ManyToManyField(User, related_name='badges', through='Award', blank=True)
     secret = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
@@ -41,3 +43,17 @@ class Badge(models.Model):
 
     def __unicode__(self):
         return self.name
+
+class Award(models.Model):
+    badge = models.ForeignKey(Badge)
+    user = models.ForeignKey(User, related_name='awards')
+    reason = models.TextField(blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        super(Award, self).save(*args, **kwargs)
+        api.badge_awarded.send_robust(sender=self, user=self.user, badge=self.badge)
+        notification.send([self.user], "badge_awarded", {"award": self})
+
+    def __unicode__(self):
+        return "%s for %s"%(self.badge.__unicode__(), self.user.__unicode__())
