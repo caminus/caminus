@@ -1,6 +1,13 @@
 {% extends "base_with_nav.html" %}
 {% load minecraft %}
 
+{% block sidebar_extra %}
+<div class="stat-box">
+<h2>Badges</h2>
+{% include "common/badge_list.html" with badges=profile.badges.all %}
+</div>
+{% endblock %}
+
 {% block localnav %}
 {% if user == profile %}
 <ul>
