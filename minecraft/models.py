@@ -80,7 +80,7 @@ class PlayerSession(models.Model):
 
 def create_profile(sender, instance, created, **kwargs):
     if created:
-        MinecraftProfile.objects.create(user=instance, mc_username=instance.username)
+        MinecraftProfile.objects.get_or_create(user=instance, mc_username=instance.username)
 
 post_save.connect(create_profile, sender=User)
 
@@ -93,7 +93,7 @@ class MinecraftGroup(models.Model):
 
 def create_group(sender, instance, created, **kwargs):
     if created:
-        MinecraftGroup.objects.create(authGroup = instance)
+        MinecraftGroup.objects.get_or_create(authGroup = instance)
 
 post_save.connect(create_group, sender=Group)
 

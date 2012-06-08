@@ -5,7 +5,7 @@ import api
 
 class APITest(unittest.TestCase):
     def setUp(self):
-        self.user = User.objects.create_user('user', 'user@example.com')
+        self.user = User.objects.create_user('badgeUser', 'user@example.com')
         self.badge = Badge.objects.create(name="test", description="description", slug="test")
         self.awarded = False
 

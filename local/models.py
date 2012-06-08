@@ -51,7 +51,7 @@ class Invite(models.Model):
 
 def create_account(sender, instance, created, **kwargs):
     if created:
-        CurrencyAccount.objects.create(profile=instance)
+        CurrencyAccount.objects.get_or_create(profile=instance)
 
 post_save.connect(create_account, sender=MinecraftProfile)
 
