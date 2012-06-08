@@ -1,0 +1,11 @@
+{% extends "base_simple.html" %}
+
+{% block sectiontitle %}Notifications{%endblock%}
+
+{% block content %}
+<ul>
+{% for notice in notices %}
+<li class="notice-unseen-{{notice.unseen}}">{{notice}}</li>
+{% endfor %}
+</ul>
+{% endblock %}
