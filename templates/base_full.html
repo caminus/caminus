@@ -1,4 +1,5 @@
 {%load static %}
+{% load url from future %}
 {% load cache %}
 {% load flatpages %}
 {% load minecraft %}
@@ -18,7 +19,7 @@
 <script type="text/javascript">
 var uris = {};
 {% for uri in js_uris %}
-uris["{{uri.name}}"] = "{{uri.uri}}"; {% endfor %}
+uris["{{uri}}"] = "{% url uri %}"; {% endfor %}
 </script>
 <!-- Google+ -->
 <script type="text/javascript">
@@ -80,7 +81,7 @@ s.parentNode.insertBefore(po, s);
           <h2 class="title">{{user.username}}</h2>
           <div class="userbox">
           <div class="avatar">
-          <a href="{%url user_profile %}">{% avatar user.minecraftprofile.mc_username %}</a>
+          <a href="{%url 'user_profile' %}">{% avatar user.minecraftprofile.mc_username %}</a>
           </div>
           <div class="balance">
           <span id="balance-display">{{ user.minecraftprofile.currencyaccount.balance|floatformat:2 }}</span> grist
@@ -88,19 +89,19 @@ s.parentNode.insertBefore(po, s);
           </div>
           <ul>
               {% if user.is_staff or user.is_superuser %}
-              <li class="staff-link"><a href="{% url admin:index %}">Admin</a></li>
+              <li class="staff-link"><a href="{% url 'admin:index' %}">Admin</a></li>
               {% endif %}
-              <li class="staff-link"><a href="{% url django.contrib.auth.views.logout %}">Logout</a></li>
-              <li><a href="{% url user_profile %}">Your Profile</a></li>
-              <li><a href="{% url local.views.invites %}">Invites</a></li>
-              <li><a href="{% url messages.views.inbox %}">Mail: {{ messages_inbox_count }}</a></li>
-              <li><a href="{% url petition.views.index %}">Petitions: {{open_petitions|length}}</a></li>
+              <li class="staff-link"><a href="{% url 'django.contrib.auth.views.logout' %}">Logout</a></li>
+              <li><a href="{% url 'user_profile' %}">Your Profile</a></li>
+              <li><a href="{% url 'local.views.invites' %}">Invites</a></li>
+              <li><a href="{% url 'messages.views.inbox' %}">Mail: {{ messages_inbox_count }}</a></li>
+              <li><a href="{% url 'petition.views.index' %}">Petitions: {{open_petitions|length}}</a></li>
           </ul>
           {% else %}
           <h2 class="title">Login</h2>
-          <p>Welcome! Do you have an invite? <a href="{% url local.views.claimInvite %}">Claim it!</a><p>
-          <p><a href="{% url django.contrib.auth.views.password_reset %}">Forgot your password?</a>
-          <form method="POST" action="{%url django.contrib.auth.views.login %}">
+          <p>Welcome! Do you have an invite? <a href="{% url 'local.views.claimInvite' %}">Claim it!</a><p>
+          <p><a href="{% url 'django.contrib.auth.views.password_reset' %}">Forgot your password?</a>
+          <form method="POST" action="{%url 'django.contrib.auth.views.login' %}">
           {%csrf_token%}
           {{login_form.as_p}}
           <input type="submit" value="Login"/>
@@ -117,9 +118,9 @@ s.parentNode.insertBefore(po, s);
               </div>
               <ul>
                   <li><a href="/">Home</a></li>
-                  <li><a href="{%url local.views.list %}">User List</a></li>
-                  <li><a href="{% url petition.views.create %}">Create Petition</a></li>
-                  <li><a href="{% url donate.views.index %}">Donate!</a></li>
+                  <li><a href="{%url 'local.views.list' %}">User List</a></li>
+                  <li><a href="{% url 'petition.views.create' %}">Create Petition</a></li>
+                  <li><a href="{% url 'donate.views.index' %}">Donate!</a></li>
                   {% get_flatpages '/' as pages %}
                   {% for page in pages %}
                   <li><a href="{{ page.url }}">{{ page.title }}</a></li>
@@ -149,13 +150,13 @@ s.parentNode.insertBefore(po, s);
             {% for notice in notices %}
               <li class="notice-unseen-{{notice.unseen}} notice-{{notice.notice_type}}">{{notice.added}} - {{notice.message|safe}}</li>
             {% endfor %}
-            <li class="notification-ack"><form id="notification-ack-form" action="{% url local.views.mark_notifications_read %}" method="GET"><input type="submit" value="Ok"/></form></li>
+            <li class="notification-ack"><form id="notification-ack-form" action="{% url 'local.views.mark_notifications_read' %}" method="GET"><input type="submit" value="Ok"/></form></li>
           </ul>
           <br style="clear:both;"/>
         </div>
         {% endif %}
         <div id="donation-slider">
-          <div id="donation-text"><a href="{% url donate.views.index %}">Donations this month: ${{donation_month_total}} of ${{donation_month_goal}}</a></div>
+          <div id="donation-text"><a href="{% url 'donate.views.index' %}">Donations this month: ${{donation_month_total}} of ${{donation_month_goal}}</a></div>
           <div id="donation-progress" style="width: {{donation_goal_progress}}%"></div>
         </div>
     </div>

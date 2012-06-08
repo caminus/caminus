@@ -42,10 +42,7 @@ def notifications(request):
     return {}
 
 def javascript_uris(request):
-    uris = (
+    
+    return {'js_uris': (
       'local.views.mark_notifications_read',
-    )
-    ret = []
-    for u in uris:
-        ret.append({'name':u, 'uri':reverse(u)})
-    return {'js_uris': ret}
+    )}
