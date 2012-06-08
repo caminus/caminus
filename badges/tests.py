@@ -18,6 +18,11 @@ class APITest(unittest.TestCase):
         badge = api.create_badge("test_badge", "Test Badge", "Test Description")
         self.assertEqual(badge, api.find_badge("test_badge"))
 
+    def testUserHasBadge(self):
+        badge = api.create_badge("test_badge", "Test Badge", "test desc")
+        api.award(self.user, "test_badge")
+        self.assertTrue(api.user_has_badge(self.user, "test_badge"))
+
     def testAward(self):
         api.award(self.user, "test", "reason")
         award = Award.objects.get(badge=self.badge, user=self.user)
