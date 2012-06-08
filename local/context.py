@@ -39,6 +39,7 @@ def donation_info(request):
 def notifications(request):
     if request.user.is_authenticated():
         return {'notices': Notice.objects.filter(unseen=True, user=request.user, on_site=True)}
+    return {}
 
 def javascript_uris(request):
     uris = (
