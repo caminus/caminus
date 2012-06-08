@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 import api
 from notification import models as notification
 
+from django.dispatch import dispatcher
+
 def unique_slug(item,slug_source,slug_field):
   """Ensures a unique slug field by appending an integer counter to duplicate slugs.
   
@@ -52,7 +54,7 @@ class Award(models.Model):
 
     def save(self, *args, **kwargs):
         super(Award, self).save(*args, **kwargs)
-        api.badge_awarded.send_robust(sender=self, user=self.user, badge=self.badge)
+        api.badge_awarded.send_robust(sender=self.badge, award=self)
         notification.send([self.user], "badge_awarded", {"award": self})
 
     def __unicode__(self):
