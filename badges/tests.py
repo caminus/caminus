@@ -15,7 +15,7 @@ class APITest(unittest.TestCase):
         api.badge_awarded.disconnect()
 
     def testCreateBadge(self):
-        badge = api.create_badge("Test Badge", "Test Description", "test_badge")
+        badge = api.create_badge("test_badge", "Test Badge", "Test Description")
         self.assertEqual(badge, api.find_badge("test_badge"))
 
     def testAward(self):
@@ -34,7 +34,7 @@ class APITest(unittest.TestCase):
         self.assertTrue(self.awarded)
 
     def testSingleSignal(self):
-        api.create_badge("Test Badge", "Test Desc", "test_badge")
+        api.create_badge("test_badge", "Test Badge", "Test Desc")
         api.badge_awarded.connect(self._gotAward, sender=api.find_badge("test_badge"))
         api.award(self.user, "test_badge", "reason")
         self.assertTrue(self.awarded)
