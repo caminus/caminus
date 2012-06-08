@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 import shortuuid
 from minecraft.models import MinecraftProfile
 from django.db.models.signals import post_save
+import badges.api
+from local import update_badges
 
 class CurrencyAccount(models.Model):
     profile = models.OneToOneField(MinecraftProfile)
@@ -50,3 +52,9 @@ def create_account(sender, instance, created, **kwargs):
         CurrencyAccount.objects.create(profile=instance)
 
 post_save.connect(create_account, sender=MinecraftProfile)
+
+def update_invite_badges(sender, instance, created, **kwargs):
+    user = instance.creator
+    update_badges(user)
+
+post_save.connect(update_invite_badges, sender=Invite)

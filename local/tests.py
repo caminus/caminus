@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.test.client import Client
 from django.core.urlresolvers import reverse
 from django.core import mail
+import badges.api
 import models
 
 class InviteUseTest(TestCase):
@@ -75,3 +76,30 @@ class AccountCreationTest(TestCase):
         user = User.objects.create_user('ValidUser', 'test@example.com')
         self.assertIsNotNone(user.minecraftprofile.currencyaccount)
         user.delete()
+
+class InviteBadgeTest(TestCase):
+    def setUp(self):
+        self.inviter = User.objects.create_user('Inviter', 'test@example.com')
+        self.users = []
+
+    def tearDown(self):
+        self.inviter.delete()
+        for u in self.users:
+            u.delete()
+
+    def testThree(self):
+        self.assertFalse(badges.api.user_has_badge(self.inviter, "three_invites"))
+        for i in range(0, 3):
+            u = User.objects.create_user(i, 'test@example.com')
+            self.users.append(u)
+            models.Invite.objects.create(creator=self.inviter, claimer=u)
+        self.assertTrue(badges.api.user_has_badge(self.inviter, "three_invites"))
+
+    def testMultipleThree(self):
+        self.assertFalse(badges.api.user_has_badge(self.inviter, "three_invites"))
+        for i in range(0, 3):
+            u = User.objects.create_user(i, 'test@example.com')
+            self.users.append(u)
+            models.Invite.objects.create(creator=self.inviter, claimer=u)
+        self.assertTrue(badges.api.user_has_badge(self.inviter, "three_invites"))
+        self.assertEqual(1, len(self.inviter.awards.filter(badge__pk=badges.api.find_badge("three_invites").pk)))
