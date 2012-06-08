@@ -3,7 +3,9 @@ from django.contrib.auth.models import User
 import shortuuid
 from minecraft.models import MinecraftProfile
 from django.db.models.signals import post_save
+from badges.models import Badge
 import badges.api
+from django.db.models import F
 from local import update_badges
 
 class CurrencyAccount(models.Model):
@@ -58,3 +60,21 @@ def update_invite_badges(sender, instance, created, **kwargs):
     update_badges(user)
 
 post_save.connect(update_invite_badges, sender=Invite)
+
+class AwardBonus(models.Model):
+    badge = models.OneToOneField(Badge, related_name='minecraft_bonus')
+    value = models.IntegerField()
+    
+    def __unicode__(self):
+        return badge.__unicode__()
+
+def award_grist(sender, award, *args, **kwargs):
+    try:
+        bonus = award.badge.minecraft_bonus
+        account = award.user.minecraftprofile.currencyaccount
+        account.balance = F('balance')+bonus.value
+        account.save()
+    except AwardBonus.DoesNotExist:
+        pass
+
+badges.api.badge_awarded.connect(award_grist)

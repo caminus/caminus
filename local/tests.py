@@ -77,6 +77,24 @@ class AccountCreationTest(TestCase):
         self.assertIsNotNone(user.minecraftprofile.currencyaccount)
         user.delete()
 
+class RewardTest(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user('User', 'test@example.com')
+        self.badge = badges.api.create_badge("api_test", "API Test", "test")
+        self.reward = models.AwardBonus.objects.create(badge=self.badge, value=1000)
+
+    def tearDown(self):
+        self.user.delete()
+        self.badge.delete()
+        self.reward.delete()
+
+    def testReward(self):
+        account = self.user.minecraftprofile.currencyaccount
+        preValue = account.balance
+        badges.api.award(self.user, "api_test")
+        account = models.CurrencyAccount.objects.get(pk=account.pk)
+        self.assertEqual(account.balance-preValue, self.reward.value)
+
 class InviteBadgeTest(TestCase):
     def setUp(self):
         self.inviter = User.objects.create_user('Inviter', 'test@example.com')
