@@ -37,6 +37,6 @@ Finally, create a superuser account:
 * PIL
 * django-mptt
 * django-messaging
-* django-notifications
-* Django
+* django-notification = 0.2
+* Django = 1.3.1
 * south
