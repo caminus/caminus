@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 import api
 from notification import models as notification
+from django.core.urlresolvers import reverse
 
 from django.dispatch import dispatcher
 
@@ -55,7 +56,7 @@ class Award(models.Model):
     def save(self, *args, **kwargs):
         super(Award, self).save(*args, **kwargs)
         api.badge_awarded.send_robust(sender=intern(str(self.badge.slug)), award=self)
-        notification.send([self.user], "badge_awarded", {"award": self})
+        notification.send([self.user], "badge_awarded", {"award": self, 'notice_description': self.badge, 'notice_url': reverse('user_profile')})
 
     def __unicode__(self):
         return "%s for %s"%(self.badge.__unicode__(), self.user.__unicode__())

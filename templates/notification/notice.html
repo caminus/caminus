@@ -1,0 +1,1 @@
+{% load i18n %}{% if notice_url %}<a href="{{notice_url}}">{%endif%}{% blocktrans %}{{ notice }}{%endblocktrans%}{% if notice_description %}: {{ notice_description }}{% endif %}{%if notice_url %}</a>{%endif %}
