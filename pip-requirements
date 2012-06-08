@@ -1,7 +1,8 @@
 Django==1.3.1
 django_notification==0.2
-shortuuid
+shortuuid==0.2
 PIL
-django-mptt
-django_messages
-south
+django-mptt==0.5.2
+django_messages==0.4.4
+south==0.7.3
+django-piston==0.2.2
