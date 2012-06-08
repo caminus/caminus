@@ -13,4 +13,3 @@ class InviteAdmin(admin.ModelAdmin):
 admin.site.register(models.CurrencyAccount, CurrencyAdmin)
 admin.site.register(models.Quote)
 admin.site.register(models.Invite, InviteAdmin)
-admin.site.register(models.AwardBonus)
