@@ -15,6 +15,11 @@
 <link rel="stylesheet" type="text/css" href="{{ STATIC_PREFIX }}/css/badges.css?{{app_version}}"/>
 <link rel="icon" type="image/png" href="{{ STATIC_PREFIX }}/images/logo.png"/>
 {% block extracss %}{% endblock extracss %}
+<script type="text/javascript">
+var uris = {};
+{% for uri in js_uris %}
+uris["{{uri.name}}"] = "{{uri.uri}}"; {% endfor %}
+</script>
 <!-- Google+ -->
 <script type="text/javascript">
 window.___gcfg = {lang: 'en'};

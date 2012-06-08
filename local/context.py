@@ -5,6 +5,7 @@ from django.db.models import Sum
 from donate.models import Donation
 from datetime import datetime
 from django.conf import settings
+from django.core.urlresolvers import reverse
 
 def random_quote(request):
     quote = models.Quote.objects.order_by('?')
@@ -33,3 +34,12 @@ def donation_info(request):
     else:
         progress = donationTotal/goal*100
     return {'donation_month_total': donationTotal, 'donation_month_goal': goal, 'donation_goal_progress': progress}
+
+def javascript_uris(request):
+    uris = (
+      'local.views.mark_notifications_read',
+    )
+    ret = []
+    for u in uris:
+        ret.append({'name':u, 'uri':reverse(u)})
+    return {'js_uris': ret}
