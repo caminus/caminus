@@ -33,10 +33,6 @@ Finally, create a superuser account:
 
 # Dependencies
 
-* shortuuid
-* PIL
-* django-mptt
-* django-messaging
-* django-notification = 0.2
-* Django = 1.3.1
-* south
+Check out the pip-requirements file. You can install them with:
+
+    # pip install -r pip-requirements
