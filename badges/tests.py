@@ -40,6 +40,6 @@ class APITest(unittest.TestCase):
 
     def testSingleSignal(self):
         api.create_badge("test_badge", "Test Badge", "Test Desc")
-        api.badge_awarded.connect(self._gotAward, sender=api.find_badge("test_badge"))
+        api.badge_awarded.connect(self._gotAward, sender="test_badge")
         api.award(self.user, "test_badge", "reason")
         self.assertTrue(self.awarded)

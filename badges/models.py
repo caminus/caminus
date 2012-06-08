@@ -54,7 +54,7 @@ class Award(models.Model):
 
     def save(self, *args, **kwargs):
         super(Award, self).save(*args, **kwargs)
-        api.badge_awarded.send_robust(sender=self.badge, award=self)
+        api.badge_awarded.send_robust(sender=intern(str(self.badge.slug)), award=self)
         notification.send([self.user], "badge_awarded", {"award": self})
 
     def __unicode__(self):
