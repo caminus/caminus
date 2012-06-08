@@ -4,6 +4,7 @@ from django.views.generic.simple import direct_to_template
 
 urlpatterns = patterns('local',
     url(r'^me$', 'views.profile', name='user_profile'),
+    url(r'^me/notifications/mark_read$', 'views.mark_notifications_read'),
     url(r'^user/(?P<username>.+)$', 'views.profile'),
     url(r'^player/(?P<mc_username>.+)$', 'views.profile'),
     url(r'^list$', 'views.list'),

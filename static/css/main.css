@@ -502,3 +502,30 @@ fieldset {
 .petition-list .petition-title {
     font-size: xx-large;
 }
+
+#notifications-block {
+    border: 1px solid #f80;
+    background-color: #fa4;
+    margin: 1em;
+    color: #000;
+    font-size: large;
+    padding: 3px;
+}
+
+#notifications-block li {
+    padding: 5px;
+    list-style: none;
+    padding-left: 40px;
+}
+
+#notifications-block li.notification-ack {
+    border: none;
+}
+
+#notifications-block input {
+    float:right;
+}
+
+#notifications-block li.notice-badge_awarded {
+    background: url("badges/background.png") left center no-repeat;
+}

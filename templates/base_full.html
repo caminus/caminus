@@ -33,6 +33,7 @@ s.parentNode.insertBefore(po, s);
 <script type="text/javascript" language="javascript" src="{{STATIC_PREFIX}}/js/jquery.js"></script>
 <script type="text/javascript" language="javascript" src="{{STATIC_PREFIX}}/js/jquery-ui.js"></script>
 <script type="text/javascript" language="javascript" src="{{STATIC_PREFIX}}/js/poll.js"></script>
+<script type="text/javascript" language="javascript" src="{{STATIC_PREFIX}}/js/notifications.js"></script>
 {% block extrahead %}{% endblock %}
 <script type="text/javascript">
 
@@ -142,6 +143,17 @@ s.parentNode.insertBefore(po, s);
     </div>
     {% endif %}
     <div class="grid_12">
+        {% if notices %}
+        <div id="notifications-block">
+          <ul>
+            {% for notice in notices %}
+              <li class="notice-unseen-{{notice.unseen}} notice-{{notice.notice_type}}">{{notice.added}} - {{notice.message|safe}}</li>
+            {% endfor %}
+            <li class="notification-ack"><form id="notification-ack-form" action="{% url local.views.mark_notifications_read %}" method="GET"><input type="submit" value="Ok"/></form></li>
+          </ul>
+          <br style="clear:both;"/>
+        </div>
+        {% endif %}
         <div id="donation-slider">
           <div id="donation-text"><a href="{% url donate.views.index %}">Donations this month: ${{donation_month_total}} of ${{donation_month_goal}}</a></div>
           <div id="donation-progress" style="width: {{donation_goal_progress}}%"></div>

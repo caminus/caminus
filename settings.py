@@ -175,6 +175,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "local.context.login_form",
     "local.context.forum_activity",
     "local.context.donation_info",
+    "local.context.notifications",
     "local.context.javascript_uris",
     "minecraft.context.server_info",
     "appversion.context.git_version",

@@ -130,3 +130,10 @@ def index(request):
         latestNews = None
     forums = Forum.objects.filter(parent=None)
     return render_to_response('local/index.html', {'news': latestNews, 'forums': forums}, context_instance = RequestContext(request))
+
+@login_required
+def mark_notifications_read(request):
+    for notice in notification.Notice.objects.notices_for(request.user, unseen=True):
+        notice.unseen = False
+        notice.save()
+    return HttpResponseRedirect(reverse('user_profile'))
