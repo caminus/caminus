@@ -1,24 +1,60 @@
-{% extends 'base.html' %}
+{% extends 'base_with_nav.html' %}
 {% load markup %}
 
 {% block title %}Petition #{{petition.id}}{% endblock %}
+{% block sectiontitle %}Petition #{{petition.id}}{% endblock %}
+
+{% block localnav %}
+<ul>
+{% if not petition.closed %}
+<li><a href="{% url petition.views.close id=petition.id %}">Close Petition</a></li>
+{% endif %}
+</ul>
+{% endblock %}
 
 {% block content %}
+{% if petition.closed %}
+<div class="topic-message item">
+This petition is closed to new replies.
+</div>
+{% endif %}
 <div class="item">
-<p>Created by {{petition.author}}</p>
+<div class="forum-post">
+<div class="post">
+{% include "_profile_tile.html" with user=petition.author %}
+<div class="dateline">
+<br />
+Created {{petition.created}}
+</div>
+<div class="forum-post-content">
 {{petition.body|markdown:"safe"}}
+<br style="clear:both"/>
+</div>
+</div>
 </div>
 
-<div class="item">
 {% for comment in petition.comment_set.all %}
-<p>By {{comment.author}}</p>
+<div class="forum-post">
+<div class="post">
+{% include "_profile_tile.html" with user=comment.author %}
+<div class="dateline">
+<br />
+Created {{petition.created}}
+</div>
+<div class="forum-post-content">
 {{comment.body|markdown:"safe"}}
+<br style="clear:both"/>
+</div>
+</div>
+</div>
 {% endfor %}
 
+{% if not petition.closed %}
 <form method="POST" action="{% url petition.views.comment id=petition.id %}">
 {% csrf_token %}
 {{form.as_p}}
 <input type="submit" value="Submit"/>
 </form>
+{% endif %}
 </div>
 {% endblock %}
