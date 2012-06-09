@@ -1,3 +1,5 @@
 {{reply.user}} replied to your post in {{reply.topic}}:
 
 {{reply.body}}
+
+{{reply.get_absolute_url}}

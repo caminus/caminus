@@ -5,6 +5,9 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User 
+from notification import models as notification
+from django.contrib import messages
 
 @login_required
 def create(request):
@@ -17,6 +20,9 @@ def create(request):
         petition.author = request.user
         petition.body = form.cleaned_data['body']
         petition.save()
+        adminUsers = User.objects.filter(is_staff=True)
+        notification.send(adminUsers, "petition_opened", {"petition": petition, 'notice_url': reverse('petition.views.view', kwargs={'id':petition.id}),'notice_description': petition.id})
+        messages.info(request, "Petition created.")
         return HttpResponseRedirect(reverse('petition.views.view', kwargs={"id":petition.id}))
     return render_to_response('petition/create.html', {'form':form}, context_instance = RequestContext(request))
 
@@ -48,4 +54,17 @@ def comment(request, id):
         comment.body = form.cleaned_data['body']
         comment.petition = petition
         comment.save()
+        if comment.author != petition.author:
+            notification.send([petition.author], "petition_commented", {"petition": petition, 'notice_url': reverse('petition.views.view', kwargs={'id':petition.id}),'notice_description': petition.id, 'comment': comment})
+        messages.info(request, "Comment added.")
         return HttpResponseRedirect(reverse('petition.views.view', kwargs={"id":petition.id})+"#c"+str(comment.id))
+
+@login_required
+def close(request, id):
+    petition = models.Petition.objects.get(id__exact=id)
+    petition.closed = True
+    petition.save()
+    if petition.author != request.user:
+        notification.send([petition.author], "petition_closed", {"petition": petition, 'notice_url': reverse('petition.views.view', kwargs={'id':petition.id}),'notice_description': petition.id})
+    messages.info(request, "Petition closed.")
+    return HttpResponseRedirect(reverse('petition.views.view', kwargs={"id":petition.id}))

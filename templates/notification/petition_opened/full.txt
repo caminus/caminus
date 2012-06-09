@@ -1,0 +1,5 @@
+{{petition.author}} opened petition {{petition.id}}:
+
+{{petition.body}}
+
+{{petition.get_absolute_url}}

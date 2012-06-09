@@ -1,0 +1,6 @@
+Petition {{petition.id}} has been closed by {{closingUser}}:
+
+{{petition.body}}
+
+{{petition.get_absolute_url}}
+
