@@ -4,4 +4,9 @@ if [ ! -f virtualenv/bin/activate ];then
 fi
 source virtualenv/bin/activate
 pip install -r pip-requirements
-exec ./manage.py test $@
+coverage run ./manage.py test $@
+ret=$?
+if [ $ret -eq 0 ];then
+    coverage report -m --include=\*
+fi
+exit $ret
