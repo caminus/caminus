@@ -107,7 +107,7 @@ class Ban(models.Model):
     player = models.ForeignKey(MinecraftProfile, related_name='bans')
     banner = models.ForeignKey(User)
     start = models.DateTimeField(auto_now_add=True)
-    expiration = models.DateTimeField(blank=True)
+    expiration = models.DateTimeField(blank=True, null=True)
     reason = models.TextField()
 
     def __unicode__(self):
