@@ -7,4 +7,4 @@ django_messages==0.4.4
 south==0.7.3
 django-piston==0.2.2
 coverage
-pydot=1.0.28
+pydot==1.0.28
