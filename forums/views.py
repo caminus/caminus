@@ -40,7 +40,8 @@ def reply(request, topicID=None):
         reply.body = form.cleaned_data['body']
         reply.user = request.user
         reply.save()
-        notification.send([reply.parent.user], "forum_reply", {"reply": reply, 'notice_url': reverse('forums.views.post', kwargs={'id':reply.id}), 'notice_description': reply.topic().title})
+        if reply.parent.user !=  request.user:
+            notification.send([reply.parent.user], "forum_reply", {"reply": reply, 'notice_url': reverse('forums.views.post', kwargs={'id':reply.id}), 'notice_description': reply.topic().title})
         messages.info(request, "Reply successful")
         return HttpResponseRedirect(reverse('forums.views.post', kwargs={"id":reply.id}))
     return render_to_response('forums/reply.html', {"post":parentPost, "form":form}, context_instance = RequestContext(request))
