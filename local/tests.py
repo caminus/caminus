@@ -1,10 +1,15 @@
 from django.test import TestCase
+from django.db.models.signals import post_syncdb
 from django.contrib.auth.models import User
 from django.test.client import Client
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.core import mail
+import context
 import badges.api
 import models
+from donate.models import Donation
+from django.http import HttpRequest
 
 class InviteUseTest(TestCase):
     def setUp(self):
@@ -18,6 +23,10 @@ class InviteUseTest(TestCase):
     def tearDown(self):
         self.invite.delete()
         self.user.delete()
+
+    def testInviteURL(self):
+        resp = self.client.get(self.invite.get_absolute_url())
+        self.assertEqual(self.client.session['profile-invite'], self.invite)
 
     def testTryBadInvite(self):
         resp = self.client.get(reverse('local.views.claimInvite', kwargs={'code':self.invite.code+"-invalid"}), follow=True)
@@ -121,3 +130,70 @@ class InviteBadgeTest(TestCase):
             models.Invite.objects.create(creator=self.inviter, claimer=u)
         self.assertTrue(badges.api.user_has_badge(self.inviter, "three_invites"))
         self.assertEqual(1, len(self.inviter.awards.filter(badge__pk=badges.api.find_badge("three_invites").pk)))
+
+class QuoteContextTest(TestCase):
+    def testEmptyQuotes(self):
+        ret = context.random_quote(HttpRequest())
+        self.assertFalse('quote' in ret)
+
+    def testSingleQuote(self):
+        q = models.Quote.objects.create(text="test")
+        ret = context.random_quote(HttpRequest())
+        self.assertTrue(ret['quote'].text == unicode(ret['quote']))
+        q.delete()
+
+    def testRandomQuote(self):
+        q = models.Quote.objects.create(text="text")
+        q1 = models.Quote.objects.create(text="text2")
+        ret = context.random_quote(HttpRequest())
+        self.assertTrue('quote' in ret)
+        q.delete()
+        q1.delete()
+
+class DonationContextTest(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user('test', 'test@example.com')
+        self.donation = None
+
+    def tearDown(self):
+        self.user.delete()
+        if self.donation:
+            self.donation.delete()
+
+    def testNoGoal(self):
+        delattr(settings, 'CAMINUS_DONATION_GOAL')
+        ret = context.donation_info(HttpRequest())
+        self.assertTrue(ret['donation_goal_progress'] == 100)
+        self.assertTrue(ret['donation_month_total'] == 0)
+        self.assertTrue(ret['donation_month_goal'] == 0)
+
+    def testNoProgress(self):
+        settings.CAMINUS_DONATION_GOAL = 100
+        ret = context.donation_info(HttpRequest())
+        self.assertTrue(ret['donation_goal_progress'] == 0)
+        self.assertTrue(ret['donation_month_total'] == 0)
+        self.assertTrue(ret['donation_month_goal'] == 100)
+
+    def testOverachieved(self):
+        settings.CAMINUS_DONATION_GOAL = 100
+        self.donation = Donation.objects.create(quantity=300, user=self.user, status=Donation.STATUS_PAID)
+        ret = context.donation_info(HttpRequest())
+        self.assertTrue(ret['donation_goal_progress'] == 100)
+        self.assertTrue(ret['donation_month_total'] == 300)
+        self.assertTrue(ret['donation_month_goal'] == 100)
+
+    def testAchieved(self):
+        settings.CAMINUS_DONATION_GOAL = 100
+        self.donation = Donation.objects.create(quantity=100, user=self.user, status=Donation.STATUS_PAID)
+        ret = context.donation_info(HttpRequest())
+        self.assertTrue(ret['donation_goal_progress'] == 100)
+        self.assertTrue(ret['donation_month_total'] == 100)
+        self.assertTrue(ret['donation_month_goal'] == 100)
+
+    def testPartiallyAchieved(self):
+        settings.CAMINUS_DONATION_GOAL = 100
+        self.donation = Donation.objects.create(quantity=50, user=self.user, status=Donation.STATUS_PAID)
+        ret = context.donation_info(HttpRequest())
+        self.assertTrue(ret['donation_goal_progress'] == 50)
+        self.assertTrue(ret['donation_month_total'] == 50)
+        self.assertTrue(ret['donation_month_goal'] == 100)
