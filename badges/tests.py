@@ -30,6 +30,12 @@ class APITest(unittest.TestCase):
         self.assertEqual(award.badge, self.badge)
         self.assertTrue(api.user_has_badge(self.user, "test"))
 
+    def testMultipleAward(self):
+        api.award(self.user, "test", "reason")
+        api.award(self.user, "test", "reason")
+        awards = Award.objects.filter(badge=self.badge, user=self.user)
+        self.assertEqual(len(awards), 1)
+
     def _gotAward(self, sender, *args, **kwargs):
         self.awarded = True
 
