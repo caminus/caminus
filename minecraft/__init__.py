@@ -2,7 +2,6 @@ import badges.api
 
 def update_badges(user):
     playtime = user.minecraftprofile.totalPlaytime();
-    print playtime
     if playtime.days >= 1:
         badges.api.award(user, "24h_playtime")
     if playtime.days >= 7:
