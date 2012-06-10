@@ -3,6 +3,7 @@ from django.contrib.auth.models import User, Group
 from django.db.models.signals import post_save
 from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist
+from minecraft import update_badges
 import socket
 import datetime
 
@@ -77,6 +78,11 @@ class PlayerSession(models.Model):
     ip = models.IPAddressField()
     start = models.DateTimeField(auto_now_add=True, blank=False, null=False)
     end = models.DateTimeField(blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        super(PlayerSession, self).save(*args, **kwargs)
+        if self.end:
+            update_badges(self.player.user)
 
 def create_profile(sender, instance, created, **kwargs):
     if created:
