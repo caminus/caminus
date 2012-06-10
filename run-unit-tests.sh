@@ -7,6 +7,6 @@ pip install -r pip-requirements
 coverage run ./manage.py test $@
 ret=$?
 if [ $ret -eq 0 ];then
-    coverage report -m --include=\*
+    coverage report -m --include=\* --omit=\*/migrations/\*
 fi
 exit $ret
