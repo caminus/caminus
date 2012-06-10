@@ -2,7 +2,8 @@ from django.utils import unittest
 import json
 from django.test.client import Client
 from django.contrib.auth.models import User
-from minecraft.models import MinecraftProfile, Server, PlayerSession
+from minecraft.models import MinecraftProfile, Server, PlayerSession, MOTD, Ban
+from local.models import Quote
 import hashlib
 
 class ServerPingTest(unittest.TestCase):
@@ -27,10 +28,30 @@ class ServerPingTest(unittest.TestCase):
 class MOTDTest(unittest.TestCase):
     def setUp(self):
         self.client = Client()
+        self.server = Server.objects.create(hostname="localhost", secret="")
+
+    def tearDown(self):
+        self.server.delete()
 
     def testUnregisteredUser(self):
         response = json.loads(self.client.get('/api/motd/NewUser').content)
         self.assertIsInstance(response['motd'], list)
+
+    def testRandomMOTD(self):
+        m = MOTD.objects.create(server=self.server, text="testMOTD")
+        q = Quote.objects.create(text="testQUOTE")
+        response = json.loads(self.client.get('/api/motd/NewUser').content)
+        m.delete()
+        q.delete()
+        foundMOTD = False
+        foundQuote = False
+        for line in response['motd']:
+            if line == "testMOTD":
+                foundMOTD = True
+            if line == '"testQUOTE"':
+                foundQuote = True
+        self.assertTrue(foundMOTD)
+        self.assertTrue(foundQuote)
 
 class SessionTest(unittest.TestCase):
     def setUp(self):
@@ -47,10 +68,20 @@ class SessionTest(unittest.TestCase):
         self.user.delete()
         self.server.delete()
 
+    def testBannedStart(self):
+        b = Ban.objects.create(player=self.user.minecraftprofile, banner=self.user, reason="test")
+        resp = self.client.post('/api/server/session/%s/new'%(self.user.minecraftprofile.mc_username), {'ip': '127.0.0.1'}, HTTP_AUTHORIZATION="X-Caminus %s"%(self.token))
+        b.delete()
+        self.assertEqual(resp.status_code, 200)
+        session = json.loads(resp.content)
+        self.assertFalse(session['success'])
+
     def testSessionStart(self):
         resp = self.client.post('/api/server/session/%s/new'%(self.user.minecraftprofile.mc_username), {'ip': '127.0.0.1'}, HTTP_AUTHORIZATION="X-Caminus %s"%(self.token))
         self.assertEqual(resp.status_code, 200)
         session = json.loads(resp.content)
+        print repr(session)
+        self.assertTrue(session['success'])
 
     def testSessionEnd(self):
         resp = self.client.post('/api/server/session/%s/new'%(self.user.minecraftprofile.mc_username), {'ip': '127.0.0.1'}, HTTP_AUTHORIZATION="X-Caminus %s"%(self.token))
