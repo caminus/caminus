@@ -30,10 +30,10 @@ class NewPlayerSessionHandler(BaseHandler):
         try:
             profile = MinecraftProfile.objects.all().filter(mc_username__iexact=playername)[0]
         except IndexError, e:
-            return {'valid': False, 'error': 'User not found', 'permissions': []}
+            return {'success': False, 'error': 'User not found', 'permissions': []}
         if profile.user.is_active:
             if profile.isBanned():
-                return {'valid': False, 'error': 'Your account is banned.', 'permissions': []}
+                return {'success': False, 'error': 'Your account is banned.', 'permissions': []}
             ip = request.POST['ip']
             server = request.server
             profile = MinecraftProfile.objects.get(mc_username__exact=playername)
