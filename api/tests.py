@@ -76,6 +76,22 @@ class SessionTest(unittest.TestCase):
         session = json.loads(resp.content)
         self.assertFalse(session['success'])
 
+    def testBadUserStart(self):
+        resp = self.client.post('/api/server/session/SomeUnknownUser/new', {'ip': '127.0.0.1'}, HTTP_AUTHORIZATION="X-Caminus %s"%(self.token))
+        self.assertEqual(resp.status_code, 200)
+        session = json.loads(resp.content)
+        self.assertFalse(session['success'])
+
+    def testInactiveStart(self):
+        self.user.is_active = False
+        self.user.save()
+        resp = self.client.post('/api/server/session/%s/new'%(self.user.minecraftprofile.mc_username), {'ip': '127.0.0.1'}, HTTP_AUTHORIZATION="X-Caminus %s"%(self.token))
+        self.user.is_active = True
+        self.user.save()
+        self.assertEqual(resp.status_code, 200)
+        session = json.loads(resp.content)
+        self.assertFalse(session['success'])
+
     def testSessionStart(self):
         resp = self.client.post('/api/server/session/%s/new'%(self.user.minecraftprofile.mc_username), {'ip': '127.0.0.1'}, HTTP_AUTHORIZATION="X-Caminus %s"%(self.token))
         self.assertEqual(resp.status_code, 200)
@@ -88,6 +104,18 @@ class SessionTest(unittest.TestCase):
         session = json.loads(resp.content)
         resp = self.client.get('/api/server/session/%s/close'%(self.user.minecraftprofile.mc_username), HTTP_AUTHORIZATION="X-Caminus %s"%(self.token))
         self.assertEqual(resp.status_code, 200)
+
+class PollTest(unittest.TestCase):
+    def setUp(self):
+        self.client = Client()
+
+    def testAnonymousPoll(self):
+        resp = self.client.get('/api/poll/0')
+        self.assertEqual(resp.status_code, 200)
+        data = json.loads(resp.content)
+        self.assertTrue('server-info' in data)
+        self.assertTrue('user-info' in data)
+        self.assertEqual(len(data['user-info']), 0)
 
 class EconomyTest(unittest.TestCase):
     def setUp(self):
@@ -115,8 +143,15 @@ class EconomyTest(unittest.TestCase):
         resp = self.client.put('/api/server/economy/ValidUsername', {'delta': 100}, HTTP_AUTHORIZATION="X-Caminus %s"%(self.token))
         data = json.loads(resp.content)
         self.assertEqual(data['balance'], 142)
+        self.assertTrue(data['success'])
 
     def testWithdraw(self):
         resp = self.client.put('/api/server/economy/ValidUsername', {'delta': -40}, HTTP_AUTHORIZATION="X-Caminus %s"%(self.token))
         data = json.loads(resp.content)
         self.assertEqual(data['balance'], 2)
+        self.assertTrue(data['success'])
+
+    def testOverdraw(self):
+        resp = self.client.put('/api/server/economy/ValidUsername', {'delta': -400}, HTTP_AUTHORIZATION="X-Caminus %s"%(self.token))
+        data = json.loads(resp.content)
+        self.assertFalse(data['success'])
