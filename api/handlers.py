@@ -30,17 +30,17 @@ class NewPlayerSessionHandler(BaseHandler):
         try:
             profile = MinecraftProfile.objects.all().filter(mc_username__iexact=playername)[0]
         except IndexError, e:
-            return {'success': False, 'error': 'User not found', 'permissions': []}
+            return {'valid': False, 'error': 'User not found', 'permissions': []}
         if profile.user.is_active:
             if profile.isBanned():
-                return {'success': False, 'error': 'Your account is banned.', 'permissions': []}
+                return {'valid': False, 'error': 'Your account is banned.', 'permissions': []}
             ip = request.POST['ip']
             server = request.server
             profile = MinecraftProfile.objects.get(mc_username__exact=playername)
             session = PlayerSession.objects.create(server=server, player=profile, ip=ip)
-            return {'success': True, 'error': '', 'permissions': profile.serverPermissions(), 'sessionId': session.id}
+            return {'valid': True, 'error': '', 'permissions': profile.serverPermissions(), 'sessionId': session.id}
         else:
-            return {'success': False, 'error': 'Your account is inactive.', 'permissions': []}
+            return {'valid': False, 'error': 'Your account is inactive.', 'permissions': []}
 
 class ClosePlayerSessionHandler(BaseHandler):
     allowed_methods = ('GET',)
@@ -50,7 +50,7 @@ class ClosePlayerSessionHandler(BaseHandler):
         for session in sessions:
             session.end = datetime.now()
             session.save()
-        return {'success': True}
+        return {'valid': True}
 
 class EconomyHandler(BaseHandler):
     allowed_methods = ('PUT','GET')
