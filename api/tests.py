@@ -74,13 +74,13 @@ class SessionTest(unittest.TestCase):
         b.delete()
         self.assertEqual(resp.status_code, 200)
         session = json.loads(resp.content)
-        self.assertFalse(session['valid'])
+        self.assertFalse(session['success'])
 
     def testBadUserStart(self):
         resp = self.client.post('/api/server/session/SomeUnknownUser/new', {'ip': '127.0.0.1'}, HTTP_AUTHORIZATION="X-Caminus %s"%(self.token))
         self.assertEqual(resp.status_code, 200)
         session = json.loads(resp.content)
-        self.assertFalse(session['valid'])
+        self.assertFalse(session['success'])
 
     def testInactiveStart(self):
         self.user.is_active = False
@@ -90,13 +90,13 @@ class SessionTest(unittest.TestCase):
         self.user.save()
         self.assertEqual(resp.status_code, 200)
         session = json.loads(resp.content)
-        self.assertFalse(session['valid'])
+        self.assertFalse(session['success'])
 
     def testSessionStart(self):
         resp = self.client.post('/api/server/session/%s/new'%(self.user.minecraftprofile.mc_username), {'ip': '127.0.0.1'}, HTTP_AUTHORIZATION="X-Caminus %s"%(self.token))
         self.assertEqual(resp.status_code, 200)
         session = json.loads(resp.content)
-        self.assertTrue(session['valid'])
+        self.assertTrue(session['success'])
 
     def testSessionEnd(self):
         resp = self.client.post('/api/server/session/%s/new'%(self.user.minecraftprofile.mc_username), {'ip': '127.0.0.1'}, HTTP_AUTHORIZATION="X-Caminus %s"%(self.token))
