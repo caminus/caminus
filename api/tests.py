@@ -96,7 +96,6 @@ class SessionTest(unittest.TestCase):
         resp = self.client.post('/api/server/session/%s/new'%(self.user.minecraftprofile.mc_username), {'ip': '127.0.0.1'}, HTTP_AUTHORIZATION="X-Caminus %s"%(self.token))
         self.assertEqual(resp.status_code, 200)
         session = json.loads(resp.content)
-        print repr(session)
         self.assertTrue(session['valid'])
 
     def testSessionEnd(self):

@@ -38,9 +38,9 @@ class NewPlayerSessionHandler(BaseHandler):
             server = request.server
             profile = MinecraftProfile.objects.get(mc_username__exact=playername)
             session = PlayerSession.objects.create(server=server, player=profile, ip=ip)
-            return {'valid': True, 'error': '', 'permissions': profile.serverPermissions(), 'sessionId': session.id}
+            return {'success': True, 'error': '', 'permissions': profile.serverPermissions(), 'sessionId': session.id}
         else:
-            return {'valid': False, 'error': 'Your account is inactive.', 'permissions': []}
+            return {'success': False, 'error': 'Your account is inactive.', 'permissions': []}
 
 class ClosePlayerSessionHandler(BaseHandler):
     allowed_methods = ('GET',)
