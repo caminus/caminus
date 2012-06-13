@@ -36,7 +36,7 @@ def index(request):
         data['Callback'] = 'http://camin.us%s'%reverse('donate.views.dwollaCallback')
         donation = models.Donation.objects.create(quantity=form.cleaned_data['quantity'], user=request.user)
         order['OrderId'] = donation.id
-        data['Redirect'] = 'http://camin.us%s'%reverse('donate.views.thanks', donation.id)
+        data['Redirect'] = 'http://camin.us%s'%reverse('donate.views.thanks', kwargs={'donation':donation.id})
         req = urllib2.Request("https://www.dwolla.com/payment/request", data=json.dumps(data), headers={'Content-Type': 'application/json'})
         response = json.load(urllib2.urlopen(req))
         return HttpResponseRedirect("https://www.dwolla.com/payment/checkout/%s"%(response['CheckoutId']))
