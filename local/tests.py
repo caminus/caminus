@@ -10,6 +10,7 @@ import badges.api
 import models
 from donate.models import Donation
 from django.http import HttpRequest
+from django.conf import settings
 
 class InviteUseTest(TestCase):
     def setUp(self):
@@ -71,9 +72,11 @@ class InviteManageTest(TestCase):
         self.user.delete()
 
     def testCreateMaxInvites(self):
-        for i in range(0, 100):
+        settings.CAMINUS_MAX_INVITES = 800
+        for i in range(0, settings.CAMINUS_MAX_INVITES*2):
             self.client.get(reverse('local.views.createInvite'))
-        self.assertEqual(len(self.user.invites.all()), 2)
+        self.assertEqual(len(self.user.invites.all()),
+            settings.CAMINUS_MAX_INVITES)
 
     def testDeleteInvites(self):
         self.client.get(reverse('local.views.createInvite'))

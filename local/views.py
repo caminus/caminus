@@ -47,7 +47,7 @@ def invites(request):
 @login_required
 def createInvite(request):
     activeCount = request.user.invites.exclude(deleted=True).filter(claimer=None)
-    if len(activeCount) < 2:
+    if len(activeCount) < settings.CAMINUS_MAX_INVITES:
         invite = models.Invite()
         invite.creator = request.user
         invite.save()

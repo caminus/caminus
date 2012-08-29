@@ -187,6 +187,8 @@ LOGIN_REDIRECT_URL = '/'
 
 APPVERSION_GIT_REPO = os.path.sep.join((os.path.dirname(__file__), '.git'))
 
+CAMINUS_MAX_INVITES = 2
+
 # Load any site-local overrides, such as camin.us' database settings, etc
 try:
     from local_settings import *
