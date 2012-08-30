@@ -19,16 +19,20 @@ $(function() {
 {% endblock %}
 
 {%block content%}
+{% if parent %}
 <div class="item">
 <h2>Replying to:</h2>
-{% include 'forums/_reply.html' with post=post %}
+{% include 'forums/_reply.html' with post=parent%}
 </div>
+{% endif %}
 <div class="item">
+{% block form %}
 <form method="POST" action="{%url forums.views.reply post.id %}">
 {% csrf_token %}
 {{form.as_p}}
 <input type="submit" value="Submit"/>
 </form>
+{% endblock %}
 </div>
 <div class="item" id="forum-preview">
 </div>

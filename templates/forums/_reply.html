@@ -15,5 +15,8 @@ Edited {{post.updated}}
 <br style="clear:both"/>
 <a href="{% url forums.views.post id=post.id%}">permalink</a>
 <a href="{%url forums.views.reply post.id%}">Reply &raquo;</a>
+{% if post.user == user or perms.forums.edit_posts %}
+<a href="{%url forums.views.editPost post.id%}">Edit &raquo;</a>
+{% endif %}
 </div>
 </div>

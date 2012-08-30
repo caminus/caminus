@@ -1,0 +1,10 @@
+{% extends "forums/reply.html" %}
+
+{% block form %}
+{{post}}
+<form method="POST" action="{% url forums.views.editPost postID=post.pk %}">
+  {% csrf_token %}
+  {{form.as_p}}
+  <input type="submit" value="Submit"/>
+</form>
+{% endblock %}
