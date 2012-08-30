@@ -39,3 +39,8 @@
     position: absolute;
     padding: 3px;
 }
+
+.badge-holder .badge {
+  float:left;
+  content: " ";
+}
