@@ -1,0 +1,20 @@
+#server-interaction {
+  position:fixed;
+  bottom: 0%;
+  right: 0%;
+}
+
+#server-interaction .drawer {
+  background-color: #000;
+  color: #fff;
+  float: right;
+}
+
+#server-interaction .canvas {
+  display: none;
+}
+
+#server-interaction .drawer .drawer-label {
+  font-weight: bold;
+  padding: 10px;
+}

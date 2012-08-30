@@ -27,7 +27,7 @@ $(function() {
 {% endif %}
 <div class="item">
 {% block form %}
-<form method="POST" action="{%url forums.views.reply post.id %}">
+<form method="POST" action="{%url forums.views.reply parent.id %}">
 {% csrf_token %}
 {{form.as_p}}
 <input type="submit" value="Submit"/>

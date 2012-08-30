@@ -14,6 +14,7 @@
 <link rel="stylesheet" type="text/css" href="{{ STATIC_PREFIX }}/css/jquery-ui.css"/>
 <link rel="stylesheet" type="text/css" href="{{ STATIC_PREFIX }}/css/main.css?{{app_version}}"/>
 <link rel="stylesheet" type="text/css" href="{{ STATIC_PREFIX }}/css/badges.css?{{app_version}}"/>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_PREFIX }}/css/interact.css?{{app_version}}"/>
 <link rel="icon" type="image/png" href="{{ STATIC_PREFIX }}/images/logo.png"/>
 {% block extracss %}{% endblock extracss %}
 <script type="text/javascript">
@@ -35,6 +36,7 @@ s.parentNode.insertBefore(po, s);
 <script type="text/javascript" language="javascript" src="{{STATIC_PREFIX}}/js/jquery-ui.js"></script>
 <script type="text/javascript" language="javascript" src="{{STATIC_PREFIX}}/js/poll.js"></script>
 <script type="text/javascript" language="javascript" src="{{STATIC_PREFIX}}/js/notifications.js"></script>
+<script type="text/javascript" language="javascript" src="{{STATIC_PREFIX}}/js/interactive.js"></script>
 {% block extrahead %}{% endblock %}
 <script type="text/javascript">
 
@@ -164,6 +166,23 @@ s.parentNode.insertBefore(po, s);
         </div>
     </div>
     {% endif %}
+</div>
+<div id="server-interaction">
+  <div class="drawer">
+    <div class="drawer-label">
+      Online Players
+    </div>
+    <div class="canvas">
+      <ul>
+        {% for server in minecraft_servers %}
+          {% for player in server.online_players %}
+            <li><a href="{{player.user.get_absolute_url}}"><span class="avatar">
+              {% avatar player.user 16 %}</span>{{player}}</a></li>
+          {% endfor %}
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
 </div>
 </body>
 </html>
