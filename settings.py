@@ -190,6 +190,9 @@ APPVERSION_GIT_REPO = os.path.sep.join((os.path.dirname(__file__), '.git'))
 CAMINUS_MAX_INVITES = 2
 
 CAMINUS_NEWS_FORUM_ID = 1
+CAMINUS_USE_BEANSTALKD = False
+CAMINUS_BEANSTALKD_HOST = 'localhost'
+CAMINUS_BEANSTALKD_PORT = 11300
 
 # Load any site-local overrides, such as camin.us' database settings, etc
 try:

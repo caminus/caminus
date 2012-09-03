@@ -12,6 +12,7 @@ from django.contrib.auth import authenticate, login
 from django.core.exceptions import ObjectDoesNotExist
 import forms
 import models
+from api.events import user_message
 from forums.models import Forum
 from minecraft.forms import ProfileForm
 from minecraft.models import MinecraftProfile
@@ -79,6 +80,7 @@ def register(request):
             profile.save()
             user = authenticate(username=userForm.cleaned_data['username'], password=userForm.cleaned_data['password'])
             notification.send_now([invite.creator], "invite_accepted", {"new_user": user})
+            user_message(invite.creator, "%s has accepted your invite."%(user.username))
             login(request, user)
             del request.session['profile-invite']
             return HttpResponseRedirect(reverse('welcome'))

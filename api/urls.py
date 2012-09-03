@@ -40,6 +40,7 @@ class ServerResource(Resource):
 urlpatterns = patterns('api',
     url(r'^motd/(?P<username>.*)$', motdHandler),
     url(r'^server/whoami$', ServerResource(handlers.ServerPingHandler)),
+    url(r'^server/events$', ServerResource(handlers.ServerEventHandler)),
     url(r'^server/economy/(?P<playername>.*)$', ServerResource(handlers.EconomyHandler)),
     url(r'^server/session/(?P<playername>.*)/new$', ServerResource(handlers.NewPlayerSessionHandler)),
     url(r'^server/session/(?P<playername>.*)/close$', ServerResource(handlers.ClosePlayerSessionHandler)),

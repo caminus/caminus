@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from minecraft.models import MinecraftProfile, Server, PlayerSession, MOTD, Ban
 from local.models import Quote
 import hashlib
+import events
+from django.conf import settings
 
 class ServerPingTest(unittest.TestCase):
     def setUp(self):
@@ -24,6 +26,40 @@ class ServerPingTest(unittest.TestCase):
     def testPing(self):
         resp = self.client.get('/api/server/whoami', HTTP_AUTHORIZATION='X-Caminus %s'%(self.token))
         self.assertEqual(resp.status_code, 200)
+
+if settings.CAMINUS_USE_BEANSTALKD:
+  class ServerEventTest(unittest.TestCase):
+      def setUp(self):
+          self.client = Client()
+          self.user = User.objects.create_user('ValidUsername', 'test@example.com')
+          self.user.minecraftprofile.mc_username = "ValidUsername"
+          self.user.minecraftprofile.save()
+          self.server = Server.objects.create(hostname='localhost', secret='secret')
+          tokenHash = hashlib.sha1()
+          tokenHash.update("%s%s%s"%('localhost', 0, 'secret'))
+          self.token = "%s$%s$%s"%('localhost', 0, tokenHash.hexdigest())
+
+      def tearDown(self):
+          self.user.delete()
+          self.server.delete()
+
+      def testBroadcast(self):
+          events.server_broadcast("Test message")
+          response = json.loads(self.client.get('/api/server/events',
+            HTTP_AUTHORIZATION='X-Caminus %s'%(self.token)).content)
+          self.assertTrue(len(response['events']) > 0)
+          response = json.loads(self.client.post('/api/server/events', {'job':response['events'][0]['id']},
+            HTTP_AUTHORIZATION='X-Caminus %s'%(self.token)).content)
+          self.assertEqual(response['result'], 'success')
+
+      def testUserMessage(self):
+          events.user_message(self.user, "Test user message")
+          response = json.loads(self.client.get('/api/server/events',
+            HTTP_AUTHORIZATION='X-Caminus %s'%(self.token)).content)
+          self.assertTrue(len(response['events']) > 0)
+          response = json.loads(self.client.post('/api/server/events', {'job':response['events'][0]['id']},
+            HTTP_AUTHORIZATION='X-Caminus %s'%(self.token)).content)
+          self.assertEqual(response['result'], 'success')
 
 class MOTDTest(unittest.TestCase):
     def setUp(self):

@@ -72,7 +72,7 @@ class InviteManageTest(TestCase):
         self.user.delete()
 
     def testCreateMaxInvites(self):
-        settings.CAMINUS_MAX_INVITES = 800
+        settings.CAMINUS_MAX_INVITES = 80
         for i in range(0, settings.CAMINUS_MAX_INVITES*2):
             self.client.get(reverse('local.views.createInvite'))
         self.assertEqual(len(self.user.invites.all()),

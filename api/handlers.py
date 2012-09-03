@@ -9,6 +9,7 @@ from urllib2 import urlopen
 import json
 from datetime import datetime
 from models import cachePlayerList
+from servers import server_queue, user_queue
 
 class MOTDHandler(AnonymousBaseHandler):
     allowed_methods = ('GET',)
@@ -75,6 +76,23 @@ class ServerPingHandler(BaseHandler):
 
     def read(self, request):
         return {'identity': request.server}
+
+class ServerEventHandler(BaseHandler):
+    allowed_methods = ('GET', 'POST')
+
+    def read(self, request):
+        queue = server_queue(request.server)
+        queue.watch('caminus-broadcast-%s'%request.server.id)
+        events = []
+        job = queue.reserve(timeout=30)
+        if job:
+          events.append({'id': job.jid, 'event': json.loads(job.body)})
+        return {'events': events}
+
+    def create(self, request):
+        queue = server_queue(request.server)
+        queue.delete(int(request.POST['job']))
+        return {'result': 'success'}
 
 class PollHandler(BaseHandler):
     allowed_methods = ('GET',)

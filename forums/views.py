@@ -9,6 +9,7 @@ from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django.core.exceptions import PermissionDenied
 from notification import models as notification
+from api.servers import server_broadcast, user_broadcast
 
 def index(request):
     forums = models.Forum.objects.filter(parent=None)
@@ -44,6 +45,8 @@ def reply(request, topicID=None):
         if reply.parent.user !=  request.user:
             notification.send([reply.parent.user], "forum_reply", {"reply": reply, 'notice_url': reverse('forums.views.post', kwargs={'id':reply.id}), 'notice_description': reply.topic().title})
         messages.info(request, "Reply successful")
+        user_message(reply.parent.user, "%s replied to your post in '%s'",
+            request.user, reply.topic().title)
         return HttpResponseRedirect(reverse('forums.views.post', kwargs={"id":reply.id}))
     return render_to_response('forums/reply.html', {"parent":parentPost, "form":form}, context_instance = RequestContext(request))
 
@@ -81,6 +84,7 @@ def newTopic(request, forumID=None):
         topic.rootPost = reply
         topic.save()
         messages.info(request, "Posting successful")
+        server_broadcast("New forum topic: %s", topic.title)
         return HttpResponseRedirect(reverse('forums.views.post', kwargs={'id': reply.id}))
     return render_to_response('forums/newTopic.html', {"forum":parentForum, "replyForm":replyForm, "topicForm": topicForm}, context_instance = RequestContext(request))
 

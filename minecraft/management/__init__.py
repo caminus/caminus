@@ -1,7 +1,6 @@
 from django.db.models.signals import post_syncdb
 import badges.api
 import badges.models
-from local import update_badges
 from django.contrib.auth.models import User
 
 def create_playtime_badges(app, created_models, verbosity, **kwargs):
