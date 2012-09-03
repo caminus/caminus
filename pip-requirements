@@ -9,3 +9,4 @@ django-piston==0.2.2
 coverage
 pydot==1.0.28
 beanstalkc
+stripe

@@ -1,13 +1,33 @@
 {% extends 'base_simple.html'%}
 {%load static %}
 {% get_static_prefix as STATIC_PREFIX %}
+{% block extrahead %}
+<script type="text/javascript">
+$(document).ready(function() {
+  if ($('#id_base-method').val() != 1) {
+    $('#stripe-data').hide();
+  }
+  $('#id_base-method').change(function() {
+    if ($(this).val() == 1) {
+      $('#stripe-data').show('blind');
+    } else {
+      $('#stripe-data').hide('blind');
+    }
+  });
+});
+</script>
+{% endblock %}
 
 {% block content %}
 <p>Donating to caminus helps keep us alive!</p>
 <p>All donations recieve 2000gr per $1 USD. You must be logged in before donating to recieve this.</p>
-<p>Donations are handled through <a href="http://dwolla.com/">Dwolla</a></p>
+<p>Donations are handled through <a href="http://dwolla.com/">Dwolla</a> and <a href="http://stripe.com">Stripe</a></p>
 <form method="POST">
-{{form.as_p}}
+  {{form.as_p}}
+
+<div id="stripe-data">
+  {{stripeForm.as_p}}
+</div>
 {%csrf_token%}
 <input type="submit"/>
 </form>

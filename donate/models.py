@@ -16,7 +16,7 @@ class Donation(models.Model):
     created = models.DateTimeField(editable=False, auto_now_add=True)
     updated = models.DateTimeField(editable=False, auto_now=True)
     quantity = models.FloatField()
-    transactionId = models.IntegerField(blank=True, null=True)
+    transactionId = models.TextField(blank=True, null=True)
     status = models.IntegerField(default=STATUS_PENDING, choices = STATUS)
     user = models.ForeignKey(User)
 
