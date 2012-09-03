@@ -1,7 +1,9 @@
+from __future__ import absolute_import
+
 from django.db import models
 from django.contrib.auth.models import User
 import badges.api
-from caminus.api.events import user_message
+from api.events import user_message
 from notification import models as notification
 from django.core.urlresolvers import reverse
 
