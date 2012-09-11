@@ -1,0 +1,38 @@
+- hosts: s.camin.us
+  user: ec2-user
+  sudo: True
+  vars_files:
+    - ../private/s3-backup.yml
+  tasks:
+    - name: install ypserv
+      action: yum pkg=ypserv state=latest
+    - name: configure ypserv
+      action: copy src=../config/ypserv.conf dest=/etc/ypserv.conf
+      notify:
+      - restart ypserv
+    - name: enable ypserv
+      action: service name=ypserv state=running
+    - name: update NIS database
+      action: command chdir=/var/yp make
+    - name: install nfs server
+      action: yum pkg=nfs-utils state=installed
+    - name: start nfs server
+      action: service name=nfs state=started
+    - name: configure nfs exports
+      action: copy src=../config/nfs-exports dest=/etc/exports
+    - name: install beanstalkd
+      action: yum pkg=beanstalkd state=latest
+    - name: start beanstalkd
+      action: service name=beanstalkd state=started
+    - name: install backup.sh
+      action: copy src=../scripts/backup-minecraft.sh dest=/srv/minecraft/backup.sh
+    - name: install start.sh
+      action: copy src=../scripts/start-minecraftd.sh dest=/srv/minecraft/start.sh
+    - name: install s3cfg
+      action: template src=../config/s3cfg dest=/srv/minecraft/backup/s3cfg
+    - name: install minecraftd logrotate
+      action: copy src=../config/minecraftd-logrotate dest=/etc/logrotate.d/minecraftd
+  handlers:
+    - name: restart ypserv
+      action: service name=ypserv state=restarted
+

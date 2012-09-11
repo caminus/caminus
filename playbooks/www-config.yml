@@ -1,0 +1,45 @@
+---
+- hosts: www
+  user: ec2-user
+  sudo: True
+  vars_files:
+    - ../private/django_local_settings.yml
+  tasks:
+    - name: configure selinux httpd_can_network_connect
+      action: seboolean persistent=yes name=httpd_can_network_connect state=true
+    - name: ensure apache is up to date
+      action: yum pkg=httpd state=latest
+      notify:
+      - restart apache
+    - name: ensure apache is enabled
+      action: service name=httpd state=started
+    - name: ensure mod_wsgi is up to date
+      action: yum pkg=mod_wsgi state=latest
+      notify:
+      - restart apache
+    - name: install git
+      action: yum pkg=git state=installed
+    - name: deploy caminus wsgi
+      action: git repo=git://github.com/tdfischer/caminus.git dest=/usr/share/caminus/ version=HEAD
+      notify:
+      - reload wsgi
+      - update pip requirements
+    - name: configure caminus wsgi
+      action: template src=../config/local_settings.py dest=/usr/share/caminus/local_settings.py
+      notify:
+      - reload wsgi
+    - name: install pip
+      action: yum pkg=python-pip state=latest
+    - name: update python-mysql
+      action: yum pkg=MySQL-python state=latest
+    - name: configure mod_wsgi
+      action: copy src=../config/caminus.conf dest=/etc/httpd/conf.d/caminus.conf
+      notify:
+      - restart apache
+  handlers:
+    - name: restart apache
+      action: service name=httpd state=restarted
+    - name: update pip requirements
+      action: command pip-python install -r /usr/share/caminus/pip-requirements
+    - name: reload wsgi
+      action: command touch /usr/share/caminus/caminus.wsgi
