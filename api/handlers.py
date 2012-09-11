@@ -9,7 +9,7 @@ from urllib2 import urlopen
 import json
 from datetime import datetime
 from models import cachePlayerList
-from events import server_queue, user_queue
+from events import server_queue
 
 class MOTDHandler(AnonymousBaseHandler):
     allowed_methods = ('GET',)
