@@ -9,7 +9,7 @@ from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django.core.exceptions import PermissionDenied
 from notification import models as notification
-from api.events import server_broadcast, user_broadcast
+from api.events import server_broadcast, user_message
 
 def index(request):
     forums = models.Forum.objects.filter(parent=None)
