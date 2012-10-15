@@ -45,8 +45,9 @@ while [ "$(ls $BACKUP_LIVE | wc -l)" -gt $BACKUP_LIVE_MAX ];do
 done
 cp $BACKUP_ARCHIVES/$OLDEST.tar $BACKUP_MONTH_ARCHIVES/`date +%m-%Y`.tar
 
-
+echo "Syncing to S3"
 s3cmd -c $BACKUP_DIR/s3cfg sync $BACKUP_ARCHIVES/ s3://caminus-backups/`hostname`/archive/ --no-progress
+echo "Syncing month archives to S3"
 s3cmd -c $BACKUP_DIR/s3cfg sync $BACKUP_MONTH_ARCHIVES/ s3://caminus-backups/`hostname`/month-archive/ --no-progress
 
 ARCHIVE_CAPACITY=`df $BACKUP_ARCHIVES | tail -n1 | awk '{print $4}'`
