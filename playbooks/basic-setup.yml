@@ -15,6 +15,7 @@
       action: lineinfile name=/etc/sysconfig/network regexp=^HOSTNAME= line=HOSTNAME=$inventory_hostname insertafter=EOF state=present
       notify:
       - set hostname
+      - update motd
     - name: configure bash prompt
       action: copy src=../config/bash-profile.sh dest=/etc/profile.d/caminus.sh
     - name: configure sudo
@@ -43,3 +44,5 @@
       only_if: '$is_not_ypmaster'
     - name: set hostname
       action: command hostname $inventory_hostname
+    - name: update motd
+      action: template src=../config/motd dest=/etc/motd
