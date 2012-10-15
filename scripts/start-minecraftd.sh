@@ -1,2 +1,2 @@
 cd /srv/minecraft/server/
-exec java -Xmx1124m -Xms1124m -jar craftbukkit.jar
+exec java -Xmx2048m -Xms2048m -jar craftbukkit.jar
