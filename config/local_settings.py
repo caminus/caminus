@@ -18,7 +18,7 @@ TEMPLATE_DIRS = (
 STATIC_URL = "http://caminus-static.s3-website-us-east-1.amazonaws.com"
 ADMIN_MEDIA_PREFIX = "http://caminus-static.s3-website-us-east-1.amazonaws.com/admin/"
 
-APPVERSION_GIT_REPO = "/usr/share/caminus/"
+APPVERSION_GIT_REPO = "/usr/share/caminus/.git/"
 
 CACHES = {
         'default': {
