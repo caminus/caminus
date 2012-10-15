@@ -57,5 +57,6 @@ echo "Capacity: $WORLD_COUNT worlds."
 while [ "$ARCHIVE_CAPACITY" -lt "$WORLD_SIZE" ];do
 	OLDEST=`ls -c $BACKUP_ARCHIVES | tail -n 1`
 	echo "Cleaning up expired archive $BACKUP_ARCHIVES/$OLDEST"
+  rm $BACKUP_ARCHIVES/$OLDEST
 	ARCHIVE_CAPACITY=$(df $BACKUP_ARCHIVES | tail -n1 | awk '{print $4}')
 done
