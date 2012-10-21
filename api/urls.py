@@ -36,6 +36,7 @@ class ServerAuther(object):
 class ServerResource(Resource):
     def __init__(self, handler):
         super(ServerResource, self).__init__(handler, ServerAuther())
+        self.csrf_exempt  = getattr(self.handler, 'csrf_exempt', True)
 
 urlpatterns = patterns('api',
     url(r'^motd/(?P<username>.*)$', motdHandler),
