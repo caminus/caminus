@@ -1,8 +1,4 @@
-import subprocess
-from django.conf import settings
+from appversion import version
 
 def git_version(request):
-    proc = subprocess.Popen(["git", "--git-dir", settings.APPVERSION_GIT_REPO, "describe"], stdout=subprocess.PIPE)
-    proc.wait()
-    version = proc.stdout.read().strip()
-    return {"app_version": version}
+    return {"app_version": version()}
