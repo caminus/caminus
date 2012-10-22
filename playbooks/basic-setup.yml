@@ -11,6 +11,7 @@
       with_items: 
         - nfs-utils
         - ypbind
+        - libsemanage-python
     - name: configure hostname
       action: lineinfile name=/etc/sysconfig/network regexp=^HOSTNAME= line=HOSTNAME=$inventory_hostname insertafter=EOF state=present
       notify:
