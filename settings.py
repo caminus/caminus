@@ -179,6 +179,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "local.context.javascript_uris",
     "minecraft.context.server_info",
     "appversion.context.git_version",
+    "appversion.context.server_hostname",
     "messages.context_processors.inbox",
     "petition.context.open_petitions",
 )
