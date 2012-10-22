@@ -7,16 +7,16 @@
   vars_files:
     - ../private/django_local_settings.yml
   tasks:
-    - name: configure selinux httpd_can_network_connect
-      action: seboolean persistent=yes name=httpd_can_network_connect state=true
     - name: install $item
-      action: yum pkg=item state=latest
+      action: yum pkg=$item state=latest
       with_items:
         - python-pip
         - MySQL-python
         - mod_wsgi
         - httpd
         - git
+    - name: configure selinux httpd_can_network_connect
+      action: seboolean persistent=yes name=httpd_can_network_connect state=true
     - name: ensure apache is enabled
       action: service name=httpd state=started
     - name: configure mod_wsgi
@@ -31,9 +31,6 @@
       - update pip requirements
       tags:
       - deploy
-    - name: caminus syncdb
-      action: command /usr/share/caminus/manage.py syncdb --migrate --noinput
-      only_if: '$is_api_server'
     - name: configure caminus wsgi
       action: template src=../config/local_settings.py dest=/usr/share/caminus/local_settings.py
       notify:
@@ -47,3 +44,6 @@
       action: command pip-python install -r /usr/share/caminus/pip-requirements
     - name: reload wsgi
       action: command touch /usr/share/caminus/caminus.wsgi
+    - name: caminus syncdb
+      action: command /usr/share/caminus/manage.py syncdb --migrate --noinput
+      only_if: '$is_api_server'
