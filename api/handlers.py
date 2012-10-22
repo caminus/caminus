@@ -1,5 +1,6 @@
 from piston.handler import AnonymousBaseHandler, BaseHandler
 from django.core.cache import cache
+import appversion
 from minecraft.models import MinecraftProfile
 from local.models import Quote
 from minecraft.models import MOTD, Server, PlayerSession
@@ -75,7 +76,7 @@ class ServerPingHandler(BaseHandler):
     allowed_methods = ('GET',)
 
     def read(self, request):
-        return {'identity': request.server}
+        return {'identity': request.server, 'api-version': 2, 'server-version': appversion.version()}
 
 class ServerEventHandler(BaseHandler):
     allowed_methods = ('GET', 'POST')

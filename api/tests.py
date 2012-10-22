@@ -24,8 +24,12 @@ class ServerPingTest(unittest.TestCase):
         self.server.delete()
 
     def testPing(self):
-        resp = self.client.get('/api/server/whoami', HTTP_AUTHORIZATION='X-Caminus %s'%(self.token))
+        resp = self.client.get('/api/server/whoami',
+          HTTP_AUTHORIZATION='X-Caminus %s'%(self.token))
         self.assertEqual(resp.status_code, 200)
+        resp = json.loads(resp.content)
+        self.assertEqual(resp["api-version"], 2)
+        self.assertTrue("api-version" in resp)
 
 if settings.CAMINUS_USE_BEANSTALKD:
   class ServerEventTest(unittest.TestCase):
