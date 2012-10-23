@@ -1,7 +1,8 @@
 from django.conf import settings
 from django.core.cache import cache
+import time
 from minecraft.models import Server
-from json import dumps, JSONEncoder
+from json import loads, dumps, JSONEncoder
 import beanstalkc
 from django.contrib.auth.models import User
 
@@ -62,6 +63,7 @@ def server_broadcast(message, *args):
     for server in Server.objects.all():
       event = BroadcastEvent(message)
       send_server_event(server, event)
+    send_web_event(event)
 
 def user_message(user, message, *args):
     player = user.minecraftprofile.mc_username
@@ -93,10 +95,16 @@ def send_web_event(event):
    if settings.CAMINUS_USE_BEANSTALKD:
      queue = beanstalkc.Connection(host=settings.CAMINUS_BEANSTALKD_HOST,
          port = settings.CAMINUS_BEANSTALKD_PORT)
-     json = dumps(event, cls=EventEncoder)
+     json = dumps({'stamp': time.time(), 'event':event}, cls=EventEncoder)
      for tube in queue.tubes():
        if tube.startswith("caminus-web-"):
          queue.use(tube)
+         pendingJob = queue.peek_ready()
+         if pendingJob:
+           pending = loads(pendingJob.body)
+           if time.time()-pending['stamp'] > 30:
+             print "Deleting expired job", pendingJob.jid
+             pendingJob.delete()
          queue.put(json)
 
 def chat(playername, message):

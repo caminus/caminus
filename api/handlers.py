@@ -140,6 +140,7 @@ class PollHandler(BaseHandler):
           eventQueue = web_queue(timestamp)
           event = eventQueue.reserve(timeout=30)
           if event:
-            pollData['events'].append(json.loads(event.body))
+            eventData = json.loads(event.body)
+            pollData['events'].append(eventData['event'])
             event.delete()
         return pollData
