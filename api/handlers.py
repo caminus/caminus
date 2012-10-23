@@ -92,6 +92,7 @@ class ServerEventHandler(BaseHandler):
         events = []
         job = queue.reserve(timeout=30)
         if job:
+          job.bury()
           events.append({'id': job.jid, 'event': json.loads(job.body)})
         return {'events': events}
 

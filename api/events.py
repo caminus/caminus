@@ -91,7 +91,6 @@ def send_web_event(event):
    while len(latest) > 10:
      latest.pop(0)
    cache.set('minecraft-web-events', latest, 86400);
-   print 'cache:', latest
    if settings.CAMINUS_USE_BEANSTALKD:
      queue = beanstalkc.Connection(host=settings.CAMINUS_BEANSTALKD_HOST,
          port = settings.CAMINUS_BEANSTALKD_PORT)
@@ -103,7 +102,6 @@ def send_web_event(event):
          if pendingJob:
            pending = loads(pendingJob.body)
            if time.time()-pending['stamp'] > 30:
-             print "Deleting expired job", pendingJob.jid
              pendingJob.delete()
          queue.put(json)
 
