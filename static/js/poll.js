@@ -12,6 +12,8 @@ function pollMessages(id) {
           $('#chat-display').append("<li><em>"+evt['payload']['player']+" has quit</em></li>");
         } else if (evt['type'] == 'broadcast') {
           $('#chat-display').append("<li><strong>"+evt['payload']['message']+"</strong></li>");
+        } else if (evt['type'] == 'player-death') {
+          $('#chat-display').append("<li><em>"+evt['payload']['player']+" died.</em></li>");
         }
       });
       window.setTimeout(function() {pollMessages(data['poll-id'])}, 1);

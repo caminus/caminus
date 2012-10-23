@@ -36,6 +36,11 @@ class BroadcastEvent(Event):
         super(BroadcastEvent, self).__init__(type='broadcast', data={'message':
           message})
 
+class PlayerDeathEvent(Event):
+    def __init__(self, player, message):
+        super(PlayerDeathEvent, self).__init__(type='player-death',
+            data={'player': player, 'message': message})
+
 class PlayerMessageEvent(Event):
     def __init__(self, user, message):
         super(PlayerMessageEvent, self).__init__(type='player-message',

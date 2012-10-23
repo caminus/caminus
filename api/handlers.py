@@ -13,7 +13,7 @@ from urllib2 import urlopen
 import json
 from datetime import datetime
 from models import cachePlayerList
-from events import server_queue, web_queue, chat, server_broadcast, send_web_event, QuitEvent, JoinEvent
+from events import server_queue, web_queue, chat, server_broadcast, send_web_event, QuitEvent, JoinEvent, PlayerDeathEvent
 
 class MOTDHandler(AnonymousBaseHandler):
     allowed_methods = ('GET',)
@@ -107,6 +107,9 @@ class ServerEventHandler(BaseHandler):
             print repr(evt)
             if evt['type'] == 'chat':
                 chat(evt['payload']['sender'], evt['payload']['message'])
+            if evt['type'] == 'player-death':
+              send_web_event(PlayerDeathEvent(evt['payload']['player'],
+              evt['payload']['message']))
         return {'result': 'success'}
 
 class ChatHandler(BaseHandler):
