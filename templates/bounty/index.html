@@ -1,0 +1,18 @@
+{% extends "base_simple.html" %}
+{% load minecraft %}
+
+{% block title %}Bounties{% endblock %}
+
+{% block content %}
+<table>
+  <tr class="header"><th>Who</th><th>Price</th></tr>
+  {% if not bounties %}
+    <tr class="infoBar"><td colspan="2">No bounties found.</td></tr>
+  {% endif %}
+  {% for bounty in bounties%}
+  <tr><td><div class="avatar">{% avatar bounty.target.user %}</div> {{bounty.target}}</td><td>{{bounty.price}}</td></tr>
+  {% endfor %}
+  <tr class="actionBar"><td colspan="2"><a href="{% url bounty.views.create %}">Create a bounty</a></td></tr>
+</table>
+{% endblock %}
+

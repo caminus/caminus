@@ -14,6 +14,7 @@ import json
 from datetime import datetime
 from models import cachePlayerList
 from events import server_queue, web_queue, chat, server_broadcast, send_web_event, QuitEvent, JoinEvent, PlayerDeathEvent
+from bounty.models import Bounty
 
 class MOTDHandler(AnonymousBaseHandler):
     allowed_methods = ('GET',)
@@ -110,6 +111,13 @@ class ServerEventHandler(BaseHandler):
             if evt['type'] == 'player-death':
               send_web_event(PlayerDeathEvent(evt['payload']['player'],
               evt['payload']['message']))
+            if evt['type'] == 'player-murder':
+              bounties = Bounty.objects.filter(target__mc_username=evt['payload']['player'])
+              killer = MinecraftProfile.objects.get(mc_username=evt['payload']['killer'])
+              for bounty in bounties:
+                bounty.close(killer)
+              if len(bounties) > 0:
+                server_broadcast("The bounty on %s has been collected."%(evt['payload']['player']))
         return {'result': 'success'}
 
 class ChatHandler(BaseHandler):
