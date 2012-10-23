@@ -16,8 +16,9 @@ class Command(BaseCommand):
       print "\tTubes:"
       for t in queue.tubes():
         print "\t\t%s"%(t)
-      next = queue.peek_ready()
-      if next:
-        print "\tNext job: %s"%(next.body)
-      else:
-        print "\tNo pending job."
+        queue.use(t)
+        next = queue.peek_ready()
+        if next:
+          print "\t\t\tNext job: %s"%(next.body)
+        else:
+          print "\t\t\tNo pending job."

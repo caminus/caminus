@@ -11,9 +11,9 @@ class Command(BaseCommand):
       queue = events.server_queue(s)
       stats = queue.stats()
       for t in queue.tubes():
-        queue.watch(t)
-      job = queue.reserve(0)
-      while job:
-        print "Deleting %s: %s"%(job.jid, job.body)
-        job.delete()
-        job = queue.reserve(0)
+        queue.use(t)
+        job = queue.peek_ready()
+        while job:
+          print "Deleting %s from %s: %s"%(job.jid, t, job.body)
+          job.delete()
+          job = queue.peek_ready()
