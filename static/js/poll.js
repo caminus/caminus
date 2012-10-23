@@ -1,12 +1,23 @@
-function pollMessages() {
-    $.get('/api/poll/0', function(data) {
+function pollMessages(id) {
+    $.get('/api/poll/'+id, function(data) {
+      if (id == 0)
+        $('#chat-display').html('');
       $('#balance-display').html(data['user-info']['balance']);
+      $(data['events']).each(function(idx, evt) {
+        if (evt['type'] == "chat") {
+          $('#chat-display').append("<li>"+evt['payload']['sender']+": "+evt['payload']['message']);
+        } else if (evt['type'] == 'join') {
+          $('#chat-display').append("<li><em>"+evt['payload']['player']+" has joined</em></li>");
+        } else if (evt['type'] == 'quit') {
+          $('#chat-display').append("<li><em>"+evt['payload']['player']+" has quit</em></li>");
+        }
+      });
+      window.setTimeout(function() {pollMessages(data['poll-id'])}, 1);
     });
 }
 
 function poll() {
-    pollMessages();
-    window.setTimeout(pollMessages, 3000);
+    pollMessages(0);
 }
 
 $(document).ready(function () {

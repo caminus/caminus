@@ -38,6 +38,11 @@ class ServerResource(Resource):
         super(ServerResource, self).__init__(handler, ServerAuther())
         self.csrf_exempt  = getattr(self.handler, 'csrf_exempt', True)
 
+class SimpleResource(Resource):
+    def __init__(self, handler):
+        super(SimpleResource, self).__init__(handler)
+        self.csrf_exempt  = getattr(self.handler, 'csrf_exempt', True)
+
 urlpatterns = patterns('api',
     url(r'^motd/(?P<username>.*)$', motdHandler),
     url(r'^server/whoami$', ServerResource(handlers.ServerPingHandler)),
@@ -45,5 +50,6 @@ urlpatterns = patterns('api',
     url(r'^server/economy/(?P<playername>.*)$', ServerResource(handlers.EconomyHandler)),
     url(r'^server/session/(?P<playername>.*)/new$', ServerResource(handlers.NewPlayerSessionHandler)),
     url(r'^server/session/(?P<playername>.*)/close$', ServerResource(handlers.ClosePlayerSessionHandler)),
-    url(r'^poll/(?P<timestamp>[0-9]+)$', Resource(handlers.PollHandler)),
+    url(r'^poll/(?P<timestamp>.+)$', SimpleResource(handlers.PollHandler)),
+    url(r'^chat$', SimpleResource(handlers.ChatHandler)),
 )

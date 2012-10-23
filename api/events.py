@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.cache import cache
 from minecraft.models import Server
 from json import dumps, JSONEncoder
 import beanstalkc
@@ -15,6 +16,19 @@ class Event(object):
     def __init__(self, type, data):
         self.type = type
         self.data = data
+
+class ChatEvent(Event):
+    def __init__(self, sender, message):
+      super(ChatEvent, self).__init__(type='chat', data={'sender': sender,
+        'message': message})
+
+class QuitEvent(Event):
+  def __init__(self, player):
+    super(QuitEvent, self).__init__(type='quit', data={'player': player})
+
+class JoinEvent(Event):
+  def __init__(self, player):
+    super(JoinEvent, self).__init__(type='join', data={'player': player})
 
 class BroadcastEvent(Event):
     def __init__(self, message):
@@ -58,3 +72,33 @@ def player_message(playername, message, *args):
     for server in Server.objects.all():
       event = PlayerMessageEvent(playername, message)
       send_server_event(server, event)
+
+def web_queue(id):
+    queueName = 'caminus-web-%s'%id
+    queue = beanstalkc.Connection(host=settings.CAMINUS_BEANSTALKD_HOST,
+        port = settings.CAMINUS_BEANSTALKD_PORT)
+    queue.use(queueName)
+    queue.watch(queueName)
+    return queue
+
+def send_web_event(event):
+   latest = cache.get('minecraft-web-events')
+   if latest is None:
+     latest = []
+   latest.append(dumps(event, cls=EventEncoder))
+   while len(latest) > 10:
+     latest.pop(0)
+   cache.set('minecraft-web-events', latest, 86400);
+   print 'cache:', latest
+   if settings.CAMINUS_USE_BEANSTALKD:
+     queue = beanstalkc.Connection(host=settings.CAMINUS_BEANSTALKD_HOST,
+         port = settings.CAMINUS_BEANSTALKD_PORT)
+     json = dumps(event, cls=EventEncoder)
+     for tube in queue.tubes():
+       if tube.startswith("caminus-web-"):
+         queue.use(tube)
+         queue.put(json)
+
+def chat(playername, message):
+  evt = ChatEvent(playername, message)
+  send_web_event(evt)

@@ -1,4 +1,7 @@
 from piston.handler import AnonymousBaseHandler, BaseHandler
+import time
+from django.core.cache import cache
+from django.conf import settings
 from django.core.cache import cache
 import appversion
 from minecraft.models import MinecraftProfile
@@ -10,7 +13,7 @@ from urllib2 import urlopen
 import json
 from datetime import datetime
 from models import cachePlayerList
-from events import server_queue
+from events import server_queue, web_queue, chat, server_broadcast, send_web_event, QuitEvent, JoinEvent
 
 class MOTDHandler(AnonymousBaseHandler):
     allowed_methods = ('GET',)
@@ -40,6 +43,7 @@ class NewPlayerSessionHandler(BaseHandler):
             server = request.server
             profile = MinecraftProfile.objects.get(mc_username__exact=playername)
             session = PlayerSession.objects.create(server=server, player=profile, ip=ip)
+            send_web_event(JoinEvent(playername))
             return {'success': True, 'error': '', 'permissions': profile.serverPermissions(), 'sessionId': session.id}
         else:
             return {'success': False, 'error': 'Your account is inactive.', 'permissions': []}
@@ -52,6 +56,7 @@ class ClosePlayerSessionHandler(BaseHandler):
         for session in sessions:
             session.end = datetime.now()
             session.save()
+            send_web_event(QuitEvent(playername))
         return {'valid': True}
 
 class EconomyHandler(BaseHandler):
@@ -79,7 +84,7 @@ class ServerPingHandler(BaseHandler):
         return {'identity': request.server, 'api-version': 2, 'server-version': appversion.version()}
 
 class ServerEventHandler(BaseHandler):
-    allowed_methods = ('GET', 'POST')
+    allowed_methods = ('GET', 'POST', 'PUT')
 
     def read(self, request):
         queue = server_queue(request.server)
@@ -95,6 +100,22 @@ class ServerEventHandler(BaseHandler):
         queue.delete(int(request.POST['job']))
         return {'result': 'success'}
 
+    def update(self, request):
+        events = json.loads(request.POST['events'])['events']
+        for evt in events:
+            print repr(evt)
+            if evt['type'] == 'chat':
+                chat(evt['payload']['sender'], evt['payload']['message'])
+        return {'result': 'success'}
+
+class ChatHandler(BaseHandler):
+    allowed_methods = ('POST',)
+
+    def create(self, request):
+      chat(request.user.minecraftprofile.mc_username, request.POST['message'])
+      server_broadcast("<%s> %s"%(request.user.minecraftprofile.mc_username,
+        request.POST['message']))
+
 class PollHandler(BaseHandler):
     allowed_methods = ('GET',)
 
@@ -106,4 +127,19 @@ class PollHandler(BaseHandler):
         pollData['server-info'] = cache.get('caminus-server-info')
         if not request.user.is_anonymous():
             pollData['user-info']['balance'] = request.user.minecraftprofile.currencyaccount.balance
+        pollData['events'] = []
+        pollData['poll-id'] = timestamp
+        if timestamp == "0" and settings.CAMINUS_USE_BEANSTALKD:
+          pollData['poll-id'] = time.time()
+          latestEvents = cache.get('minecraft-web-events')
+          if not latestEvents:
+            latestEvents = []
+          for e in latestEvents:
+            pollData['events'].append(json.loads(e))
+        else:
+          eventQueue = web_queue(timestamp)
+          event = eventQueue.reserve(timeout=30)
+          if event:
+            pollData['events'].append(json.loads(event.body))
+            event.delete()
         return pollData
