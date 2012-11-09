@@ -93,9 +93,10 @@ class ServerEventHandler(BaseHandler):
         queue.watch('caminus-broadcast-%s'%request.server.id)
         events = []
         job = queue.reserve(timeout=30)
-        if job:
+        while job:
           job.bury()
           events.append({'id': job.jid, 'event': json.loads(job.body)})
+          job = queue.reserve(timeout=0)
         return {'events': events}
 
     def create(self, request):
