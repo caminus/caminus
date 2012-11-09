@@ -100,7 +100,10 @@ class ServerEventHandler(BaseHandler):
 
     def create(self, request):
         queue = server_queue(request.server)
-        queue.delete(int(request.POST['job']))
+        try:
+            queue.delete(int(request.POST['job']))
+        except Exception, e:
+            pass
         return {'result': 'success'}
 
     def update(self, request):
@@ -166,18 +169,31 @@ class VaultHandler(BaseHandler):
         items = []
         for slot in player.vault_slots.all():
             items.append({'item': slot.item, 'quantity':
-              slot.quantity, 'damage': slot.damage, 'data': slot.data})
+              slot.quantity, 'damage': slot.damage, 'data': slot.data,
+              'position': slot.position})
         return {'items': items}
 
     def update(self, request, playername):
         player = MinecraftProfile.objects.get(mc_username__exact=playername)
         vaultContents = json.loads(request.POST['contents'])['items']
         stacks = player.vault_slots.all()
-        for stack in stacks:
-          stack.delete()
-        for item in vaultContents:
-          if item['item'] > 0:
-            VaultSlot.objects.create(player=player, item=item['item'],
-                quantity=item['quantity'], damage=item['damage'],
-                data=item['data'])
+        for stack in vaultContents:
+          updated = False
+          slot,created = VaultSlot.objects.get_or_create(player=player,
+            position=stack['position'])
+          if slot.item != stack['item']:
+              slot.item = stack['item']
+              updated = True
+          if slot.quantity != stack['quantity']:
+              slot.quantity = stack['quantity']
+              updated = True
+          if slot.damage != stack['damage']:
+              slot.damage = stack['damage']
+              updated = True
+          if slot.data != stack['data']:
+              slot.data = stack['data']
+              updated = True
+          if updated:
+              print "Saving slot %s(%s): %s"%(slot.position, slot.id, slot.item)
+              slot.save()
         return {'success': True}

@@ -23,6 +23,11 @@ class ChatEvent(Event):
       super(ChatEvent, self).__init__(type='chat', data={'sender': sender,
         'message': message})
 
+class VaultContentsEvent(Event):
+    def __init__(self, player, items):
+      super(VaultContentsEvent, self).__init__(type='vault-contents',
+          data={'player': player, 'items': items})
+
 class QuitEvent(Event):
   def __init__(self, player):
     super(QuitEvent, self).__init__(type='quit', data={'player': player})
@@ -62,6 +67,10 @@ def send_server_event(server, event):
         queue = server_queue(server)
         json = dumps(event, cls=EventEncoder)
         queue.put(json)
+
+def broadcast_server_event(event):
+    for server in Server.objects.all():
+        send_server_event(server, event)
 
 def server_broadcast(message, *args):
     message = message%args
