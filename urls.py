@@ -25,6 +25,7 @@ urlpatterns = patterns('',
     url(r'^f/(?P<id>.*)', 'forums.views.post'),
     url(r'^badges/', include('badges.urls')),
     url(r'^bounty/', include('bounty.urls')),
+    url(r'^vault/', include('vault.urls')),
 )
 
 urlpatterns += staticfiles_urlpatterns()

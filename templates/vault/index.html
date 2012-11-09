@@ -1,0 +1,31 @@
+{% extends "base_simple.html" %}
+
+{% block title %}Vault{% endblock %}
+{% block sectiontitle %}Your Vault{% endblock %}
+
+{% block content %}
+<table class="inventory">
+  <tr>
+  {% for slot in vault %}
+    {% if slot.position|divisibleby:"9" %}
+      </tr>
+      <tr>
+    {% endif %}
+    <td>
+      <div class="inventory-item-{{slot.item}}">
+        {% if slot.quantity > 0 %}
+        <div class="quantity">{{slot.quantity}}</div> <div
+          class="name">{{slot.name}}</div>
+        {% if slot.damage %}
+          <div class="damage">
+            <div class="current"
+              style="width:{{slot.damagePct}}%"></div>
+          </div>
+        {% endif %}
+        {% endif %}
+      </div>
+    </td>
+  {% endfor %}
+  </tr>
+</table>
+{% endblock %}

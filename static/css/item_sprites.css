@@ -1,0 +1,409 @@
+/* Automatically generated via item_css django command */
+.inventory-item-298 { /* LEATHER_HELMET */
+  background-position: 0 0 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-302 { /* CHAINMAIL_HELMET */
+  background-position: -64 0 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-306 { /* IRON_HELMET */
+  background-position: -128 0 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-310 { /* DIAMOND_HELMET */
+  background-position: -192 0 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-314 { /* GOLD_HELMET */
+  background-position: -256 0 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-259 { /* FLINT_AND_STEEL */
+  background-position: -320 0 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-318 { /* FLINT */
+  background-position: -384 0 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-263 { /* COAL */
+  background-position: -448 0 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-299 { /* LEATHER_CHESTPLATE */
+  background-position: 0 -64 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-303 { /* CHAINMAIL_CHESTPLATE */
+  background-position: -64 -64 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-307 { /* IRON_CHESTPLATE */
+  background-position: -128 -64 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-311 { /* DIAMOND_CHESTPLATE */
+  background-position: -192 -64 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-315 { /* GOLD_CHESTPLATE */
+  background-position: -256 -64 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-261 { /* BOW */
+  background-position: -320 -64 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-336 { /* CLAY_BRICK */
+  background-position: -384 -64 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-265 { /* IRON_INGOT */
+  background-position: -448 -64 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-288 { /* FEATHER */
+  background-position: -512 -64 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-296 { /* WHEAT */
+  background-position: -576 -64 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-321 { /* PAINTING */
+  background-position: -640 -64 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-338 { /* SUGAR_CANE */
+  background-position: -704 -64 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-352 { /* BONE */
+  background-position: -768 -64 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-354 { /* CAKE */
+  background-position: -832 -64 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-341 { /* SLIME_BALL */
+  background-position: -896 -64 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-300 { /* LEATHER_LEGGINGS */
+  background-position: 0 -128 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-304 { /* CHAINMAIL_LEGGINGS */
+  background-position: -64 -128 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-308 { /* IRON_LEGGINGS */
+  background-position: -128 -128 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-312 { /* DIAMOND_LEGGINGS */
+  background-position: -192 -128 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-316 { /* GOLD_LEGGINGS */
+  background-position: -256 -128 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-262 { /* ARROW */
+  background-position: -320 -128 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-266 { /* GOLD_INGOT */
+  background-position: -384 -128 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-289 { /* SULPHUR */
+  background-position: -448 -128 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-297 { /* BREAD */
+  background-position: -512 -128 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-323 { /* SIGN */
+  background-position: -576 -128 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-64 { /* WOODEN_DOOR */
+  background-position: -640 -128 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-330 { /* IRON_DOOR */
+  background-position: -704 -128 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-355 { /* BED */
+  background-position: -768 -128 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-385 { /* FIREBALL */
+  background-position: -832 -128 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-301 { /* LEATHER_BOOTS */
+  background-position: 0 -192 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-268 { /* WOOD_SWORD */
+  background-position: 0 -256 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-269 { /* WOOD_SPADE */
+  background-position: 0 -320 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-270 { /* WOOD_PICKAXE */
+  background-position: 0 -384 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-271 { /* WOOD_AXE */
+  background-position: 0 -448 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-290 { /* WOOD_HOE */
+  background-position: 0 -512 !important;
+  background-image: url(images/items.png) !important
+}
+.inventory-item-1 { /* STONE */
+  background-position: 0 0 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-3 { /* DIRT */
+  background-position: -64 0 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-2 { /* GRASS */
+  background-position: -128 0 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-5 { /* WOOD */
+  background-position: -192 0 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-43 { /* DOUBLE_STEP */
+  background-position: -256 0 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-45 { /* BRICK */
+  background-position: -320 0 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-46 { /* TNT */
+  background-position: -384 0 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-30 { /* WEB */
+  background-position: -448 0 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-38 { /* RED_ROSE */
+  background-position: -512 0 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-37 { /* YELLOW_FLOWER */
+  background-position: -576 0 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-6 { /* SAPLING */
+  background-position: -640 0 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-4 { /* COBBLESTONE */
+  background-position: 0 -64 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-7 { /* BEDROCK */
+  background-position: -64 -64 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-12 { /* SAND */
+  background-position: -128 -64 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-13 { /* GRAVEL */
+  background-position: -192 -64 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-17 { /* LOG */
+  background-position: -256 -64 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-42 { /* IRON_BLOCK */
+  background-position: -320 -64 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-41 { /* GOLD_BLOCK */
+  background-position: -384 -64 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-57 { /* DIAMOND_BLOCK */
+  background-position: -448 -64 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-133 { /* EMERALD_BLOCK */
+  background-position: -512 -64 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-40 { /* RED_MUSHROOM */
+  background-position: -576 -64 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-39 { /* BROWN_MUSHROOM */
+  background-position: -640 -64 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-14 { /* GOLD_ORE */
+  background-position: 0 -128 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-15 { /* IRON_ORE */
+  background-position: -64 -128 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-16 { /* COAL_ORE */
+  background-position: -128 -128 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-47 { /* BOOKSHELF */
+  background-position: -192 -128 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-48 { /* MOSSY_COBBLESTONE */
+  background-position: -256 -128 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-49 { /* OBSIDIAN */
+  background-position: -320 -128 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-31 { /* LONG_GRASS */
+  background-position: -384 -128 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-61 { /* FURNACE */
+  background-position: -448 -128 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-23 { /* DISPENSER */
+  background-position: -512 -128 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-19 { /* SPONGE */
+  background-position: 0 -192 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-20 { /* GLASS */
+  background-position: -64 -192 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-56 { /* DIAMOND_ORE */
+  background-position: -128 -192 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-73 { /* REDSTONE_ORE */
+  background-position: -192 -192 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-18 { /* LEAVES */
+  background-position: -256 -192 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-98 { /* SMOOTH_BRICK */
+  background-position: -320 -192 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-32 { /* DEAD_BUSH */
+  background-position: -384 -192 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-58 { /* WORKBENCH */
+  background-position: -448 -192 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-35 { /* WOOL */
+  background-position: 0 -256 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-52 { /* MOB_SPAWNER */
+  background-position: -64 -256 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-78 { /* SNOW */
+  background-position: -128 -256 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-79 { /* ICE */
+  background-position: -192 -256 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-81 { /* CACTUS */
+  background-position: -256 -256 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-83 { /* SUGAR_CANE_BLOCK */
+  background-position: -320 -256 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-84 { /* JUKEBOX */
+  background-position: -384 -256 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-111 { /* WATER_LILY */
+  background-position: -448 -256 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-110 { /* MYCEL */
+  background-position: -512 -256 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-50 { /* TORCH */
+  background-position: 0 -320 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-65 { /* LADDER */
+  background-position: -64 -320 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-96 { /* TRAP_DOOR */
+  background-position: -128 -320 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-101 { /* IRON_FENCE */
+  background-position: -192 -320 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-69 { /* LEVER */
+  background-position: 0 -384 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-76 { /* REDSTONE_TORCH_ON */
+  background-position: -64 -384 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-87 { /* NETHERRACK */
+  background-position: -128 -384 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-88 { /* SOUL_SAND */
+  background-position: -192 -384 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-89 { /* GLOWSTONE */
+  background-position: -256 -384 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-29 { /* PISTON_STICKY_BASE */
+  background-position: -320 -384 !important;
+  background-image: url(images/terrain.png) !important
+}
+.inventory-item-33 { /* PISTON_BASE */
+  background-position: -384 -384 !important;
+  background-image: url(images/terrain.png) !important
+}
