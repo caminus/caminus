@@ -15,6 +15,7 @@ from datetime import datetime
 from models import cachePlayerList
 from events import server_queue, web_queue, chat, server_broadcast, send_web_event, QuitEvent, JoinEvent, PlayerDeathEvent
 from bounty.models import Bounty
+from vault.models import VaultSlot
 
 class MOTDHandler(AnonymousBaseHandler):
     allowed_methods = ('GET',)
@@ -156,3 +157,27 @@ class PollHandler(BaseHandler):
             pollData['events'].append(eventData['event'])
             event.delete()
         return pollData
+
+class VaultHandler(BaseHandler):
+    allowed_methods = ('PUT','GET')
+
+    def read(self, request, playername):
+        player = MinecraftProfile.objects.get(mc_username__exact=playername)
+        items = []
+        for slot in player.vault_slots.all():
+            items.append({'item': slot.item, 'quantity':
+              slot.quantity, 'damage': slot.damage, 'data': slot.data})
+        return {'items': items}
+
+    def update(self, request, playername):
+        player = MinecraftProfile.objects.get(mc_username__exact=playername)
+        vaultContents = json.loads(request.POST['contents'])['items']
+        stacks = player.vault_slots.all()
+        for stack in stacks:
+          stack.delete()
+        for item in vaultContents:
+          if item['item'] > 0:
+            VaultSlot.objects.create(player=player, item=item['item'],
+                quantity=item['quantity'], damage=item['damage'],
+                data=item['data'])
+        return {'success': True}

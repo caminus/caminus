@@ -126,6 +126,7 @@ INSTALLED_APPS = (
     'forums',
     'mptt',
     'api',
+    'bounty',
     'django.contrib.markup',
     'south',
     'django.contrib.flatpages',
@@ -137,6 +138,7 @@ INSTALLED_APPS = (
     'piston',
     'donate',
     'badges',
+    'vault',
 # Uncomment the next line to enable admin documentation:
 # 'django.contrib.admindocs',
 )
@@ -194,6 +196,8 @@ CAMINUS_NEWS_FORUM_ID = 1
 CAMINUS_USE_BEANSTALKD = False
 CAMINUS_BEANSTALKD_HOST = 'localhost'
 CAMINUS_BEANSTALKD_PORT = 11300
+
+CAMINUS_BOUNTY_PRICE=250
 
 # Load any site-local overrides, such as camin.us' database settings, etc
 try:
