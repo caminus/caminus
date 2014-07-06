@@ -1,0 +1,11 @@
+[www]
+www-1.camin.us
+
+[ypmaster]
+s.camin.us
+
+[nfsmaster]
+s.camin.us
+
+[beanstalkd]
+s.camin.us

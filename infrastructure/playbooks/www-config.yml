@@ -1,0 +1,49 @@
+---
+- hosts: www
+  user: ec2-user
+  sudo: True
+  vars:
+    is_api_server: "'$inventory_hostname' == 'api.camin.us'"
+  vars_files:
+    - ../private/django_local_settings.yml
+  tasks:
+    - name: install $item
+      action: yum pkg=$item state=latest
+      with_items:
+        - python-pip
+        - MySQL-python
+        - mod_wsgi
+        - httpd
+        - git
+    - name: configure selinux httpd_can_network_connect
+      action: seboolean persistent=yes name=httpd_can_network_connect state=true
+    - name: ensure apache is enabled
+      action: service name=httpd state=started
+    - name: configure mod_wsgi
+      action: copy src=../config/caminus.conf dest=/etc/httpd/conf.d/caminus.conf
+      notify:
+      - reload apache
+    - name: deploy caminus wsgi
+      action: git repo=git://github.com/caminus/caminus.git dest=/usr/share/caminus/ version=HEAD
+      notify:
+      - reload wsgi
+      - caminus syncdb
+      - update pip requirements
+      tags:
+      - deploy
+    - name: configure caminus wsgi
+      action: template src=../config/local_settings.py dest=/usr/share/caminus/local_settings.py
+      notify:
+      - reload wsgi
+      tags:
+      - deploy
+  handlers:
+    - name: reload apache
+      action: service name=httpd state=reloaded
+    - name: update pip requirements
+      action: command pip-python install -r /usr/share/caminus/pip-requirements
+    - name: reload wsgi
+      action: command touch /usr/share/caminus/caminus.wsgi
+    - name: caminus syncdb
+      action: command /usr/share/caminus/manage.py syncdb --migrate --noinput
+      only_if: '$is_api_server'

@@ -1,0 +1,9 @@
+/srv/minecraft/server/server.log {
+  missingok
+  notifempty
+  delaycompress
+  copytruncate
+  daily
+  olddir /var/log/
+  rotate 10
+}

@@ -1,0 +1,49 @@
+---
+- hosts: all
+  user: ec2-user
+  sudo: True
+  vars:
+    is_not_nfsmaster: "'$inventory_hostname' != 's.camin.us'"
+    is_not_ypmaster: "'$inventory_hostname' != 's.camin.us'"
+  tasks:
+    - name: install $item
+      action: yum pkg=$item state=latest
+      with_items: 
+        - nfs-utils
+        - ypbind
+        - libsemanage-python
+    - name: configure hostname
+      action: lineinfile name=/etc/sysconfig/network regexp=^HOSTNAME= line=HOSTNAME=$inventory_hostname insertafter=EOF state=present
+      notify:
+      - set hostname
+      - update motd
+    - name: configure bash prompt
+      action: copy src=../config/bash-profile.sh dest=/etc/profile.d/caminus.sh
+    - name: configure sudo
+      action: lineinfile name=/etc/sudoers state=present regexp="^%wheel" line="%wheel ALL=(ALL) ALL" insertafter=EOF state=present
+    - name: configure hosts
+      action: copy src=../config/hosts dest=/etc/hosts
+    - name: disable firewall
+      action: service name=iptables state=stopped
+    - name: configure selinux use_nfs_home_dirs
+      action: seboolean persistent=yes name=use_nfs_home_dirs state=true
+      only_if: '$is_not_nfsmaster'
+    - name: configure authentication
+      action: command authconfig --update --enablenis --nisdomain=CAMINUS --nisserver=auth.camin.us
+      notify:
+      - restart ypbind
+      only_if: '$is_not_ypmaster'
+    - name: start ypbind
+      action: service name=ypbind state=started
+      only_if: '$is_not_ypmaster'
+    - name: mount /home
+      action: mount name=/home src=fs.camin.us:/home fstype=nfs state=mounted opts=nfsvers=3
+      only_if: '$is_not_nfsmaster'
+  handlers:
+    - name: restart ypbind
+      action: service name=ypbind state=restarted
+      only_if: '$is_not_ypmaster'
+    - name: set hostname
+      action: command hostname $inventory_hostname
+    - name: update motd
+      action: template src=../config/motd dest=/etc/motd

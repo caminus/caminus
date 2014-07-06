@@ -1,0 +1,4 @@
+---
+- include: basic-setup.yml
+- include: core-server.yml
+- include: www-config.yml

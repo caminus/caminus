@@ -1,0 +1,1 @@
+/home *.internal(rw,no_root_squash)
