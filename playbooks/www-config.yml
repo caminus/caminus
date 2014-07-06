@@ -24,7 +24,7 @@
       notify:
       - reload apache
     - name: deploy caminus wsgi
-      action: git repo=git://github.com/tdfischer/caminus.git dest=/usr/share/caminus/ version=HEAD
+      action: git repo=git://github.com/caminus/caminus.git dest=/usr/share/caminus/ version=HEAD
       notify:
       - reload wsgi
       - caminus syncdb
