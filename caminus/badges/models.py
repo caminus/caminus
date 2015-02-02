@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 import badges.api
-from caminus.api.events import user_message
+#from caminus.api.events import user_message
 from notification import models as notification
 from django.core.urlresolvers import reverse
 
@@ -58,7 +58,7 @@ class Award(models.Model):
         super(Award, self).save(*args, **kwargs)
         badges.api.badge_awarded.send_robust(sender=intern(str(self.badge.slug)), award=self)
         notification.send([self.user], "badge_awarded", {"award": self, 'notice_description': self.badge, 'notice_url': reverse('user_profile')})
-        user_message(self.user, "You have been awarded the '%s' badge."%self.badge)
+        #user_message(self.user, "You have been awarded the '%s' badge."%self.badge)
 
     def __unicode__(self):
         return "%s for %s"%(self.badge.__unicode__(), self.user.__unicode__())
