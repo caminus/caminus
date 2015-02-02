@@ -44,7 +44,7 @@ INSTALLED_APPS = (
     'donate',
     'forums',
     'local',
-    'messages',
+    'django_messages',
     'minecraft',
     'mptt',
     'notification',
@@ -118,7 +118,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "minecraft.context.server_info",
     "appversion.context.git_version",
     "appversion.context.server_hostname",
-    "messages.context_processors.inbox",
+    "django_messages.context_processors.inbox",
     "petition.context.open_petitions",
 )
 
