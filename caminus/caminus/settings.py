@@ -38,7 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.staticfiles',
 
-    'api',
+    #'api',
     'badges',
     'bounty',
     'donate',
@@ -49,8 +49,8 @@ INSTALLED_APPS = (
     'mptt',
     'notification',
     'petition',
-    'piston',
     'south',
+    #'piston',
     'vault',
 )
 
