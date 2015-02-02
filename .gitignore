@@ -3,3 +3,5 @@ local_settings.py
 *.swp
 virtualenv
 .coverage
+caminus/db.sqlite3
+
