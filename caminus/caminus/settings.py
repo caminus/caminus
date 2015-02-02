@@ -49,7 +49,6 @@ INSTALLED_APPS = (
     'mptt',
     'notification',
     'petition',
-    'south',
     #'piston',
     'vault',
 )
