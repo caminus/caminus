@@ -1,4 +1,5 @@
-from django.conf.urls.defaults import patterns, include, url
+from django.conf.urls import patterns, url, include
+
 urlpatterns = patterns('vault',
     url(r'^$', 'views.index'),
 )

@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import patterns, include, url
+from django.conf.urls import patterns, url, include
 
 urlpatterns = patterns('minecraft',
     url(r'^avatar/(?P<size>[0-9]+)/(?P<username>.*).png$', 'views.avatar'),

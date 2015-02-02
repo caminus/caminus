@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import patterns, include, url
+from django.conf.urls import patterns, url, include
 from piston.resource import Resource
 import handlers
 from minecraft.models import Server
