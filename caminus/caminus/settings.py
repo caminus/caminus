@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'forums',
     'local',
     'django_messages',
+    'markdown_deux',
     'minecraft',
     'mptt',
     'notification',
@@ -101,6 +102,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
+
 
 # Templates
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -121,6 +126,10 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "appversion.context.server_hostname",
     "django_messages.context_processors.inbox",
     "petition.context.open_petitions",
+)
+
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, "templates"),
 )
 
 

@@ -1,9 +1,13 @@
 Django==1.7.4
+Markdown==2.5.2
 beanstalkc==0.4.0
 coverage==3.7.1
+django-markdown==0.8.4
+django-markdown-deux==1.0.5
 django-messages==0.5.1
 django-mptt==0.6.1
 django-notification==1.2.0
+markdown2==2.3.0
 pydot==1.0.2
 pyparsing==2.0.3
 shortuuid==0.4.2
