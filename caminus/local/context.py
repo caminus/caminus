@@ -5,7 +5,7 @@ from django.db.models import Sum
 from donate.models import Donation
 from datetime import datetime
 from django.conf import settings
-from notification.models import Notice
+#from notification.models import Notice
 from django.core.urlresolvers import reverse
 
 def random_quote(request):
@@ -37,8 +37,8 @@ def donation_info(request):
     return {'donation_month_total': donationTotal, 'donation_month_goal': goal, 'donation_goal_progress': progress}
 
 def notifications(request):
-    if request.user.is_authenticated():
-        return {'notices': Notice.objects.filter(unseen=True, recipient=request.user, on_site=True)}
+    #if request.user.is_authenticated():
+    #    return {'notices': Notice.objects.filter(unseen=True, recipient=request.user, on_site=True)}
     return {}
 
 def javascript_uris(request):
