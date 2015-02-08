@@ -1,49 +1,29 @@
 ---
-- hosts: www
+- hosts: localhost
   user: ec2-user
-  sudo: True
+  connection: local
   vars:
-    is_api_server: "'$inventory_hostname' == 'api.camin.us'"
+    - caminus_root: /srv/caminus
   vars_files:
     - ../private/django_local_settings.yml
   tasks:
-    - name: install $item
-      action: yum pkg=$item state=latest
+    - name: Install epel
+      action: yum pkg=http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm state=installed
+    - name: install {{item}}
+      action: yum pkg={{item}} state=latest
       with_items:
         - python-pip
         - MySQL-python
-        - mod_wsgi
-        - httpd
         - git
-    - name: configure selinux httpd_can_network_connect
-      action: seboolean persistent=yes name=httpd_can_network_connect state=true
-    - name: ensure apache is enabled
-      action: service name=httpd state=started
-    - name: configure mod_wsgi
-      action: copy src=../config/caminus.conf dest=/etc/httpd/conf.d/caminus.conf
-      notify:
-      - reload apache
-    - name: deploy caminus wsgi
-      action: git repo=git://github.com/caminus/caminus.git dest=/usr/share/caminus/ version=HEAD
-      notify:
-      - reload wsgi
-      - caminus syncdb
-      - update pip requirements
-      tags:
-      - deploy
-    - name: configure caminus wsgi
-      action: template src=../config/local_settings.py dest=/usr/share/caminus/local_settings.py
-      notify:
-      - reload wsgi
-      tags:
-      - deploy
-  handlers:
-    - name: reload apache
-      action: service name=httpd state=reloaded
-    - name: update pip requirements
-      action: command pip-python install -r /usr/share/caminus/pip-requirements
-    - name: reload wsgi
-      action: command touch /usr/share/caminus/caminus.wsgi
-    - name: caminus syncdb
-      action: command /usr/share/caminus/manage.py syncdb --migrate --noinput
-      only_if: '$is_api_server'
+        - gcc
+        - python-devel
+    - name: pip install uwsgi
+      action: pip name=uwsgi state=latest
+    - name: create uwsgi user
+      action: user name=uwsgi system=yes
+    - name: configure uwsgi
+      action: template src=../config/uwsgi.conf dest=/etc/uwsgi.ini
+    - name: checkout caminus
+      action: git accept_hostkey=true repo=git://github.com/caminus/caminus.git dest={{caminus_root}}/app/ version=HEAD
+    - name: configure caminus
+      action: template src=../config/local_settings.py dest={{caminus_root}}/app/caminus/local_settings.py
