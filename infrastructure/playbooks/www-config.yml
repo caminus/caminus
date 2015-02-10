@@ -3,12 +3,12 @@
   user: ec2-user
   sudo: True
   vars:
-    is_api_server: "'$inventory_hostname' == 'api.camin.us'"
+    is_api_server: "'{{inventory_hostname}}' == 'api.camin.us'"
   vars_files:
     - ../private/django_local_settings.yml
   tasks:
-    - name: install $item
-      action: yum pkg=$item state=latest
+    - name: install packages
+      action: yum pkg={{item}} state=latest
       with_items:
         - python-pip
         - MySQL-python
@@ -46,4 +46,4 @@
       action: command touch /usr/share/caminus/caminus.wsgi
     - name: caminus syncdb
       action: command /usr/share/caminus/manage.py syncdb --migrate --noinput
-      only_if: '$is_api_server'
+      only_if: '{{is_api_server}}'
