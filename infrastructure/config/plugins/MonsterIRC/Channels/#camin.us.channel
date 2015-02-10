@@ -1,0 +1,35 @@
+# MonsterIRC's configs - Refer to "http://dev.bukkit.org/server-mods/monsterirc/pages/channel-setup/" for help
+CHANNEL:
+  SETTINGS:
+    AUTOJOIN: true
+    DEFAULT: true
+    PASSWORD: ''
+    PASS_TO_GAME: true
+    PASS_TO_IRC: true
+    SHOW_JOIN_AND_LEAVE_MESSAGES: true
+  CHATTYPE:
+    GLOBAL:
+      ENABLED: true
+    MCMMO:
+      ADMINCHAT:
+        ENABLED: false
+    HEROCHAT:
+      ENABLED: false
+      CHANNEL: IRC
+      LISTEN: G
+    TOWNY:
+      ENABLED: false
+      CHANNEL: IRC
+    NONE: false
+  COMMANDS:
+    OP:
+    - '*'
+    HOP:
+    - '*'
+    ADMIN:
+    - '*'
+    VOICE:
+    - give
+    USERS:
+    - help
+    - list

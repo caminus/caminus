@@ -1,0 +1,249 @@
+Admin:
+  emptyChestonDelete: true
+  SecretDoorOnlyInDungeon: true
+  GoldOff: false
+  ProtectSpawners: true
+  SaveDungeons: true
+  NoPvPInDungeon: true
+  MobsSpawnOnlyUnderground: false
+  MobsSpawnOnlyInDungeons: false
+  Economy: any
+  AdvancedCombat: true
+  Group:
+    Radius: 50
+    Depth: 40
+    HpFactor: 0.5
+  Spawn:
+    Radius: 20
+    Depth: 8
+    Monster:
+      Radius: 15
+      Max: 3
+  Death:
+    GearCost: 25
+    KeepGear: true
+    ExpKept: 0.85
+  BannedCommands:
+  - /spawn
+  - /kill
+  - /warp
+  - /setwarp
+  - /home
+  - /tpc
+  - /tpchere
+  - /tpca
+  Breakable:
+  - torch
+  - red_mushroom
+  - brown_mushroom
+  - web
+  Patches:
+    DoorFixDone: true
+    SecretDoorFixDone: true
+  NoArmourInDungeon: false
+  ClickIronDoor: false
+  Placeable:
+  - torch
+catacomb:
+  RadiusMax: 12
+  UnderFill: false
+  OverFill: false
+  ResetButton: false
+  RecallButton: false
+  Hut:
+    Type: default
+  Block:
+    Major: cobblestone
+    Minor: mossy_cobblestone
+    Floor: cobblestone
+    Roof: cobblestone
+    MossyPct: 2
+    AirWebPct: 1
+    Natural:
+    - stone
+    - dirt
+    - sand
+    - sandstone
+    - gravel
+    - coal_ore
+    - iron_ore
+    - redstone_ore
+    - gold_ore
+    - diamond_ore
+    - lapis_ore
+    - lava
+    - water
+    - air
+  Depth:
+    floor: 3
+    room: 3
+    roof: 1
+    firstLevel: 2
+  Trap:
+    Ammo:
+    - arrow:100:10
+  Mob:
+    Type:
+      SpiderPct: 5
+      SkeletonPct: 25
+      WolfPct: 7
+      PigmanPct: 8
+      CaveSpiderPct: 10
+      BlazePct: 0
+      CreeperPct: 5
+      EndermanPct: 0
+    Gold:
+      Min: 1
+      Max: 10
+  Loot:
+    Small:
+      LeatherEquipPct: 10
+      List:
+      - leather:10:1-6
+      - torch:50:1-30
+      - potion/1:2:1
+      - potion/2:2:1
+      - potion/3:2:1
+      - potion/5:2:1
+      - potion/9:2:1
+      - ink_sack/0:1:1-5
+      - ink_sack/1:1:1-5
+      - ink_sack/2:1:1-5
+      - ink_sack/3:1:1-5
+      - ink_sack/4:1:1-5
+      - ink_sack/5:1:1-5
+      - ink_sack/6:1:1-5
+      - ink_sack/7:1:1-5
+      - ink_sack/8:1:1-5
+      - ink_sack/9:1:1-5
+      - ink_sack/10:1:1-5
+      - ink_sack/11:1:1-5
+      - ink_sack/12:1:1-5
+      - ink_sack/13:1:1-5
+      - ink_sack/14:1:1-5
+      - ink_sack/15:1:1-5
+      - wheat:10:1-5
+      - gold_ingot:10:1-5
+      - redstone:5:1-4
+      - glowstone_dust:15:1-6
+      - slime_ball:7:1
+      - iron_ingot:20:1-4
+      - arrow:10:1-25
+      - sulphur:10:1-5
+      - pumpkin:5:1
+      - flint:10:1-6
+      - gold_record:2:1
+      - green_record:2:1
+      - saddle:2:1
+      - diamond:1:1
+      - mossy_cobblestone:5:1-12
+      - obsidian:2:1-8
+      - golden_apple:2:1
+      - cookie:4:8
+      - bread:3:4
+      - apple:3:4
+      - cooked_fish:3:4
+      - cooked_beef:3:4
+      - cooked_chicken:3:4
+      - grilled_pork:3:4
+      - melon_seeds:2:1
+      - pumpkin_seeds:2:1
+      - bowl:7:1
+      - seeds:4:1-6
+      - book:7:1-4
+      - paper:7:1-4
+      - compass:5:1
+      - watch:5:1
+      - painting:5:1
+    Medium:
+      SweepOre: true
+      EquipPct: 100
+      List: []
+      HalfEmpty: false
+      SmallPct: 100
+    Big:
+      EquipPct: 100
+      List:
+      - diamond:100:1-3
+      - golden_apple:30:1
+      SmallPct: 100
+  Room:
+    Max: 10
+    Min: 3
+    Clutter:
+      TrapPct: 10
+      SandPct: 10
+      ChestPct: 35
+      SpawnerPct: 50
+      Pool:
+        PoolPct: 15
+        FullPoolPct: 40
+        LavaPct: 30
+      ShroomPct: 10
+      BenchPct: 3
+      EnchantPct: 3
+      OvenPct: 2
+      AnvilPct: 3
+  SpecialPct: 10
+  CorridorPct: 30
+  Corridor:
+    Max: 9
+    Min: 3
+    Width2Pct: 40
+    Width3Pct: 10
+  Archway:
+    Type:
+      HiddenPct: 10
+      DoorPct: 20
+      WebDoorPct: 10
+    DoubleWidthPct: 60
+    IronDoorPct: 0
+grand:
+  Archway:
+    DoubleWidthPct: 100
+  Depth:
+    room: 4
+  Corridor:
+    Width3Pct: 30
+    Width2Pct: 70
+    Max: 10
+    Min: 3
+  Room:
+    Max: 10
+    Min: 3
+    Clutter:
+      ChestPct: 55
+      SpawnerPct: 70
+  CorridorPct: 20
+  RadiusMax: 30
+  SpecialPct: 35
+  Hut:
+    Type: medium
+massive:
+  Archway:
+    DoubleWidthPct: 100
+  Depth:
+    room: 6
+  Corridor:
+    Width3Pct: 90
+    Width2Pct: 10
+    Max: 10
+    Min: 5
+  Room:
+    Max: 30
+    Min: 8
+    Clutter:
+      ChestPct: 55
+      SpawnerPct: 90
+  CorridorPct: 20
+  RadiusMax: 100
+  SpecialPct: 75
+  Hut:
+    Type: large
+  Block:
+    Major: smooth_brick
+    Minor: smooth_brick:1
+    Floor: smooth_brick:3
+    Roof: stone
+    MossyPct: 4
+    AirWebPct: 1

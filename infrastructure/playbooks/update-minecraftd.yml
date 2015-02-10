@@ -1,0 +1,81 @@
+- hosts: s.camin.us
+  user: centos
+  sudo: true
+  vars:
+    plugins:
+      # Versions are only used for documentation and have no real use
+      - name: Vault
+        url: http://dev.bukkit.org/media/files/853/549/Vault.jar
+        version: 1.5.2
+      - name: TeleConfirmLite
+        url: http://dev.bukkit.org/media/files/676/217/TeleConfirmLite.jar
+        version: 2.1.1
+      - name: ATMsigns
+        url: http://dev.bukkit.org/media/files/701/782/ATMsigns.jar
+        version: 1.4.1
+      - name: Catacombs
+        url: http://dev.bukkit.org/media/files/721/267/Catacombs.jar
+        version: 3.6.0
+      - name: MonsterIRC
+        url: http://dev.bukkit.org/media/files/633/238/MonsterIRC.jar
+        version: 1.73.0
+      - name: ChestShop
+        url: http://dev.bukkit.org/media/files/859/279/ChestShop.jar
+        version: 3.8.1
+      - name: dynmap
+        url: http://dev.bukkit.org/media/files/853/318/dynmap-2.1.jar
+        version: 2.1
+  vars_files:
+    - ../private/s3-backup.yml
+  tasks:
+    - name: Setup minecraftd user
+      action: user name=minecraftd system=yes home=/srv/minecraft shell=/usr/sbin/nologin
+
+    - name: Mount /srv/minecraft
+      action: mount src=/dev/xvdf1 name=/srv/minecraft fstype=ext4 state=mounted
+
+    - name: Make sure /srv/minecraft exists
+      action: file state=directory path=/srv/minecraft
+
+    - name: Make sure minecraft data dirs exist
+      action: file state=directory path=/srv/minecraft/{{item}} owner=minecraftd group=minecraftd mode=2777
+      with_items:
+        - backup
+        - server
+        - server/plugins
+
+    - name: install backup.sh
+      action: copy src=../scripts/backup-minecraft.sh dest=/srv/minecraft/backup.sh mode=0500 owner=minecraftd
+
+    - name: install start.sh
+      action: copy src=../scripts/start-minecraftd.sh dest=/srv/minecraft/start.sh mode=0500 owner=minecraftd
+
+    - name: install s3cfg
+      action: template src=../config/s3cfg dest=/srv/minecraft/backup/s3cfg mode=0400 owner=minecraftd
+
+    - name: install minecraftd logrotate
+      action: copy src=../config/minecraftd-logrotate dest=/etc/logrotate.d/minecraftd
+
+    - name: accept eula
+      action: copy src=../config/eula.txt dest=/srv/minecraft/server/eula.txt
+
+    - name: Install server.properties
+      action: copy src=../config/server.properties dest=/srv/minecraft/server/server.properties
+
+    - name: Download latest spigot.jar
+      action: get_url dest=/srv/minecraft/server/spigot.jar url=http://spigotmc.info/spigot18/spigot_server.jar 
+
+    - name: Ensure plugin directories
+      action: file state=directory name=/srv/minecraft/server/plugins/{{item.name}} owner=minecraftd mode=0700
+      with_items: plugins
+
+    - name: Install plugin jars
+      action: get_url dest=/srv/minecraft/server/plugins/{{item.name}}.jar  url={{item.url}} mode=0400 owner=minecraftd
+      with_items: plugins
+
+    - name: Install plugin configurations
+      action: copy src=../config/plugins/{{item.name}}.yml dest=/srv/minecraft/server/plugins/{{item.name}}/config.yml mode=0600 owner=minecraftd
+      with_items: plugins
+
+    - name: Install MonsterIRC config
+      action: copy src=../config/plugins/MonsterIRC dest=/srv/minecraft/server/plugins/ owner=minecraftd mode=0600 directory_mode=0700

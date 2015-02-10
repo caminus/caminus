@@ -1,0 +1,29 @@
+# MonsterIRC's configs - Refer to "http://dev.bukkit.org/server-mods/monsterirc/pages/settings/" for help 
+# Do not remove the ' ' around the strings!
+IRC:
+  SETTINGS:
+    IDENTIFY: false
+    NICKNAME: Cobblestone
+    PASSWORD: default
+    SERVER: chat.freenode.org
+    SERVER_PASSWORD: ''
+    PORT: 6667
+  OPTIONS:
+    MESSAGE_LIMIT_PER_SEC: 2
+    TIMEOUT: 2000
+    RETRYS: 5
+    DEBUG: false
+    PASS_ON_NAME: false
+    HIDE_MODE: false
+    ALLOW_COLORS: true
+  ADMIN:
+    INGAME_COMMANDS: true
+    INGAME_COMMANDS_PREFIX: .
+    PASS_SAY_COMMAND: true
+  FORMAT:
+    MINECRAFT: '[I] <{name}> {message}'
+    IRC: '[M] <{world}:{name}> {message}'
+  ON_CONNECT_COMMANDS:
+  - MODE Cobblestone -x
+  MUTED:
+  - Phong
